@@ -43,25 +43,31 @@ use File::ShareDir 'dist_file';
 require Exporter;
 our @ISA = qw(Exporter);
 
-our @EXPORT_OK = qw/kana2hw
+our @EXPORT_OK = qw/
                     kana2romaji
-                    romaji2kana
                     romaji2hiragana
-		    hw2katakana
-                    kata2hira
-                    hira2kata
+                    romaji_styles
+                    romaji2kana
+                    is_voiced
                     is_romaji
+                    hira2kata
+                    kata2hira
+                    kana2hw
+                    hw2katakana
+                    InHankakuKatakana
+                    wide2ascii
+                    ascii2wide
+                    InWideAscii
+                    kana2morse
                     is_kana
                     is_hiragana
-                    is_voiced
-                    romaji_styles
-                    romaji_vowel_styles
+                    kana2katakana
+                    kana2braille
+                    braille2kana
                     kana2circled
                     circled2kana
-                    kana2katakana
                     normalize_romaji
-                    InHankakuKatakana
-                    InWideAscii/;
+                    /;
 
 our $AUTOLOAD;
 
