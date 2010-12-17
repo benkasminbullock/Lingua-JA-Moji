@@ -43,27 +43,6 @@ use File::ShareDir 'dist_file';
 require Exporter;
 our @ISA = qw(Exporter);
 
-<<<<<<< HEAD
-our @EXPORT_OK = qw/kana2hw
-                    kana2romaji
-                    romaji2kana
-                    romaji2hiragana
-		    hw2katakana
-                    kata2hira
-                    hira2kata
-                    is_romaji
-                    is_kana
-                    is_hiragana
-                    is_voiced
-                    romaji_styles
-                    romaji_vowel_styles
-                    kana2circled
-                    circled2kana
-                    kana2katakana
-                    normalize_romaji
-                    InHankakuKatakana
-                    InWideAscii/;
-=======
 our @EXPORT_OK = qw/
                     kana2romaji
                     romaji2hiragana
@@ -89,7 +68,6 @@ our @EXPORT_OK = qw/
                     circled2kana
                     normalize_romaji
                     /;
->>>>>>> 2ca4cb2d0af86723770ada06a3d2494a29dc4df7
 
 our $AUTOLOAD;
 
@@ -254,16 +232,10 @@ The possible options are
 =item style
 
 The style of romanization. The default form of romanization is
-<<<<<<< HEAD
 "Nippon-shiki". See
 L<http://www.sljfaq.org/afaq/nippon-shiki.html>. The user can set the
 conversion style to "hepburn" or "passport" or "kunrei". See
 L<http://www.sljfaq.org/afaq/kana-roman.html>.
-=======
-"Nihon-shiki". See
-L<http://www.sljfaq.org/afaq/nippon-shiki.html>. The user can set it
-to "hepburn" or "passport" or "kunrei".
->>>>>>> 2ca4cb2d0af86723770ada06a3d2494a29dc4df7
 
 =item use_m
 
@@ -274,17 +246,10 @@ newspaper) will be converted into "m" rather than "n".
 =item ve_type
 
 C<ve_type> controls how long vowels are written. The default is to use
-<<<<<<< HEAD
 circumflexes to represent long vowels. If you set "ve_type" =>
 "macron", then it uses macrons (the Hepburn system). If you set
 C<< "ve_type" => "passport" >>, then it uses "oh" to write long "o"
-vowels.
-=======
-circumflexes to represent long vowels. If you set C<< "ve_type" =>
-"macron" >>, then it uses macrons (the Hepburn system). If you set
-C<< "ve_type" => "passport" >>, then it uses "oh" to write long "o"
 vowels. If you set C<< "ve_type" => "none" >>, then it does not use "h".
->>>>>>> 2ca4cb2d0af86723770ada06a3d2494a29dc4df7
 
 =back
 
@@ -846,11 +811,7 @@ sub ascii2wide
     use Lingua::JA::Moji qw/InWideAscii/;
     use utf8;
     if ('Ａ' =~ /\p{InWideAscii}/) {
-<<<<<<< HEAD
         print "Ａ is wide ascii\n";
-=======
-        print "Ａ is half-width katakana\n";
->>>>>>> 2ca4cb2d0af86723770ada06a3d2494a29dc4df7
     }
 
 This is a character class for use with \p which matches a "wide ascii"
