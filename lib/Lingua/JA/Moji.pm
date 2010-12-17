@@ -245,10 +245,10 @@ newspaper) will be converted into "m" rather than "n".
 =item ve_type
 
 C<ve_type> controls how long vowels are written. The default is to use
-circumflexes to represent long vowels. If you set "ve_type" =>
-"macron", then it uses macrons (the Hepburn system). If you set
-C<"ve_type" => "passport">, then it uses "oh" to write long "o"
-vowels.
+circumflexes to represent long vowels. If you set C<< "ve_type" =>
+"macron" >>, then it uses macrons (the Hepburn system). If you set
+C<< "ve_type" => "passport" >>, then it uses "oh" to write long "o"
+vowels. If you set C<< "ve_type" => "none" >>, then it does not use "h".
 
 =back
 
