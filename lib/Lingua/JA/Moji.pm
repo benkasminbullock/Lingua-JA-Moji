@@ -34,7 +34,7 @@ package Lingua::JA::Moji;
 use warnings;
 use strict;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 use Carp;
 use Lingua::JA::Moji::Convertor qw/load_convertor make_convertors/;
 use Convert::Moji;
@@ -1196,6 +1196,9 @@ Validate romanized Japanese.
 =back
 
 =head1 ACKNOWLEDGEMENTS
+
+Thanks to Naoki Tomita for various assitances (see
+L<http://groups.google.com/group/perl-moji/browse_thread/thread/10a42c35f7c22ebc>).
 
 =head1 COPYRIGHT & LICENSE
 
