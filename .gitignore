@@ -1,0 +1,26 @@
+# Ignore the distribution files which are created by "make dist"
+
+*.tar.gz
+
+# Ignore "blib", which is a library created during the build process
+
+blib
+
+# Ignore "pod*.tmp" files, which are created by pod2html I think
+
+pod*.tmp
+
+# Ignore the Module::Install files under "inc"
+
+inc
+
+# Ignore the "Makefile" and "Makefile.old" files, which are created
+# from Makefile.PL.
+
+Makefile
+Makefile.old
+
+# Ignore the "pm_to_blib file" which is another creation of Perl's
+# building system.
+
+pm_to_blib

@@ -1,0 +1,28 @@
+---
+abstract: 'Handle many kinds of Japanese characters'
+author:
+  - 'Ben Bullock, C<< <bkb@cpan.org> >>'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
+  Test::More: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 0.91'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+module_name: Lingua::JA::Moji
+name: Lingua-JA-Moji
+no_index:
+  directory:
+    - inc
+    - share
+    - t
+requires:
+  Convert::Moji: 0
+  File::ShareDir: 0
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.03

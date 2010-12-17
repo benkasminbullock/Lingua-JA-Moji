@@ -1,0 +1,34 @@
+<bugs>
+<bug product="kana2romaji">
+There is no option like ve_type => "waapuro" to use non-circumflex,
+non-macron long vowels.
+</bug>
+<bug product="kana2romaji">
+"ve_type" should have a name like "long_vowel_type" or something. Verb
+extension doesn't mean anything.
+</bug>
+<bug product="romaji2kana">
+The default is to turn ti into "てぃ" which is a little irritating,
+and I don't think there is a way to switch this behaviour off.
+</bug>
+<bug>
+Need an option to turn NN into ん
+</bug>
+<bug>
+momme is turned into もっめ.
+</bug>
+<bug product="romaji2hiragana">
+Turns non-converted katakana into hiragana. E.g. input ヤード and it
+is converted into hiragana.
+</bug>
+<bug>
+Need something to convert into katakana.
+</bug>
+<bug>
+In the braille, it does not deal with the "fa" things. Japanese
+Wikipedia has an explanation of them.
+</bug>
+<bug>
+Nguyen looks like Japanese BKB 2010-06-30 07:27:52
+</bug>
+</bugs>
