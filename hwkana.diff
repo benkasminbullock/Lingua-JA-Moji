@@ -1,0 +1,25 @@
+diff --git a/lib/Lingua/JA/Moji.pm b/lib/Lingua/JA/Moji.pm
+index a423b3c..5479391 100644
+--- a/lib/Lingua/JA/Moji.pm
++++ b/lib/Lingua/JA/Moji.pm
+@@ -732,7 +732,7 @@ sub kana2hw
+ 
+ =head2 hw2katakana
+ 
+-     my $full_width = kana2hw ('ｱｲｳｶｷｷﾞｮｳ｡');
++     my $full_width = hw2katakana ('ｱｲｳｶｷｷﾞｮｳ｡');
+      # $full_width = 'アイウカキギョウ。'；
+ 
+ C<hw2katakana> converts halfwidth katakana and Japanese punctuation to
+diff --git a/share/katakana2hw_katakana.txt b/share/katakana2hw_katakana.txt
+index c4ca90a..58122d4 100644
+--- a/share/katakana2hw_katakana.txt
++++ b/share/katakana2hw_katakana.txt
+@@ -172,3 +172,7 @@
+ ー ｰ
+ ヽ ヽ
+ ヾ ヾ
++。 ｡
++、 ､
++「 ｢
++」 ｣

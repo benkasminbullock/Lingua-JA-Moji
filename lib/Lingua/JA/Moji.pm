@@ -385,15 +385,23 @@ sub kana2romaji
 
 =head2 romaji2hiragana
 
+    my $hiragana = romaji2hiragana ('babubo');
+
 Convert romanized Japanese into hiragana. This takes the same options
-as L<romaji2kana>.
+as L<romaji2kana>. It also switches on the "wapuro" option which makes
+the use of long vowels with a kana rather than a chouon (long vowel
+marker).
 
 =cut
 
 sub romaji2hiragana
 {
-    my $katakana = romaji2kana(@_, {wapuro => 1});
-#    print "$katakana\n";
+    my ($input, $options) = @_;
+    if (! $options) {
+        $options = {};
+    }
+    my $katakana = romaji2kana ($input, {wapuro => 1, %$options});
+    #print "katakana = $katakana\n";
     return kata2hira ($katakana);
 }
 
@@ -520,6 +528,7 @@ sub romaji2kana
     }
     my ($input, $options) = @_;
     $input = lc $input;
+    #print "input = $input\n";
     # Deal with long vowels
     $input =~ s/($longvowels)/$longvowels{$1}/g;
     if (!$options || !$options->{wapuro}) {
@@ -527,6 +536,8 @@ sub romaji2kana
         $input =~ s/([aiueo])\1/$1ー/g;
     }
     # Deal with double consonants
+    # danna -> だんな
+    $input =~ s/n(?=n[aiueo])/ン/g;
     # shimbun -> しんぶん
     $input =~ s/m(?=[pb]y?[aiueo])/ン/g;
     # tcha, ccha -> っちゃ
@@ -539,6 +550,7 @@ sub romaji2kana
     $input =~ s/oh(?=[ksthmrgzdbp])/オオ/g;
     # Substitute all the kana.
     $input =~ s/($romaji_regex)/$$romaji2katakana{$1}/g;
+    #print "input = $input\n";
     return $input;
 }
 
@@ -732,7 +744,7 @@ sub kana2hw
 
 =head2 hw2katakana
 
-     my $full_width = kana2hw ('ｱｲｳｶｷｷﾞｮｳ｡');
+     my $full_width = hw2katakana ('ｱｲｳｶｷｷﾞｮｳ｡');
      # $full_width = 'アイウカキギョウ。'；
 
 C<hw2katakana> converts halfwidth katakana and Japanese punctuation to
