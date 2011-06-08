@@ -1,5 +1,7 @@
-Revision history for Lingua-JA-Moji
+0.06    2011-06-08
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+0.05    2011-02-05
+        Added quote characters for halfwidth katakana.
+        Correct "du"/"dzu" romanization for づ
+        "nna" converts to んな correctly.
 

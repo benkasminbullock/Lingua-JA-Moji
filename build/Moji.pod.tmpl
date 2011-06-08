@@ -1,0 +1,128 @@
+=encoding UTF-8
+
+=head1 [% trans.name | upper %]
+
+Lingua::JA::Moji - [% trans.abstract %]
+
+=head1 [% trans.synopsis | upper %]
+
+[% trans.synopsis_text %]
+
+    use Lingua::JA::Moji qw/kana2romaji romaji2kana/;
+    use utf8;
+    my $romaji = kana2romaji ('あいうえお');
+    # $romaji is now 'aiueo'.
+    my $kana = romaji2kana ($romaji);
+    # $kana is now 'アイウエオ'.
+
+=head1 [% trans.functions | upper %]
+
+[%- FOR function IN functions %]
+
+=head2 [% function.name %] -- [% IF function.abstract -%]
+[% function.abstract.$lang %]
+[%- END %]
+
+    use [% module %] '[% function.name %]';
+[% function.eg | indent ('    ') %]
+
+[% function.desc.$lang %]
+
+[%- IF function.bugs %]
+
+=head3 [% trans.bugs %]
+
+[%- function.bugs %]
+
+[%- END %]
+
+[%- END %]
+
+=head1 SUPPORT
+
+=head2 Mailing list
+
+There is a mailing list for this module and L<Convert::Moji> at
+L<http://groups.google.com/group/perl-moji>. 
+
+=head2 Examples
+
+For examples of this module in use, see
+L<http://www.lemoda.net/lingua-ja-moji/index.html>.
+
+=head1 DIAGNOSTICS
+
+
+
+=head1 BUGS
+
+=over
+
+=item romaji to/from kana conversion
+
+There are some bugs with romaji to kana conversion and vice-versa.
+
+=back
+
+=head1 SEE ALSO
+
+Other Perl modules on CPAN include
+
+=head2 Japanese kana/romanization
+
+=over
+
+=item L<Data::Validate::Japanese>
+
+This is where I got several of the ideas for this module from. It
+contains validators for kanji and kana.
+
+=item L<Lingua::JA::Kana>
+
+This is where several of the ideas for this module came from. It
+contains convertors for hiragana, katakana (fullwidth only), and
+romaji. The romaji conversion is less complete than this module but
+more compact and probably much faster.
+
+=item L<Lingua::JA::Romanize::Japanese>
+
+Romanization of Japanese. The module also includes romanization of
+kanji via the kakasi kanji to romaji convertor, and other functions.
+
+=item L<Lingua::JA::Romaji::Valid>
+
+Validate romanized Japanese.
+
+=item L<Lingua::JA::Hepburn::Passport>
+
+=back
+
+=head1 EXPORT
+
+This module exports its functions only on request. To export all the
+functions in the module,
+
+    use Lingua::JA::Moji ':all';
+
+=head1 ENCODING
+
+All the functions in this module assume the use of Unicode
+encoding. All input and output strings must be encoded using UTF-8.
+
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to Naoki Tomita for various assitances (see
+L<http://groups.google.com/group/perl-moji/browse_thread/thread/10a42c35f7c22ebc>).
+
+=head1 AUTHOR
+
+Ben Bullock, C<< <bkb@cpan.org> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2008-2011 Ben Bullock, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut

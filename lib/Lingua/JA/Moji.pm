@@ -15,16 +15,6 @@ Convert various types of characters into one another.
     my $kana = romaji2kana ($romaji);
     # $kana is now 'アイウエオ'.
 
-=head1 EXPORT
-
-This module does not export any functions except on request.
-
-=head1 ENCODING
-
-All the functions in this module assume that you are using Perl's
-Unicode encoding, and all input and output strings must be encoded
-using Perl's so-called "utf8".
-
 =head1 FUNCTIONS
 
 =cut
@@ -34,13 +24,16 @@ package Lingua::JA::Moji;
 use warnings;
 use strict;
 
-our $VERSION = '0.04';
+our $VERSION = '0.06';
+
 use Carp;
 use Lingua::JA::Moji::Convertor qw/load_convertor make_convertors/;
 use Convert::Moji;
 use utf8;
 use File::ShareDir 'dist_file';
+
 require Exporter;
+
 our @ISA = qw(Exporter);
 
 our @EXPORT_OK = qw/
@@ -68,6 +61,10 @@ our @EXPORT_OK = qw/
                     circled2kana
                     normalize_romaji
                     /;
+
+our %EXPORT_TAGS = (
+    'all' => \@EXPORT_OK,
+);
 
 our $AUTOLOAD;
 
@@ -1028,6 +1025,8 @@ sub kana2braille
 
 =head2 braille2kana
 
+
+
 Converts Japanese braille (I<tenji>) into the equivalent katakana.
 
 =cut
@@ -1057,7 +1056,11 @@ sub load_circled_conv
 
 =head2 kana2circled
 
-C<kana2circled> converts kana into the "circled katakana" of Unicode.
+    my $circled = kana2circled ('あいうえお');
+    # $circled = '㋐㋑㋒㋓㋔';
+
+This function converts kana into the "circled katakana" of Unicode,
+which have code points from 32D0 to 32FE. See also L</circled2kana>.
 
 =cut
 
@@ -1074,8 +1077,11 @@ sub kana2circled
 
 =head2 circled2kana
 
-C<circled2kana> converts the "circled katakana" of Unicode into the
-usual katakana.
+    my $kana = circled2kana ('㋐㋑㋒㋓㋔');
+    # $kana = 'あいうえお'
+
+This function converts the "circled katakana" of Unicode into
+full-width katakana. See also L</kana2circled>.
 
 =cut
 
@@ -1090,9 +1096,16 @@ sub circled2kana
 
 =head2 normalize_romaji
 
+    use Lingua::JA::Moji 'normalize_romaji';
+    my $normalized = normalize_romaji ('tsumuji');
+
 C<normalize_romaji> converts romanized Japanese to a canonical form,
 which is based on the Nippon-shiki romanization, but without
-representing long vowels using a circumflex.
+representing long vowels using a circumflex. In the canonical form,
+sokuon (っ) characters are converted into the string "xtu".
+
+If there is kana in the input string, this will also be converted to
+romaji.
 
 =cut
 
@@ -1123,53 +1136,40 @@ sub normalize_romaji
 #     return;
 # }
 
-1; # End of Lingua::JA::Moji
+1; 
 
 
 __END__
-
-=head1 AUTHOR
-
-Ben Bullock, C<< <bkb@cpan.org> >>
 
 =head1 SUPPORT
 
 =head2 Mailing list
 
-I have set up a mailing list for this module and L<Convert::Moji> at
-L<http://groups.google.com/group/perl-moji>. If you have any questions
-about either of these modules, please ask on the mailing list rather
-than sending me email, because I would prefer that a record of the
-conversation can be kept for the future reference of other users.
+There is a mailing list for this module and L<Convert::Moji> at
+L<http://groups.google.com/group/perl-moji>. 
 
 =head2 Examples
 
-For examples of this module in use, see my website
-L<http://www.lemoda.net/lingua-ja-moji/index.html>. This page links to
-examples which I've set up on the web specifically to show this module
-in action.
+For examples of this module in use, see
+L<http://www.lemoda.net/lingua-ja-moji/index.html>.
 
-=head2 Bugs
+=head1 DIAGNOSTICS
 
-Please send bug reports to the Perl bug tracker at rt.cpan.org, or
-send them to the mailing list.
 
-There are some known bugs or issues with romaji to kana conversion and
-vice-versa. I'm still working on these.
 
-=head1 STATUS
+=head1 BUGS
 
-This module is "alpha" (that is a computerese euphemism for "the
-module is badly-formed and unfinished") and the external interface is
-liable to change drastically in the future. If you have a request,
-please speak up.
+=over
 
-Please also note that some of this documentation is not finished yet,
-some of the functions documented here don't exist yet.
+=item romaji to/from kana conversion
+
+There are some bugs with romaji to kana conversion and vice-versa.
+
+=back
 
 =head1 SEE ALSO
 
-There are some other useful Perl modules already on CPAN as follows.
+Other Perl modules on CPAN include
 
 =head2 Japanese kana/romanization
 
@@ -1182,11 +1182,10 @@ contains validators for kanji and kana.
 
 =item L<Lingua::JA::Kana>
 
-This is where I got several of the ideas for this module from. It
+This is where several of the ideas for this module came from. It
 contains convertors for hiragana, katakana (fullwidth only), and
 romaji. The romaji conversion is less complete than this module but
-more compact and probably much faster, if you need high speed
-romanization.
+more compact and probably much faster.
 
 =item L<Lingua::JA::Romanize::Japanese>
 
@@ -1201,20 +1200,30 @@ Validate romanized Japanese.
 
 =back
 
-=head2 Other
+=head1 EXPORT
 
-=over
+This module exports its functions only on request. To export all the
+functions in the module,
 
-=back
+    use Lingua::JA::Moji ':all';
+
+=head1 ENCODING
+
+All the functions in this module assume the use of Unicode
+encoding. All input and output strings must be encoded using UTF-8.
 
 =head1 ACKNOWLEDGEMENTS
 
 Thanks to Naoki Tomita for various assitances (see
 L<http://groups.google.com/group/perl-moji/browse_thread/thread/10a42c35f7c22ebc>).
 
+=head1 AUTHOR
+
+Ben Bullock, C<< <bkb@cpan.org> >>
+
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008-2010 Ben Bullock, all rights reserved.
+Copyright 2008-2011 Ben Bullock, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

@@ -1,0 +1,41 @@
+id: name
+ja: 名前
+en: name
+
+id: author
+ja: 著者
+en: author
+
+id: synopsis
+ja: 概要
+en: synopsis
+
+id: description
+ja: 説明
+en: description
+
+id: abstract
+en: Handle many kinds of Japanese characters
+ja: 総合日本文字変換
+
+id: functions
+en: functions
+ja: 関数
+
+id: synopsis_text
+%%en:
+
+Convert various types of Japanese characters into one another.
+
+%%
+%%ja:
+
+日本の文字の総合変換
+
+%%
+
+id: bugs
+en: bugs
+ja: 欠点
+
+

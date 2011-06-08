@@ -1,0 +1,411 @@
+=encoding UTF-8
+
+=head1 名前
+
+Lingua::JA::Moji - 総合日本文字変換
+
+=head1 概要
+
+日本の文字の総合変換
+
+    use Lingua::JA::Moji qw/kana2romaji romaji2kana/;
+    use utf8;
+    my $romaji = kana2romaji ('あいうえお');
+    # $romaji is now 'aiueo'.
+    my $kana = romaji2kana ($romaji);
+    # $kana is now 'アイウエオ'.
+
+=head1 関数
+
+
+=head2 kana2romaji -- 仮名をローマ字に変換
+
+    use Lingua::JA::Moji 'kana2romaji';
+    my $romaji = kana2romaji ("うれしいこども");
+
+
+仮名をローマ字に変換。
+
+オプションは関数の２番目のハシュリファレンスで入ります。
+
+    use utf8;
+    my $romaji = kana2romaji ("しんぶん", {style => "hepburn"});
+    # $romaji = "shimbun"
+
+可能なオプションは
+
+=over
+
+=item style
+
+ローマ字の種類。
+
+=over
+
+=item undef
+
+ディフォルトは日本式（「つづり」が「tuduri」, 「少女」が「syôzyo」）。
+
+=item passport
+
+パスポート式(「伊藤」が「itoh」)
+
+=item kunrei
+
+訓令式（少学校４年で習うローマ字）
+
+=item hepburn
+
+ヘボン式（「つづり」が「tsuzuri」, 「少女」が「shōjo」）。
+
+=back
+
+=item use_m
+
+真なら「しんぶん」が「shimbun」
+
+=item ve_type
+
+長い母音はどの様に表現する。
+
+=over
+
+=item undef
+
+曲折アクセントを使う。
+
+=item macro
+
+マクロンを使う。
+
+=item passport
+
+「アー」、「イー」、「ウー」、「エー」が「a」, 「i」, 「u」, 「e」になり、「オー」が「oh」になる。
+
+=item none
+
+「アー」、「イー」、「ウー」、「エー」ガ「a」, 「i」, 「u」, 「e」, 「o」ニナル。
+
+=back
+
+=item wapuro
+
+ワープロローマ字。長音符は使わない。「少女」が「shoujo」など。
+
+=back
+
+
+
+
+
+=head2 romaji2hiragana -- ローマ字をひらがなに変換
+
+    use Lingua::JA::Moji 'romaji2hiragana';
+    my $hiragana = romaji2hiragana ('babubo');
+
+
+
+
+
+=head2 romaji_styles -- 
+
+    use Lingua::JA::Moji 'romaji_styles';
+    my @styles = romaji_styles ();
+        # Returns a true value
+        romaji_styles ("hepburn");
+        # Returns the undefined value
+        romaji_styles ("frogs");
+
+
+
+
+
+=head2 romaji2kana -- ローマ字を仮名に変換
+
+    use Lingua::JA::Moji 'romaji2kana';
+    my $kana = romaji2kana ('yamaguti');
+         # $kana = 'ヤマグチ';
+
+
+
+
+
+=head2 is_voiced -- 
+
+    use Lingua::JA::Moji 'is_voiced';
+    if (is_voiced ('が')) {
+             print "が is voiced.\n";
+        }
+
+
+
+
+
+=head2 is_romaji -- 
+
+    use Lingua::JA::Moji 'is_romaji';
+    # The following line returns "undef"
+        is_romaji ("abcdefg");
+        # The following line returns a defined value
+        is_romaji ("atarimae");
+
+
+
+
+
+=head2 hira2kata -- 
+
+    use Lingua::JA::Moji 'hira2kata';
+    my $katakana = hira2kata ($hiragana);
+
+
+
+
+
+=head2 kata2hira -- 
+
+    use Lingua::JA::Moji 'kata2hira';
+    my $hiragana = kata2hira ('カキクケコ');
+         # $hiragana = 'かきくけこ';
+
+
+
+
+
+=head2 kana2hw -- 
+
+    use Lingua::JA::Moji 'kana2hw';
+    my $half_width = kana2hw ('あいウカキぎょう。');
+         # $half_width = 'ｱｲｳｶｷｷﾞｮｳ｡'
+
+
+
+
+
+=head2 hw2katakana -- 
+
+    use Lingua::JA::Moji 'hw2katakana';
+    my $full_width = hw2katakana ('ｱｲｳｶｷｷﾞｮｳ｡');
+         # $full_width = 'アイウカキギョウ。'；
+
+
+
+
+
+=head2 InHankakuKatakana -- 
+
+    use Lingua::JA::Moji 'InHankakuKatakana';
+    use Lingua::JA::Moji qw/InHankakuKatakana/;
+        use utf8;
+        if ('ｱ' =~ /\p{InHankakuKatakana}/) {
+            print "ｱ is half-width katakana\n";
+        }
+
+
+
+
+
+=head2 wide2ascii -- 
+
+    use Lingua::JA::Moji 'wide2ascii';
+    my $ascii = wide2ascii ('ａｂＣＥ０１９');
+         # $ascii = 'abCE019'
+
+
+
+
+
+=head2 ascii2wide -- 
+
+    use Lingua::JA::Moji 'ascii2wide';
+    
+
+
+
+
+
+=head2 InWideAscii -- 
+
+    use Lingua::JA::Moji 'InWideAscii';
+    use Lingua::JA::Moji qw/InWideAscii/;
+        use utf8;
+        if ('Ａ' =~ /\p{InWideAscii}/) {
+            print "Ａ is wide ascii\n";
+        }
+
+
+
+
+
+=head2 kana2morse -- 
+
+    use Lingua::JA::Moji 'kana2morse';
+    
+
+
+
+
+
+=head2 is_kana -- 
+
+    use Lingua::JA::Moji 'is_kana';
+    
+
+
+
+
+
+=head2 is_hiragana -- 
+
+    use Lingua::JA::Moji 'is_hiragana';
+    
+
+
+
+
+
+=head2 kana2katakana -- 仮名をカタカナに変換
+
+    use Lingua::JA::Moji 'kana2katakana';
+    
+
+
+
+
+
+=head2 kana2braille -- 
+
+    use Lingua::JA::Moji 'kana2braille';
+    
+
+
+
+
+
+=head2 braille2kana -- 
+
+    use Lingua::JA::Moji 'braille2kana';
+    
+
+
+
+
+
+=head2 kana2circled -- 仮名を丸付けカタカナに変換
+
+    use Lingua::JA::Moji 'kana2circled';
+    my $circled = kana2circled ('あいうえお');
+        # $circled = '㋐㋑㋒㋓㋔';
+
+
+
+
+
+=head2 circled2kana -- 丸付けカタカナを仮名に変換
+
+    use Lingua::JA::Moji 'circled2kana';
+    my $kana = circled2kana ('㋐㋑㋒㋓㋔');
+        # $kana = 'あいうえお'
+
+
+
+
+
+=head2 normalize_romaji -- 
+
+    use Lingua::JA::Moji 'normalize_romaji';
+    use Lingua::JA::Moji 'normalize_romaji';
+        my $normalized = normalize_romaji ('tsumuji');
+
+
+
+
+
+=head1 SUPPORT
+
+=head2 Mailing list
+
+There is a mailing list for this module and L<Convert::Moji> at
+L<http://groups.google.com/group/perl-moji>. 
+
+=head2 Examples
+
+For examples of this module in use, see
+L<http://www.lemoda.net/lingua-ja-moji/index.html>.
+
+=head1 DIAGNOSTICS
+
+
+
+=head1 BUGS
+
+=over
+
+=item romaji to/from kana conversion
+
+There are some bugs with romaji to kana conversion and vice-versa.
+
+=back
+
+=head1 SEE ALSO
+
+Other Perl modules on CPAN include
+
+=head2 Japanese kana/romanization
+
+=over
+
+=item L<Data::Validate::Japanese>
+
+This is where I got several of the ideas for this module from. It
+contains validators for kanji and kana.
+
+=item L<Lingua::JA::Kana>
+
+This is where several of the ideas for this module came from. It
+contains convertors for hiragana, katakana (fullwidth only), and
+romaji. The romaji conversion is less complete than this module but
+more compact and probably much faster.
+
+=item L<Lingua::JA::Romanize::Japanese>
+
+Romanization of Japanese. The module also includes romanization of
+kanji via the kakasi kanji to romaji convertor, and other functions.
+
+=item L<Lingua::JA::Romaji::Valid>
+
+Validate romanized Japanese.
+
+=item L<Lingua::JA::Hepburn::Passport>
+
+=back
+
+=head1 EXPORT
+
+This module exports its functions only on request. To export all the
+functions in the module,
+
+    use Lingua::JA::Moji ':all';
+
+=head1 ENCODING
+
+All the functions in this module assume the use of Unicode
+encoding. All input and output strings must be encoded using UTF-8.
+
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to Naoki Tomita for various assitances (see
+L<http://groups.google.com/group/perl-moji/browse_thread/thread/10a42c35f7c22ebc>).
+
+=head1 AUTHOR
+
+Ben Bullock, C<< <bkb@cpan.org> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2008-2011 Ben Bullock, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
