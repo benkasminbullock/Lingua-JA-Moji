@@ -1,4 +1,7 @@
-.cvsignore
+build/make-pod.pl
+build/moji-functions.txt
+build/moji-trans.txt
+build/Moji.pod.tmpl
 Changes
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
@@ -12,13 +15,16 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/Share.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
+lib/Lingua/JA/Moji-ja.pod
 lib/Lingua/JA/Moji.pm
-lib/Lingua/JA/Moji/Convertor.pm
+lib/Lingua/JA/Moji.pod
 Makefile.PL
+makeitfile
 MANIFEST			This list of files
+MANIFEST.SKIP
 META.yml
 README
-share/gal2kana
+share/first2hangul.txt
 share/kanji2abc.txt
 share/katakana2braille.txt
 share/katakana2circled.txt
@@ -26,5 +32,13 @@ share/katakana2cyrillic.txt
 share/katakana2hw_katakana.txt
 share/katakana2morse.txt
 share/new_kanji2old_kanji.txt
+share/rest2hangul.txt
 share/romaji2katakana.txt
+t/cyrillic.t
+t/hangul.t
+t/hw.t
+t/hw2katakana.t
+t/InHankakuKatakana.t
+t/InWideAscii.t
 t/Lingua-JA-Moji.t
+t/new-old-kanji.t

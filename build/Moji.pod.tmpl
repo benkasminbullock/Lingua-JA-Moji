@@ -15,24 +15,46 @@ Lingua::JA::Moji - [% trans.abstract %]
     my $kana = romaji2kana ($romaji);
     # $kana is now 'アイウエオ'.
 
-=head1 [% trans.functions | upper %]
+=head1 [% trans.description %]
+
+[% trans.description_body %]
 
 [%- FOR function IN functions %]
 
-=head2 [% function.name %] -- [% IF function.abstract -%]
-[% function.abstract.$lang %]
+[%- IF function.defined ('class') %]
+
+[% class = function.class %]
+
+=head1 [% trans.$class | upper %]
+[% IF function.defined ('explain') %]
+[% function.explain.$lang %]
+[% END %]
+[% ELSE %]
+
+=head2 [% function.name %] [% IF function.defined ('abstract') -%]
+-- [% function.abstract.$lang %]
 [%- END %]
 
     use [% module %] '[% function.name %]';
+[% IF function.defined ('eg') %]
 [% function.eg | indent ('    ') %]
+[%- IF function.defined ('out') && function.defined ('expect') %]
+    # Now [% function.out %] = '[% function.expect %]'
+[%- END %]
+[% END %]
+[% IF function.desc.defined (lang) %]
 
 [% function.desc.$lang %]
 
-[%- IF function.bugs %]
+[% END %]
+
+[%- IF function.defined ('bugs') %]
 
 =head3 [% trans.bugs %]
 
-[%- function.bugs %]
+[%- function.bugs.$lang %]
+
+[%- END %]
 
 [%- END %]
 
@@ -45,16 +67,9 @@ Lingua::JA::Moji - [% trans.abstract %]
 There is a mailing list for this module and L<Convert::Moji> at
 L<http://groups.google.com/group/perl-moji>. 
 
-=head2 Examples
-
-For examples of this module in use, see
-L<http://www.lemoda.net/lingua-ja-moji/index.html>.
-
 =head1 DIAGNOSTICS
 
-
-
-=head1 BUGS
+=head1 [% trans.bugs %]
 
 =over
 
@@ -64,7 +79,7 @@ There are some bugs with romaji to kana conversion and vice-versa.
 
 =back
 
-=head1 SEE ALSO
+=head1 [% trans.also | upper %]
 
 Other Perl modules on CPAN include
 
@@ -80,9 +95,9 @@ contains validators for kanji and kana.
 =item L<Lingua::JA::Kana>
 
 This is where several of the ideas for this module came from. It
-contains convertors for hiragana, katakana (fullwidth only), and
-romaji. The romaji conversion is less complete than this module but
-more compact and probably much faster.
+contains convertors for hiragana, half width and full width katakana,
+and romaji. The romaji conversion is less complete than this module
+but more compact and probably much faster.
 
 =item L<Lingua::JA::Romanize::Japanese>
 
@@ -95,7 +110,15 @@ Validate romanized Japanese.
 
 =item L<Lingua::JA::Hepburn::Passport>
 
+=item L<Lingua::JA::Fold>
+
+Full/half width conversion, collation of Japanese text.
+
 =back
+
+=head2 Books
+
+[% trans.naokitomitabook %]
 
 =head1 EXPORT
 
@@ -104,25 +127,21 @@ functions in the module,
 
     use Lingua::JA::Moji ':all';
 
-=head1 ENCODING
+=head1 [% trans.author | upper %]
 
-All the functions in this module assume the use of Unicode
-encoding. All input and output strings must be encoded using UTF-8.
+Ben Bullock, C<< <bkb@cpan.org> >>
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2008-2012 Ben Bullock, all rights reserved.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
 
 =head1 ACKNOWLEDGEMENTS
 
 Thanks to Naoki Tomita for various assitances (see
 L<http://groups.google.com/group/perl-moji/browse_thread/thread/10a42c35f7c22ebc>).
 
-=head1 AUTHOR
-
-Ben Bullock, C<< <bkb@cpan.org> >>
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 Ben Bullock, all rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
-=cut

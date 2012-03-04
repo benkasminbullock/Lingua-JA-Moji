@@ -1,0 +1,3 @@
+# Ignore .pod files because these are outputs. The originals are in
+# /build.
+*.pod

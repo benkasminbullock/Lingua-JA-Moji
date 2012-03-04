@@ -1,0 +1,33 @@
+WWW=/usr/local/www/data
+POD2HTML=perl -MPod::Simple::HTML -e Pod::Simple::HTML::go
+LIB=lib/Lingua/JA
+
+all:	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod
+	perl Makefile.PL
+	make
+	make test
+
+html:	$(WWW)/moji.html $(WWW)/moji-ja.html
+
+$(WWW)/moji.html: $(LIB)/Moji.pod 
+	$(POD2HTML) $(LIB)/Moji.pod > $(WWW)/moji.html
+
+$(WWW)/moji-ja.html: $(LIB)/Moji-ja.pod 
+	$(POD2HTML) $(LIB)/Moji-ja.pod > $(WWW)/moji-ja.html
+
+
+BUILD=build
+PODDEP=$(BUILD)/make-pod.pl $(BUILD)/Moji.pod.tmpl \
+	$(BUILD)/moji-functions.txt $(BUILD)/moji-trans.txt
+
+$(LIB)/Moji.pod $(LIB)/Moji-ja.pod:	$(PODDEP)
+	$(BUILD)/make-pod.pl
+
+clean:
+	-make clean
+	-rm -rf Lingua-JA-Moji-0.* Makefile.old MANIFEST.bak META.yml \
+	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod
+
+# Local variables:
+# mode: makefile
+# End:

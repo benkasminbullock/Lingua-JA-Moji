@@ -1,0 +1,350 @@
+<TABLE BORDER=1 CELLPADDING=4 CELLSPACING=2 style="color:black"> 
+  <TR align=center> 
+    <TD ROWSPAN=2 COLSPAN=5  BGCOLOR="#ff9966"><B>かな</B></TD> 
+    <TD COLSPAN=10 BGCOLOR="#9999ff"><B>ハングル</B></TD> 
+  </TR> 
+  <TR align=center> 
+    <TD COLSPAN=5  BGCOLOR="#ccffff"><B>語頭</B></TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff"><B>語中・語末</B></TD> 
+  </TR> 
+  <TR align=center> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">ア</TD> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">イ</TD> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">ウ</TD> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">エ</TD> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">オ</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#50500;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#51060;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#50864;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#50640;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#50724;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">カ</TD> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">キ</TD> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">ク</TD> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">ケ</TD> 
+    <TD WIDTH=40 BGCOLOR="#ffcc99">コ</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#44032;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#44592;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#44396;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#44172;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccffff">&#44256;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccccff">&#52852;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccccff">&#53412;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccccff">&#53216;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccccff">&#52992;</TD> 
+    <TD WIDTH=40 BGCOLOR="#ccccff">&#53076;</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">サ</TD> 
+    <TD BGCOLOR="#ffcc99">シ</TD> 
+    <TD BGCOLOR="#ffcc99">ス</TD> 
+    <TD BGCOLOR="#ffcc99">セ</TD> 
+    <TD BGCOLOR="#ffcc99">ソ</TD> 
+    <TD BGCOLOR="#ccffff">&#49324;</TD> 
+    <TD BGCOLOR="#ccffff">&#49884;</TD> 
+    <TD BGCOLOR="#ccffff">&#49828;</TD> 
+    <TD BGCOLOR="#ccffff">&#49464;</TD> 
+    <TD BGCOLOR="#ccffff">&#49548;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">タ</TD> 
+    <TD BGCOLOR="#ffcc99">チ</TD> 
+    <TD BGCOLOR="#ffcc99">ツ</TD> 
+    <TD BGCOLOR="#ffcc99">テ</TD> 
+    <TD BGCOLOR="#ffcc99"> ト</TD> 
+    <TD BGCOLOR="#ccffff">&#45796;</TD> 
+    <TD BGCOLOR="#ccffff">&#51648;</TD> 
+    <TD BGCOLOR="#ccffff">&#50416;</TD> 
+    <TD BGCOLOR="#ccffff">&#45936;</TD> 
+    <TD BGCOLOR="#ccffff">&#46020;</TD> 
+    <TD BGCOLOR="#ccccff">&#53440;</TD> 
+    <TD BGCOLOR="#ccccff">&#52824;</TD> 
+    <TD BGCOLOR="#ccccff">&#50416;</TD> 
+    <TD BGCOLOR="#ccccff">&#53580;</TD> 
+    <TD BGCOLOR="#ccccff">&#53664;</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ナ</TD> 
+    <TD BGCOLOR="#ffcc99">ニ</TD> 
+    <TD BGCOLOR="#ffcc99">ヌ</TD> 
+    <TD BGCOLOR="#ffcc99">ネ</TD> 
+    <TD BGCOLOR="#ffcc99">ノ</TD> 
+    <TD BGCOLOR="#ccffff">&#45208;</TD> 
+    <TD BGCOLOR="#ccffff">&#45768;</TD> 
+    <TD BGCOLOR="#ccffff">&#45572;</TD> 
+    <TD BGCOLOR="#ccffff">&#45348;</TD> 
+    <TD BGCOLOR="#ccffff">&#45432;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ハ</TD> 
+    <TD BGCOLOR="#ffcc99">ヒ</TD> 
+    <TD BGCOLOR="#ffcc99"> フ</TD> 
+    <TD BGCOLOR="#ffcc99">ヘ</TD> 
+    <TD BGCOLOR="#ffcc99">ホ</TD> 
+    <TD BGCOLOR="#ccffff">&#54616;</TD> 
+    <TD BGCOLOR="#ccffff">&#55176;</TD> 
+    <TD BGCOLOR="#ccffff">&#54980;</TD> 
+    <TD BGCOLOR="#ccffff">&#54756;</TD> 
+    <TD BGCOLOR="#ccffff">&#54840;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">マ</TD> 
+    <TD BGCOLOR="#ffcc99">ミ</TD> 
+    <TD BGCOLOR="#ffcc99">ム</TD> 
+    <TD BGCOLOR="#ffcc99">メ</TD> 
+    <TD BGCOLOR="#ffcc99">モ</TD> 
+    <TD BGCOLOR="#ccffff">&#47560;</TD> 
+    <TD BGCOLOR="#ccffff">&#48120;</TD> 
+    <TD BGCOLOR="#ccffff">&#47924;</TD> 
+    <TD BGCOLOR="#ccffff">&#47700;</TD> 
+    <TD BGCOLOR="#ccffff">&#47784;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ヤ</TD> 
+    <TD BGCOLOR="#ffcc99">イ</TD> 
+    <TD BGCOLOR="#ffcc99">ユ</TD> 
+    <TD BGCOLOR="#ffcc99">エ</TD> 
+    <TD BGCOLOR="#ffcc99">ヨ</TD> 
+    <TD BGCOLOR="#ccffff">&#50556;</TD> 
+    <TD BGCOLOR="#ccffff">&#51060;</TD> 
+    <TD BGCOLOR="#ccffff">&#50976;</TD> 
+    <TD BGCOLOR="#ccffff">&#50640;</TD> 
+    <TD BGCOLOR="#ccffff">&#50836;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ラ</TD> 
+    <TD BGCOLOR="#ffcc99">リ</TD> 
+    <TD BGCOLOR="#ffcc99">ル</TD> 
+    <TD BGCOLOR="#ffcc99">レ</TD> 
+    <TD BGCOLOR="#ffcc99">ロ</TD> 
+    <TD BGCOLOR="#ccffff">&#46972;</TD> 
+    <TD BGCOLOR="#ccffff">&#47532;</TD> 
+    <TD BGCOLOR="#ccffff">&#47336;</TD> 
+    <TD BGCOLOR="#ccffff">&#47112;</TD> 
+    <TD BGCOLOR="#ccffff">&#47196;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ワ</TD> 
+    <TD BGCOLOR="#ffcc99">(ヰ)</TD> 
+    <TD BGCOLOR="#ffcc99">ウ</TD> 
+    <TD BGCOLOR="#ffcc99">(ヱ)</TD> 
+    <TD BGCOLOR="#ffcc99">ヲ</TD> 
+    <TD BGCOLOR="#ccffff">&#50752;</TD> 
+    <TD BGCOLOR="#ccffff">(&#51060;)</TD> 
+    <TD BGCOLOR="#ccffff">&#50864;</TD> 
+    <TD BGCOLOR="#ccffff">(&#50640;)</TD> 
+    <TD BGCOLOR="#ccffff">&#50724;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ン</TD> 
+    <TD COLSPAN=4 BGCOLOR="#006600"><BR></TD> 
+    <TD COLSPAN=5  BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccccff">&#12596;</TD> 
+    <TD COLSPAN=4  BGCOLOR="#006600" align="left" style="color:#FFFFFF">←パッチムとして</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ガ</TD> 
+    <TD BGCOLOR="#ffcc99">ギ</TD> 
+    <TD BGCOLOR="#ffcc99">グ</TD> 
+    <TD BGCOLOR="#ffcc99">ゲ</TD> 
+    <TD BGCOLOR="#ffcc99">ゴ</TD> 
+    <TD BGCOLOR="#ccffff">&#44032;</TD> 
+    <TD BGCOLOR="#ccffff">&#44592;</TD> 
+    <TD BGCOLOR="#ccffff">&#44396;</TD> 
+    <TD BGCOLOR="#ccffff">&#44172;</TD> 
+    <TD BGCOLOR="#ccffff">&#44256;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ザ</TD> 
+    <TD BGCOLOR="#ffcc99">ジ</TD> 
+    <TD BGCOLOR="#ffcc99">ズ</TD> 
+    <TD BGCOLOR="#ffcc99">ゼ</TD> 
+    <TD BGCOLOR="#ffcc99">ゾ</TD> 
+    <TD BGCOLOR="#ccffff">&#51088;</TD> 
+    <TD BGCOLOR="#ccffff">&#51648;</TD> 
+    <TD BGCOLOR="#ccffff">&#51592;</TD> 
+    <TD BGCOLOR="#ccffff">&#51228;</TD> 
+    <TD BGCOLOR="#ccffff">&#51312;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ダ</TD> 
+    <TD BGCOLOR="#ffcc99">ヂ</TD> 
+    <TD BGCOLOR="#ffcc99">ヅ</TD> 
+    <TD BGCOLOR="#ffcc99">デ</TD> 
+    <TD BGCOLOR="#ffcc99">ド</TD> 
+    <TD BGCOLOR="#ccffff">&#45796;</TD> 
+    <TD BGCOLOR="#ccffff">&#51648;</TD> 
+    <TD BGCOLOR="#ccffff">&#51592;</TD> 
+    <TD BGCOLOR="#ccffff">&#45936;</TD> 
+    <TD BGCOLOR="#ccffff">&#46020;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">バ</TD> 
+    <TD BGCOLOR="#ffcc99">ビ</TD> 
+    <TD BGCOLOR="#ffcc99">ブ</TD> 
+    <TD BGCOLOR="#ffcc99">ベ</TD> 
+    <TD BGCOLOR="#ffcc99">ボ</TD> 
+    <TD BGCOLOR="#ccffff">&#48148;</TD> 
+    <TD BGCOLOR="#ccffff">&#48708;</TD> 
+    <TD BGCOLOR="#ccffff">&#48512;</TD> 
+    <TD BGCOLOR="#ccffff">&#48288;</TD> 
+    <TD BGCOLOR="#ccffff">&#48372;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">パ</TD> 
+    <TD BGCOLOR="#ffcc99">ピ</TD> 
+    <TD BGCOLOR="#ffcc99">プ</TD> 
+    <TD BGCOLOR="#ffcc99">ペ</TD> 
+    <TD BGCOLOR="#ffcc99">ポ</TD> 
+    <TD BGCOLOR="#ccffff">&#54028;</TD> 
+    <TD BGCOLOR="#ccffff">&#54588;</TD> 
+    <TD BGCOLOR="#ccffff">&#54392;</TD> 
+    <TD BGCOLOR="#ccffff">&#54168;</TD> 
+    <TD BGCOLOR="#ccffff">&#54252;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">キャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">キュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">キョ</TD> 
+    <TD BGCOLOR="#ccffff">&#44088;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#44508;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#44368;</TD> 
+    <TD BGCOLOR="#ccccff">&#52908;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccccff">&#53328;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccccff">&#53188;</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ギャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ギュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ギョ</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccffff">（同上）</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">シャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">シュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ショ</TD> 
+    <TD BGCOLOR="#ccffff">&#49380;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#49800;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#49660;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ジャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ジュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ジョ</TD> 
+    <TD BGCOLOR="#ccffff">&#51088;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#51452;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#51312;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">チャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">チュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">チョ</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccffff">（同上）</TD> 
+    <TD BGCOLOR="#ccccff">&#52264;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccccff">&#52628;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccccff">&#52488;</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ヒャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ヒュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ヒョ</TD> 
+    <TD BGCOLOR="#ccffff">&#54672;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#55092;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#54952;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ビャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ビュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ビョ</TD> 
+    <TD BGCOLOR="#ccffff">&#48204;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#48624;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#48484;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ピャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ピュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ピョ</TD> 
+    <TD BGCOLOR="#ccffff">&#54084;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#54504;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#54364;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">ミャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ミュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">ミョ</TD> 
+    <TD BGCOLOR="#ccffff">&#47616;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#48036;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#47896;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+  <TR align=center> 
+    <TD BGCOLOR="#ffcc99">リャ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">リュ</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ffcc99">リョ</TD> 
+    <TD BGCOLOR="#ccffff">&#47028;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#47448;</TD> 
+    <TD BGCOLOR="#006600"><BR></TD> 
+    <TD BGCOLOR="#ccffff">&#47308;</TD> 
+    <TD COLSPAN=5  BGCOLOR="#ccccff">（同左）</TD> 
+  </TR> 
+</TABLE> 
