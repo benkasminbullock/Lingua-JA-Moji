@@ -1,6 +1,6 @@
 use warnings;
 use strict;
-use Test::More tests => 8;
+use Test::More tests => 10;
 use Lingua::JA::Moji qw/kana2cyrillic cyrillic2katakana/;
 use utf8;
 binmode STDOUT, ':utf8';
@@ -21,3 +21,15 @@ for my $kana (keys %examples) {
 #    print "$roundtrip\n";
     ok ($roundtrip eq $kana);
 }
+
+# These tests are taken from Wikipedia and are meant to be tests using
+# capital versions of the cyrillic letters. The "shindo" is missing a
+# final "う".
+my $c1 = 'Ябу но нака но куронэко';
+my $c2 = 'Канэто Синдо';
+my $k1 = cyrillic2katakana ($c1);
+my $k2 = cyrillic2katakana ($c2);
+#print "$k1 $k2\n";
+ok ($k1 eq 'ヤブ ノ ナカ ノ クロネコ');
+ok ($k2 eq 'カネト シンド');
+

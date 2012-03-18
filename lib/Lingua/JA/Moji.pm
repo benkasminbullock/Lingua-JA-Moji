@@ -994,27 +994,35 @@ sub load_katakana2cyrillic
 
 sub kana2cyrillic
 {
-my ($kana) = @_;
-my $katakana = kana2katakana ($kana);
-$katakana =~ s/ン([アイウエオヤユヨ])/ンъ$1/g;
-if (! $katakana2cyrillic) {
-load_katakana2cyrillic ();
-}
-my $cyrillic = $katakana2cyrillic->convert ($katakana);
-$cyrillic =~ s/н([пбм])/м$1/g;
-return $cyrillic;
+    my ($kana) = @_;
+    my $katakana = kana2katakana ($kana);
+    $katakana =~ s/ン([アイウエオヤユヨ])/ンъ$1/g;
+    if (! $katakana2cyrillic) {
+        load_katakana2cyrillic ();
+    }
+    my $cyrillic = $katakana2cyrillic->convert ($katakana);
+    $cyrillic =~ s/н([пбм])/м$1/g;
+    return $cyrillic;
 }
 
 sub cyrillic2katakana
 {
-my ($cyrillic) = @_;
-if (! $katakana2cyrillic) {
-load_katakana2cyrillic ();
-}
-my $katakana = $katakana2cyrillic->invert ($cyrillic);
-$katakana =~ s/м/ン/g; 
-$katakana =~ s/ンъ([アイウエオヤユヨ])/ン$1/g;
-return $katakana;
+    my ($cyrillic) = @_;
+    # Convert the Cyrillic letters to lower case versions of the
+    # letters. This table of conversions was made from the one in
+    # Wikipedia at <http://en.wikipedia.org/wiki/Cyrillic_alphabets>
+    # using Emacs, the revision being
+    # <http://en.wikipedia.org/w/index.php?title=Cyrillic_alphabets&oldid=482154809>.
+    # I do not know if it covers the alphabets perfectly.
+    $cyrillic =~ tr/АБВГДЕЖЗИЙIКЛМНОПРСТУФХЦЧШЩЬЮЯ/абвгдежзийiклмнопрстуфхцчшщьюя/;
+    #print "cyrillic is $cyrillic\n";
+    if (! $katakana2cyrillic) {
+        load_katakana2cyrillic ();
+    }
+    my $katakana = $katakana2cyrillic->invert ($cyrillic);
+    $katakana =~ s/м/ン/g; 
+    $katakana =~ s/ンъ([アイウエオヤユヨ])/ン$1/g;
+    return $katakana;
 }
 
 my $first2hangul;

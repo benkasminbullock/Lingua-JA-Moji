@@ -10,4 +10,7 @@ no_index directory => 'build';
 license 'perl';
 install_share;
 auto_install;
+resources (
+    MailingList => 'http://groups.google.com/group/perl-moji'
+);
 WriteAll;

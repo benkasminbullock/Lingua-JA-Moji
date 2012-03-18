@@ -817,7 +817,6 @@ $kana = cyrillic2katakana ('симбун');
 out: $kana
 expect: シンブン
 
-
 class: hangul
 
 name: kana2hangul
