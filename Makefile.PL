@@ -2,6 +2,7 @@ use inc::Module::Install;
 
 name 'Lingua-JA-Moji',
 author 'Ben Bullock bkb@cpan.org',
+abstract 'Handle many kinds of Japanese characters',
 version_from 'lib/Lingua/JA/Moji.pm',
 requires ('File::ShareDir');
 requires ('Convert::Moji' => 0.03);
