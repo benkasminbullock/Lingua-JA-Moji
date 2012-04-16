@@ -217,8 +217,8 @@ romaji_styles ("frogs");
 Given an argument, return whether it is a legitimate style of romanization.
 
 Without an argument, return a list of possible styles, as an array of
-hash values, with each hash element containing "abbrev" as a short
-name and "full_name" for the full name of the style.
+hash references, with each hash reference containing the short name
+under the key "abbrev" and the full name under the key "full_name".
 
 %%
 %%desc.ja:
@@ -454,12 +454,13 @@ name:  is_hiragana
 This function returns a true value if its argument is a string of
 hiragana, and an undefined value if not. The entire string from
 beginning to end must all be kana for this to return true. The kana
-cannot include punctuation marks or the long vowel symbol (chouonpu).
+cannot include punctuation marks or the long vowel symbol (chouonpu,
+「ー」).
 
 %%
 %%desc.ja:
 
-入力が平仮名のみの場合、真、入力が平仮名なでない文字を含む場合、偽(undef)。
+入力が平仮名のみの場合、真、入力が平仮名なでない文字を含む場合、偽(undef)。「ー」があれば偽になる。
 
 %%
 
@@ -481,12 +482,20 @@ hiragana to full width katakana.
 %%
 
 name: kana_to_large
-%%explain.en:
+%%eg:
 
-Convert small-sized kana such as ぁ into full-sized kana such as あ.
+my $large = kana_to_large ('ぁあぃい');
 
 %%
-%%explain.ja:
+out: $large
+expect: ああいい
+%%desc.en:
+
+Convert small-sized kana such as 「ぁ」 into full-sized kana such as
+「あ」.
+
+%%
+%%desc.ja:
 
 「ぁ」など小さい仮名を「あ」に変換する。
 

@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -490,24 +490,21 @@ sub romaji2hiragana
 sub romaji_styles
 {
     my ($check) = @_;
-        my @styles = 
-            (
-         {
-          abbrev    => "hepburn",
-          full_name => "Hepburn",
-      },
-         {
-          abbrev    => 'nihon',
-          full_name => 'Nihon-shiki',
-      },
-         {
-          abbrev    => 'kunrei',
-          full_name => 'Kunrei-shiki',
-      }
-         );
+    my @styles = (
+    {
+        abbrev    => "hepburn",
+        full_name => "Hepburn",
+    }, {
+        abbrev    => 'nihon',
+        full_name => 'Nihon-shiki',
+    }, {
+        abbrev    => 'kunrei',
+        full_name => 'Kunrei-shiki',
+    });
     if (! defined ($check)) {
         return (@styles);
-    } else {
+    }
+    else {
         for my $style (@styles) {
             if ($check eq $style->{abbrev}) {
                 return 1;
