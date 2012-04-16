@@ -42,3 +42,4 @@ t/InHankakuKatakana.t
 t/InWideAscii.t
 t/Lingua-JA-Moji.t
 t/new-old-kanji.t
+t/lingua-ja-regular-unicode.t
