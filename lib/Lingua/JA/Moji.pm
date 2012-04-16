@@ -723,9 +723,9 @@ sub katakana2hw
 sub hw2katakana
 {
     my ($input) = @_;
-   if (!$kata2hw) {
-       $kata2hw = make_convertors ('katakana','hw_katakana');
-   }
+    if (!$kata2hw) {
+        $kata2hw = make_convertors ('katakana','hw_katakana');
+    }
     return $kata2hw->invert ($input);
 }
 
@@ -822,7 +822,7 @@ my $kana2braille;
 sub load_kana2braille
 {
     if (!$kana2braille) {
-	$kana2braille = Lingua::JA::Moji::make_convertors ('katakana', 'braille');
+	$kana2braille = make_convertors ('katakana', 'braille');
     }
 }
 
@@ -888,10 +888,16 @@ sub brailletransinv {s/([⠐⠠])(.)/$2$1/g;return $_}
 sub kana2braille2
 {
     my $conv = Convert::Moji->new (["table", \%濁点],
-				   ["code", \&brailleon,\&brailleback],
+				   ["code",
+                                    \& brailleon,
+                                    \& brailleback
+                                   ],
 				   ["file", getdistfile ("katakana2braille")],
-				   ["code", \&brailletrans,\&brailletransinv],
-			       );
+				   ["code",
+                                    \& brailletrans,
+                                    \& brailletransinv
+                                   ],
+			          );
     return $conv;
 }
 
@@ -933,7 +939,6 @@ sub load_circled_conv
 {
     if (!$circled_conv) {
 	$circled_conv = make_convertors ("katakana", "circled");
-
     }
 }
 
@@ -1066,6 +1071,8 @@ sub kana_to_large
     my ($kana) = @_;
     $kana =~ tr/ゃゅょぁぃぅぇぉっゎ/やゆよあいうえおつわ/;
     $kana =~ tr/ャュョァィゥェォッヮ/ヤユヨアイウエオツワ/;
+    # Katakana phonetic extensions.
+    $kana =~ tr/ㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ/クシストヌハヒフヘホムラリルレロ/;
     return $kana;
 }
 
