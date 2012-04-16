@@ -863,3 +863,16 @@ proof of correctness.
 
 %%
 
+name: katakana2hw
+%%eg:
+
+$hw = katakana2hw ("あいうえおアイウエオ");
+
+%%
+out: $hw
+expect: あいうえおｱｲｳｴｵ
+%%desc.en:
+
+Convert katakana to halfwidth katakana, leaving hiragana unchanged.
+
+%%

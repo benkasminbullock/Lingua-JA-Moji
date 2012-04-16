@@ -31,6 +31,7 @@ our @EXPORT_OK = qw/
                     kana2cyrillic
                     kana2hangul
                     kana2hw
+                    katakana2hw
                     kana2katakana
                     kana2morse
                     kana2romaji
@@ -700,14 +701,26 @@ sub kana2hw2
 
 my $kata2hw;
 
+sub make_kata2hw
+{
+   if (!$kata2hw) {
+       $kata2hw = make_convertors ('katakana','hw_katakana');
+   }
+}
+
 sub kana2hw
 {
    my ($input) = @_;
    $input = hira2kata ($input);
-   if (!$kata2hw) {
-       $kata2hw = make_convertors ('katakana','hw_katakana');
-   }
+   make_kata2hw ();
    return $kata2hw->convert ($input);
+}
+
+sub katakana2hw
+{
+    my ($input) = @_;
+    make_kata2hw ();
+    return $kata2hw->convert ($input);
 }
 
 sub hw2katakana
