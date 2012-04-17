@@ -812,6 +812,83 @@ Convert old-style (pre-1949) kanji (Chinese characters) into new-style
 
 %%
 
+name: circled2kanji
+%%eg:
+
+$kanji = circled2kanji ('㊯');
+
+%%
+out: $kanji
+expect: 協
+%%desc.en:
+
+Convert the circled forms of kanji into their uncircled equivalents.
+
+%%
+%%desc.ja:
+
+丸付け漢字を普通の漢字に変換する。
+
+%%
+
+name: kanji2circled
+%%eg:
+
+$kanji = kanji2circled ('協嬉');
+
+%%
+out: $kanji
+expect: ㊯嬉
+%%desc.en:
+
+Convert the usual forms of kanji into circled equivalents, if they
+exist. Note that only a limited number of kanji have circled forms.
+
+%%
+%%desc.ja:
+
+漢字を丸付け漢字に変換する。
+
+%%
+
+name: bracketed2kanji
+%%eg:
+
+$kanji = bracketed2kanji ('㈱');
+
+%%
+out: $kanji
+expect: 株
+%%desc.en:
+
+Convert bracketed form of kanji into unbracketed form.
+
+%%
+%%desc.ja:
+
+括弧漢字を普通の漢字に変換する。
+
+%%
+
+name: kanji2bracketed
+%%eg:
+
+$kanji = kanji2bracketed ('株');
+
+%%
+out: $kanji
+expect: ㈱
+%%desc.en:
+
+Convert unbracketed form of kanji into bracketed form, if it exists.
+
+%%
+%%desc.ja:
+
+普通の漢字を括弧漢字をに変換する。
+
+%%
+
 class: cyrillization
 %%explain.en:
 
