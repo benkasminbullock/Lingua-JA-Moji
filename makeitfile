@@ -3,9 +3,6 @@ POD2HTML=perl -MPod::Simple::HTML -e Pod::Simple::HTML::go
 LIB=lib/Lingua/JA
 
 all:	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod
-	perl Makefile.PL
-	make
-	make test
 
 html:	$(WWW)/moji.html $(WWW)/moji-ja.html
 
