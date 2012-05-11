@@ -80,8 +80,7 @@ sub convert_$name
     return \$input;
 }
 EOSUB
-$code .= "\\\&".__PACKAGE__."::convert_$name;";
-#    print $code,"\n";
+    $code .= "\\\&".__PACKAGE__."::convert_$name;";
     return $code;
 }
 
@@ -91,9 +90,7 @@ sub ambiguous_reverse
     my %inverted;
     for (keys %$table) {
 	my $val = $table->{$_};
-#	print "Valu is $val\n";
 	push @{$inverted{$val}}, $_;
-#	print "key $_ stuff ",join (' ',@{$inverted{$val}}),"\n";
     }
     return \%inverted;
 }
@@ -104,12 +101,10 @@ sub split_match
 {
     my ($conv, $input, $convert_type) = @_;
     $convert_type = "all" if (!$convert_type);
-#    print "Convert type is '$convert_type'\n";
     my @input = split '', $input;
     my @output;
     for (@input) {
 	my $in = $conv->{out2in}->{$_};
-#	print "$_ $in\n";
 	# No conversion defined.
 	if (! $in) {
 	    push @output, $_;
@@ -122,11 +117,12 @@ sub split_match
 	}
 	if ($convert_type eq 'all') {
 	    push @output, $in;
-	} elsif ($convert_type eq 'first') {
+	}
+        elsif ($convert_type eq 'first') {
 	    push @output, $in->[0];
-	} elsif ($convert_type eq 'random') {
+	}
+        elsif ($convert_type eq 'random') {
 	    my $pos = int rand @$in;
-#	    print "RANDOM $pos\n";
 	    push @output, $in->[$pos];
 	}
     }
@@ -151,7 +147,6 @@ sub make_convertors
 	# Improvement: one way tr/// for the ambiguous case lhs/rhs only.
 
 	if (length_one(@values) && unambiguous($table)) {
-#	    print "Not ambiguous\n";
 	    # can use tr///;
 	    my $rhs = join '', @values;
 	    $sub_in2out = "\$input =~ tr/$lhs/$rhs/;";
@@ -165,7 +160,6 @@ sub make_convertors
 		$conv->{out2in} = \%out2in_table;
 		$sub_out2in = "\$input =~ s/($rhs)/\$conv->{out2in}->{\$1}/eg;";
 	    } else {
-#		print "Unambiguous inversion is not possible with $in, $out.\n";
 		$conv->{out2in} = ambiguous_reverse ($conv->{in2out});
 		$sub_out2in = "\$input = \$conv->split_match (\$input, \$convert_type);";
 	    }
@@ -213,7 +207,7 @@ sub invert
 # Kana ordered by consonant. Adds bogus "q" gyou for small vowels and
 # "x" gyou for youon (ya, yu, yo) to the usual ones.
 
-my @行 = (
+my @gyou = (
     a => [qw/ア イ ウ エ オ/],
     q => [qw/ァ ィ ゥ ェ ォ/],
     k => [qw/カ キ ク ケ コ/],
@@ -234,33 +228,33 @@ my @行 = (
     v => [qw/ヴ/],
 );
 
-my %行 = @行;
+my %gyou = @gyou;
 
 sub kana_order
 {
     # I don't know if it's necessary to copy the array or not, but I don't
     # want to take a chance messing up the array.
-    my @copy = @行;
+    my @copy = @gyou;
     return \@copy;
 }
 
 # Kana => consonant mapping.
 
-my %子音;
+my %siin;
 
-for my $consonant (keys %行) {
-    for my $kana (@{$行{$consonant}}) {
+for my $consonant (keys %gyou) {
+    for my $kana (@{$gyou{$consonant}}) {
         if ($consonant eq 'a') {
-            $子音{$kana} = '';
+            $siin{$kana} = '';
         } else {
-            $子音{$kana} = $consonant;
+            $siin{$kana} = $consonant;
         }
     }
 }
 
 # Vowel => kana mapping.
 
-my %段 = (a => [qw/ア カ ガ サ ザ タ ダ ナ ハ バ パ マ ヤ ラ ワ ャ ァ/],
+my %dan = (a => [qw/ア カ ガ サ ザ タ ダ ナ ハ バ パ マ ヤ ラ ワ ャ ァ/],
 	  i => [qw/イ キ ギ シ ジ チ ヂ ニ ヒ ビ ピ ミ リ ヰ ィ/],
 	  u => [qw/ウ ク グ ス ズ ツ ヅ ヌ フ ブ プ ム ユ ル ュ ゥ ヴ/],
 	  e => [qw/エ ケ ゲ セ ゼ テ デ ネ ヘ ベ ペ メ レ ヱ ェ/],
@@ -268,16 +262,16 @@ my %段 = (a => [qw/ア カ ガ サ ザ タ ダ ナ ハ バ パ マ ヤ ラ ワ 
 
 # Kana => vowel mapping
 
-my %母音;
+my %boin;
 
 # List of kana with a certain vowel.
 
 my %vowelclass;
 
-for my $vowel (keys %段) {
-    my @kana_list = @{$段{$vowel}};
+for my $vowel (keys %dan) {
+    my @kana_list = @{$dan{$vowel}};
     for my $kana (@kana_list) {
-	$母音{$kana} = $vowel;
+	$boin{$kana} = $vowel;
     }
     $vowelclass{$vowel} = join '', @kana_list;
 }
@@ -287,25 +281,25 @@ for my $vowel (keys %段) {
 # Added d to the list for ウッド BKB 2010-07-20 23:27:07
 # Added z for "badge" etc.
 
-my @takes_sokuon_行 = qw/s t k p d z/;
-my @takes_sokuon = (map {@{$行{$_}}} @takes_sokuon_行);
+my @takes_sokuon_gyou = qw/s t k p d z/;
+my @takes_sokuon = (map {@{$gyou{$_}}} @takes_sokuon_gyou);
 my $takes_sokuon = join '', @takes_sokuon;
 
 # N
 
 # Kana gyou which need an apostrophe when preceded by an "n" kana.
 
-my $need_apostrophe = join '', (map {@{$行{$_}}} qw/a y/);
+my $need_apostrophe = join '', (map {@{$gyou{$_}}} qw/a y/);
 
 # Gyou which turn an "n" into an "m" in some kinds of romanization
 
-my $need_m = join '', (map {@{$行{$_}}} qw/p b m/);
+my $need_m = join '', (map {@{$gyou{$_}}} qw/p b m/);
 
 # YOUON
 
 # Small ya, yu, yo.
 
-my $youon = join '', (@{$行{xy}});
+my $youon = join '', (@{$gyou{xy}});
 my %youon = qw/a ャ u ュ o ョ ou ョ/;
 
 # HEPBURN
@@ -342,16 +336,16 @@ my $is_kunrei_youon = join '', keys %kunrei_youon;
 
 # Long vowels, another bugbear of Japanese romanization.
 
-my @あいうえお = qw/a i u e o ou/;
+my @aiueo = qw/a i u e o ou/;
 
 # Various ways to display the long vowels.
 
-my %長音表記;
-@{$長音表記{circumflex}}{@あいうえお} = qw/â  î  û  ê  ô  ô/;
-@{$長音表記{macron}}{@あいうえお}     = qw/ā  ii  ū  ē  ō  ō/;
-@{$長音表記{wapuro}}{@あいうえお}     = qw/aa ii uu ee oo ou/;
-@{$長音表記{passport}}{@あいうえお}   = qw/a  i  u  e  oh oh/;
-@{$長音表記{none}}{@あいうえお}       = qw/a  ii  u  e  o  o/;
+my %chouonhyouki;
+@{$chouonhyouki{circumflex}}{@aiueo} = qw/â  î  û  ê  ô  ô/;
+@{$chouonhyouki{macron}}{@aiueo}     = qw/ā  ii  ū  ē  ō  ō/;
+@{$chouonhyouki{wapuro}}{@aiueo}     = qw/aa ii uu ee oo ou/;
+@{$chouonhyouki{passport}}{@aiueo}   = qw/a  i  u  e  oh oh/;
+@{$chouonhyouki{none}}{@aiueo}       = qw/a  ii  u  e  o  o/;
 
 sub kana2romaji
 {
@@ -397,7 +391,7 @@ sub kana2romaji
     if ($options->{ve_type}) {
 	$ve_type = $options->{ve_type};
     }
-    unless ($長音表記{$ve_type}) {
+    unless ($chouonhyouki{$ve_type}) {
 	print STDERR "Warning: unrecognized long vowel type '$ve_type'\n";
 	$ve_type = 'circumflex';
     }
@@ -414,13 +408,10 @@ sub kana2romaji
     if ($hepburn) {
 	$input =~ s/ッ([$hep_sok_list])/$hepburn_sokuon{$1}$1/g;
     }
-    $input =~ s/ッ([$takes_sokuon])/$子音{$1}$1/g;
-    if ($debug) {
-        print "* $input\n";
-    }
+    $input =~ s/ッ([$takes_sokuon])/$siin{$1}$1/g;
     # 長音 (ー)
-    for my $vowel (@あいうえお) {
-	my $ve = $長音表記{$ve_type}->{$vowel};
+    for my $vowel (@aiueo) {
+	my $ve = $chouonhyouki{$ve_type}->{$vowel};
 	my $vowelclass;
 	my $vowel_kana;
 	if ($vowel eq 'ou') {
@@ -428,53 +419,40 @@ sub kana2romaji
 	    $vowel_kana = 'ウ';
 	} else {
 	    $vowelclass = $vowelclass{$vowel};
-	    $vowel_kana = $段{$vowel}->[0];
+	    $vowel_kana = $dan{$vowel}->[0];
 	}
 	# 長音 (ー) + 拗音 (きょ)
 	my $y = $youon{$vowel};
-#        if ($debug) { print "Before youon: $input\n"; }
 	if ($y) {
 	    if ($hepburn) {
 		$input =~ s/([$is_hepburn_youon])${y}[ー$vowel_kana]/$hepburn_youon{$1}$ve/g;
 	    }
-	    $input =~ s/([$vowelclass{i}])${y}[ー$vowel_kana]/$子音{$1}y$ve/g;
+	    $input =~ s/([$vowelclass{i}])${y}[ー$vowel_kana]/$siin{$1}y$ve/g;
 	}
-#        if ($debug) { print "After youon: $input\n"; }
 	if ($hepburn && $hep_vowel{$vowel}) {
 	    $input =~ s/([$hep_vowel{$vowel}])[ー$vowel_kana]/$hepburn{$1}$ve/g;
 	}
 	$input =~ s/${vowel_kana}[ー$vowel_kana]/$ve/g;
-#        if ($debug) { print "Before vowelclass: $input\n"; }
-	$input =~ s/([$vowelclass])[ー$vowel_kana]/$子音{$1}$ve/g; 
-#        if ($debug) { print "After vowelclass: $input\n"; }
-    }
-    if ($debug) {
-        print "** $input\n";
+	$input =~ s/([$vowelclass])[ー$vowel_kana]/$siin{$1}$ve/g; 
     }
     # 拗音 (きょ)
     if ($hepburn) {
-	$input =~ s/([$is_hepburn_youon])([$youon])/$hepburn_youon{$1}$母音{$2}/g;
+	$input =~ s/([$is_hepburn_youon])([$youon])/$hepburn_youon{$1}$boin{$2}/g;
     }
     elsif ($kunrei) {
-	$input =~ s/([$is_kunrei_youon])([$youon])/$kunrei_youon{$1}y$母音{$2}/g;
+	$input =~ s/([$is_kunrei_youon])([$youon])/$kunrei_youon{$1}y$boin{$2}/g;
     }
-    $input =~ s/([$vowelclass{i}])([$youon])/$子音{$1}y$母音{$2}/g;
-    if ($debug) {
-        print "*** $input\n";
-    }
+    $input =~ s/([$vowelclass{i}])([$youon])/$siin{$1}y$boin{$2}/g;
     # その他
-    $input =~ s/([アイウエオヲ])/$母音{$1}/g;
-    $input =~ s/([ァィゥェォ])/q$母音{$1}/g;
-    if ($debug) {
-        print "**** $input\n";
-    }
+    $input =~ s/([アイウエオヲ])/$boin{$1}/g;
+    $input =~ s/([ァィゥェォ])/q$boin{$1}/g;
     if ($hepburn) {
-	$input =~ s/([$hep_list])/$hepburn{$1}$母音{$1}/g;
+	$input =~ s/([$hep_list])/$hepburn{$1}$boin{$1}/g;
     }
     elsif ($kunrei) {
-	$input =~ s/([$kun_list])/$kunrei{$1}$母音{$1}/g;
+	$input =~ s/([$kun_list])/$kunrei{$1}$boin{$1}/g;
     }
-    $input =~ s/([カ-ヂツ-ヱヴ])/$子音{$1}$母音{$1}/g;
+    $input =~ s/([カ-ヂツ-ヱヴ])/$siin{$1}$boin{$1}/g;
     $input =~ s/q([aiueo])/x$1/g;
     return $input;
 }
@@ -486,7 +464,6 @@ sub romaji2hiragana
         $options = {};
     }
     my $katakana = romaji2kana ($input, {wapuro => 1, %$options});
-    #print "katakana = $katakana\n";
     return kata2hira ($katakana);
 }
 
@@ -546,7 +523,8 @@ sub romaji_vowel_styles
     );
     if (! defined ($check)) {
         return (@styles);
-    } else {
+    }
+    else {
         for (@styles) {
             if ($check eq $_->{abbrev}) {
                 return 1;
@@ -576,7 +554,6 @@ sub romaji2kana
         return;
     }
     $input = lc $input;
-    #print "input = $input\n";
     # Deal with long vowels
     $input =~ s/($longvowels)/$longvowels{$1}/g;
     if (!$options || !$options->{wapuro}) {
@@ -615,7 +592,8 @@ sub is_voiced
     }
     if ($sound =~ /^[aiueogzbpmnry]/) {
         return 1;
-    } else {
+    }
+    else {
         return;
     }
 }
@@ -627,9 +605,7 @@ sub is_romaji
         return;
     }
     my $kana = romaji2kana ($romaji, {wapuro => 1});
-#    print "$kana\n";
     if ($kana =~ /^[ア-ンー\s]+$/) {
-#    print kana2romaji ($kana, {wapuro => 1}), "\n";
         return kana2romaji ($kana, {wapuro => 1});
     }
     return;
@@ -656,11 +632,10 @@ sub kata2hira
 
 sub make_dak_list
 {
-#    my @gyou = @_;
     my @dak_list;
     for (@_) {
-	push @dak_list, @{$行{$_}};
-	push @dak_list, hira2kata (@{$行{$_}});
+	push @dak_list, @{$gyou{$_}};
+	push @dak_list, hira2kata (@{$gyou{$_}});
     }
     return @dak_list;
 }
@@ -679,17 +654,10 @@ sub load_strip_daku
     }
 }
 
-my %濁点;
-@濁点{(make_dak_list (qw/g d z b/))} = 
+my %dakuten;
+@dakuten{(make_dak_list (qw/g d z b/))} = 
     map {$_."゛"} (make_dak_list (qw/k t s h/));
-@濁点{(make_dak_list ('p'))} = map {$_."゜"} (make_dak_list ('h'));
-
-
-#my %kata2hw = reverse %{$hwtable};
-#my $kata2hw = \%kata2hw;
-
-#my $hwregex = join '|',sort { length($b) <=> length($a) } keys %{$hwtable};
-#print $hwregex,"\n";
+@dakuten{(make_dak_list ('p'))} = map {$_."゜"} (make_dak_list ('h'));
 
 sub kana2hw2
 {
@@ -800,12 +768,13 @@ sub sout {my @y=split ' '; join '',@y}
 sub kana2morse2
 {
     my $file = getdistfile ('katakana2morse');
-    my $conv = Convert::Moji->new (["oneway","tr", "あ-ん", "ア-ン"],
-				   ["oneway","tr", "ァィゥェォャュョ", "アイウエオヤユヨ"],
-				   ["table", \%濁点],
-				   ["code", \&sin , \&sout],
-				   ["file", $file],
-			       );
+    my $conv = Convert::Moji->new (
+        ["oneway","tr", "あ-ん", "ア-ン"],
+        ["oneway","tr", "ァィゥェォャュョ", "アイウエオヤユヨ"],
+        ["table", \%dakuten],
+        ["code", \&sin , \&sout],
+        ["file", $file],
+    );
     return $conv;
 }
 
@@ -833,12 +802,11 @@ sub load_kana2braille
 
 my %nippon2kana;
 
-for my $k (keys %行) {
-    for my $ar (@{$行{$k}}) {
-	my $vowel = $母音{$ar};
+for my $k (keys %gyou) {
+    for my $ar (@{$gyou{$k}}) {
+	my $vowel = $boin{$ar};
 	my $nippon = $k.$vowel;
 	$nippon2kana{$nippon} = $ar;
-# 	print "$nippon $ar\n";
     }
 }
 
@@ -872,18 +840,18 @@ sub kana2katakana
 
 sub brailleon
 {
-    s/(.)゛([ャュョ])/'⠘'.$nippon2kana{$子音{$1}.$母音{$2}}/eg;
-    s/(.)゜([ャュョ])/'⠨'.$nippon2kana{$子音{$1}.$母音{$2}}/eg;
-    s/(.)([ャュョ])/'⠈'.$nippon2kana{$子音{$1}.$母音{$2}}/eg;
+    s/(.)゛([ャュョ])/'⠘'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
+    s/(.)゜([ャュョ])/'⠨'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
+    s/(.)([ャュョ])/'⠈'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
     s/([$vowelclass{o}])ウ/$1ー/g;
     return $_;
 }
 
 sub brailleback
 {
-    s/⠘(.)/$nippon2kana{$子音{$1}.'i'}.'゛'.$youon{$母音{$1}}/eg;
-    s/⠨(.)/$nippon2kana{$子音{$1}.'i'}.'゜'.$youon{$母音{$1}}/eg;
-    s/⠈(.)/$nippon2kana{$子音{$1}.'i'}.$youon{$母音{$1}}/eg;
+    s/⠘(.)/$nippon2kana{$siin{$1}.'i'}.'゛'.$youon{$boin{$1}}/eg;
+    s/⠨(.)/$nippon2kana{$siin{$1}.'i'}.'゜'.$youon{$boin{$1}}/eg;
+    s/⠈(.)/$nippon2kana{$siin{$1}.'i'}.$youon{$boin{$1}}/eg;
     return $_;
 }
 
@@ -892,7 +860,7 @@ sub brailletransinv {s/([⠐⠠])(.)/$2$1/g;return $_}
 
 sub kana2braille2
 {
-    my $conv = Convert::Moji->new (["table", \%濁点],
+    my $conv = Convert::Moji->new (["table", \%dakuten],
 				   ["code",
                                     \& brailleon,
                                     \& brailleback
@@ -914,14 +882,12 @@ sub kana2braille
     $input = kana2katakana ($input);
     load_strip_daku;
     $input = $strip_daku->convert ($input);
-    $input =~ s/(.)゛([ャュョ])/'⠘'.$nippon2kana{$子音{$1}.$母音{$2}}/eg;
-    $input =~ s/(.)゜([ャュョ])/'⠨'.$nippon2kana{$子音{$1}.$母音{$2}}/eg;
-    $input =~ s/(.)([ャュョ])/'⠈'.$nippon2kana{$子音{$1}.$母音{$2}}/eg;
+    $input =~ s/(.)゛([ャュョ])/'⠘'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
+    $input =~ s/(.)゜([ャュョ])/'⠨'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
+    $input =~ s/(.)([ャュョ])/'⠈'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
     $input =~ s/([$vowelclass{o}])ウ/$1ー/g;
-#    print $input,"\n";
     $input = $kana2braille->convert ($input);
     $input =~ s/(.)([⠐⠠])/$2$1/g;
-#    print $input,"\n";
     return $input;
 }
 
@@ -931,9 +897,9 @@ sub braille2kana
     load_kana2braille;
     $input =~ s/([⠐⠠])(.)/$2$1/g;
     $input = $kana2braille->invert ($input);
-    $input =~ s/⠘(.)/$nippon2kana{$子音{$1}.'i'}.'゛'.$youon{$母音{$1}}/eg;
-    $input =~ s/⠨(.)/$nippon2kana{$子音{$1}.'i'}.'゜'.$youon{$母音{$1}}/eg;
-    $input =~ s/⠈(.)/$nippon2kana{$子音{$1}.'i'}.$youon{$母音{$1}}/eg;
+    $input =~ s/⠘(.)/$nippon2kana{$siin{$1}.'i'}.'゛'.$youon{$boin{$1}}/eg;
+    $input =~ s/⠨(.)/$nippon2kana{$siin{$1}.'i'}.'゜'.$youon{$boin{$1}}/eg;
+    $input =~ s/⠈(.)/$nippon2kana{$siin{$1}.'i'}.$youon{$boin{$1}}/eg;
     $input = $strip_daku->invert ($input);
     return $input;
 }
@@ -1035,7 +1001,6 @@ sub cyrillic2katakana
     # <http://en.wikipedia.org/w/index.php?title=Cyrillic_alphabets&oldid=482154809>.
     # I do not know if it covers the alphabets perfectly.
     $cyrillic =~ tr/АБВГДЕЖЗИЙIКЛМНОПРСТУФХЦЧШЩЬЮЯ/абвгдежзийiклмнопрстуфхцчшщьюя/;
-    #print "cyrillic is $cyrillic\n";
     if (! $katakana2cyrillic) {
         load_katakana2cyrillic ();
     }
