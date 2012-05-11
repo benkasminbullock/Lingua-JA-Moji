@@ -21,7 +21,6 @@ $(LIB)/Moji.pod $(LIB)/Moji-ja.pod:	$(PODDEP)
 	$(BUILD)/make-pod.pl
 
 clean:
-	-make clean
 	-rm -rf Lingua-JA-Moji-0.* Makefile.old MANIFEST.bak META.yml \
 	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod
 
