@@ -11,7 +11,6 @@ our $VERSION = '0.14';
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
 use utf8;
-use File::ShareDir 'dist_file';
 
 our @EXPORT_OK = qw/
                     InHankakuKatakana
@@ -62,8 +61,8 @@ our %EXPORT_TAGS = (
 sub load_convertor
 {
     my ($in, $out) = @_;
-    my $filename = $in."2".$out.'.txt';
-    my $file = dist_file ('Lingua-JA-Moji', $filename);
+    my $filename = $in."2".$out;
+    my $file = getdistfile ($filename);
     if (! $file || ! -f $file) {
 	croak "Could not find distribution file '$filename'";
     }
@@ -789,7 +788,9 @@ sub kana2morse
 sub getdistfile
 {
     my ($filename) = @_;
-    my $file = dist_file ('Lingua-JA-Moji', $filename.".txt");
+    my $dir = __FILE__;
+    $dir =~ s!\.pm$!/!;
+    my $file = "$dir$filename.txt";
     return $file;
 }
 

@@ -1,22 +1,25 @@
-use inc::Module::Install;
-
-name ('Lingua-JA-Moji');
-author ('Ben Bullock bkb@cpan.org');
-abstract ('Handle many kinds of Japanese characters');
-version_from ('lib/Lingua/JA/Moji.pm');
-requires ('File::ShareDir');
-requires ('Convert::Moji' => 0.03);
-build_requires ('Test::More');
-no_index (directory => 'build');
-license ('perl');
+use strict;
+use warnings;
+use ExtUtils::MakeMaker;
 
 my $repo = 'https://github.com/benkasminbullock/Lingua-JA-Moji';
 
-resources (
-    MailingList => 'http://groups.google.com/group/perl-moji',
-    repository => $repo,
-    bugtracker => "$repo/issues",
+WriteMakefile (
+    NAME => 'Lingua-JA-Moji',
+    AUTHOR => 'Ben Bullock bkb@cpan.org',
+    ABSTRACT => 'Handle many kinds of Japanese characters',
+    VERSION_FROM => 'lib/Lingua/JA/Moji.pm',
+    PREREQ_PM => {
+        'Convert::Moji' => '0.03',
+    },
+    META_MERGE => {
+        resources => {
+            repository => $repo,
+            bugtracker => "$repo/issues",
+        },
+        no_index => {
+            directory => 'build',
+        },
+    },
+    LICENSE => 'perl',
 );
-install_share ();
-auto_install ();
-WriteAll ();
