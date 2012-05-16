@@ -561,13 +561,16 @@ characters.
 class: wide
 %%explain.en:
 
-Almost every website in Japan requires users to input numbers and letters using "half width" characters. Use these functions and that is not necessary.
+Functions for handling the "wide ascii" which is sometimes used in
+Japan. The "wide ascii" is a legacy of bitmapped fonts which has
+survived into the present day. "Wide ascii" characters were special
+bitmapped font characters created to be the same size as one kanji or
+kana character.
 
 %%
 %%explain.ja:
 
-日本のホームページなら、「半角英数字」にこだわります。下記の関数をお使
-いの場合、そんな必要性はありません。
+全角英数字の変換・認識。
 
 %%
 

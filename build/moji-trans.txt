@@ -35,7 +35,7 @@ Convert various types of Japanese characters into one another.
 %%
 
 id: bugs
-en: bugs
+en: Bugs
 ja: 欠点
 
 
