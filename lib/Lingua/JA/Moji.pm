@@ -15,6 +15,7 @@ use utf8;
 our @EXPORT_OK = qw/
                     InHankakuKatakana
                     InWideAscii
+                    InKana
                     ascii2wide
                     braille2kana
                     circled2kana
@@ -1097,6 +1098,15 @@ sub kanji2bracketed
     my ($input) = @_;
     load_bracketed2kanji ();
     return $bracketed2kanji->invert ($input);
+}
+
+sub InKana
+{
+    return <<'END';
++utf8::InKatakana
++utf8::InHiragana
+-utf8::IsCn
+END
 }
 
 1; 

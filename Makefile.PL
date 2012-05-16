@@ -22,4 +22,5 @@ WriteMakefile (
         },
     },
     LICENSE => 'perl',
+    MIN_PERL_VERSION => '5.008009',
 );
