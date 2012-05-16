@@ -484,7 +484,7 @@ hiragana to full width katakana.
 name: kana_to_large
 %%eg:
 
-my $large = kana_to_large ('ぁあぃい');
+$large = kana_to_large ('ぁあぃい');
 
 %%
 out: $large
@@ -535,6 +535,26 @@ unchanged. See also L</kana2hw>.
 %%desc.ja:
 
 全角かたかなを半角かたかなに変換し、ひらがなをそのままにする。L</kana2hw>も参照。
+
+%%
+
+name: InKana
+%%eg:
+
+    $is_kana = ('あいうえお' =~ /^\p{InKana}+$/);
+
+%%
+out: $is_kana
+expect: 1
+%%desc.en:
+
+A character class for use in regular expressions which matches kana
+characters.
+
+%%
+%%desc.ja:
+
+正規表現に使うカタカナとひらがなにマッチする。
 
 %%
 

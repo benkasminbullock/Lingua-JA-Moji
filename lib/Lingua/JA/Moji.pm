@@ -1103,10 +1103,11 @@ sub kanji2bracketed
 sub InKana
 {
     return <<'END';
-+utf8::InKatakana
++utf8::Katakana
 +utf8::InHiragana
 -utf8::IsCn
 END
+    # IsCn means "other, not assigned".
 }
 
 1; 
