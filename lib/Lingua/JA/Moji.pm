@@ -1104,12 +1104,16 @@ sub InKana
 {
     return <<'END';
 +utf8::Katakana
++utf8::InKatakana
 +utf8::InHiragana
 FF9E\tFF9F
+FF70
 -utf8::IsCn
 END
     # Explanation of the above gibberish: The funny hex is for dakuten
-    # and handakuten half width.  IsCn means "other, not assigned".
+    # and handakuten half width. The Katakana catches halfwidth
+    # katakana, and the InKatakana catches the chouon mark. IsCn means
+    # "other, not assigned".
 }
 
 1; 
