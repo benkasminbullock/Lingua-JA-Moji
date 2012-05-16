@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -1105,9 +1105,11 @@ sub InKana
     return <<'END';
 +utf8::Katakana
 +utf8::InHiragana
+FF9E\tFF9F
 -utf8::IsCn
 END
-    # IsCn means "other, not assigned".
+    # Explanation of the above gibberish: The funny hex is for dakuten
+    # and handakuten half width.  IsCn means "other, not assigned".
 }
 
 1; 
