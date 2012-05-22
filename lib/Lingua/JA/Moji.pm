@@ -353,10 +353,6 @@ sub kana2romaji
     # Parse the options
 
     my ($input, $options) = @_;
-    if (! utf8::is_utf8 ($input)) {
-        carp "Input is not flagged as unicode: conversion will fail.";
-        return;
-    }
     $input = kana2katakana ($input);
     $options = {} if ! $options;
     my $debug = $options->{debug};
