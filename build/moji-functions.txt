@@ -29,31 +29,53 @@ conversion.
     $romaji = kana2romaji ("しんぶん", {style => "hepburn"});
     # $romaji = "shimbun"
 
-The possible options are
+The options are
 
 =over
 
 =item style
 
-The style of romanization. The default form of romanization is
-"Nippon-shiki". See
-L<http://www.sljfaq.org/afaq/nippon-shiki.html>. The user can set the
-conversion style to "hepburn" or "passport" or "kunrei". See
-L<http://www.sljfaq.org/afaq/kana-roman.html>.
+The style of romanization. The default style of romanization is
+"Nippon-shiki". The user can set the conversion style to "hepburn" or
+"passport" or "kunrei". If Hepburn is selected, then the following
+option C<use_m> is set to "true", and the C<ve_type> is set to
+"macron".
 
 =item use_m
 
-If this is set to any "true" value, syllabic I<n>s (ん) which come
-before "b" or "p" sounds, such as the first "n" in "shinbun" (しんぶん,
-newspaper) will be converted into "m" rather than "n".
+If this is true, syllabic I<n>s (ん) which come before "b" or "p"
+sounds, such as the first "n" in "shinbun" (しんぶん, newspaper) will
+be converted into "m" rather than "n".
 
 =item ve_type
 
-C<ve_type> controls how long vowels are written. The default is to use
-circumflexes to represent long vowels. If you set "ve_type" =>
-"macron", then it uses macrons (the Hepburn system). If you set
-C<< "ve_type" => "passport" >>, then it uses "oh" to write long "o"
-vowels. If you set C<< "ve_type" => "none" >>, then it does not use "h".
+The C<ve_type> option controls how long vowels are written. The
+default is to use circumflexes to represent long vowels.
+
+=over
+
+=item undef
+
+A circumflex is used.
+
+=item macron
+
+A macron is used.
+
+=item passport
+
+"Oh" is used to write long "o" vowels, and other long vowels are
+ignored.
+
+=item none
+
+Long vowels are not indicated.
+
+=item wapuro
+
+Chouon marks become hyphens, and おう becomes ou.
+
+=back
 
 =back
 
@@ -110,11 +132,11 @@ vowels. If you set C<< "ve_type" => "none" >>, then it does not use "h".
 
 =item undef
 
-曲折アクセントを使う。
+曲折アクセント(ô)を使う。
 
 =item macron
 
-マクロンを使う。
+マクロン(ō)を使う。
 
 =item passport
 
@@ -153,7 +175,8 @@ expect: ヤマグチ
 
 
 Convert romanized Japanese to kana. The romanization is highly liberal
-and will attempt to convert any romanization it sees into kana.  To
+and will attempt to convert any romanization it sees into kana. The
+romanization is based on the behaviour of the Microsoft IME. To
 convert romanized Japanese into hiragana, use L</romaji2hiragana>.
 
 The second argument to the function contains options in the
@@ -214,7 +237,8 @@ romaji_styles ("frogs");
 %%
 %%desc.en:
 
-Given an argument, return whether it is a legitimate style of romanization.
+Given an argument, return whether it is a legitimate style of
+romanization.
 
 Without an argument, return a list of possible styles, as an array of
 hash references, with each hash reference containing the short name
@@ -289,10 +313,8 @@ $normalized = normalize_romaji ('tsumuji');
 C<normalize_romaji> converts romanized Japanese to a canonical form,
 which is based on the Nippon-shiki romanization, but without
 representing long vowels using a circumflex. In the canonical form,
-sokuon (っ) characters are converted into the string "xtu".
-
-If there is kana in the input string, this will also be converted to
-romaji.
+sokuon (っ) characters are converted into the string "xtu". If there
+is kana in the input string, this will also be converted to romaji.
 
 C<normalize_romaji> is for comparing two Japanese words which may be
 represented in different ways, for example in different romanization
@@ -308,10 +330,19 @@ C<normalize_romaji>はかなやローマ字で書いた言葉を比べるため�
 %%
 
 class: kana
+%%explain.en:
+
+These functions convert one form of kana into another.
+
+%%
+%%explain.ja:
+
+仮名を仮名に変換すること。
+
+%%
 
 name:  hira2kata
 %%eg:
-
 
 $katakana = hira2kata ('ひらがな');
 
@@ -361,6 +392,42 @@ does not convert half-width katakana into hiragana.
 %%desc.ja:
 
 かたかなを平仮名に変換します。長音符は変換しません。
+
+%%
+
+name:  kana2katakana
+%%eg:
+
+%%
+%%desc.en:
+
+Convert any of katakana, halfwidth katakana, circled katakana and
+hiragana to full width katakana.
+
+%%
+%%desc.ja:
+
+全角かたかな、ひらがな、半角かたかな、丸かたかななどあらゆる「仮名」を全角かたかなに変換する。
+
+%%
+
+name: kana_to_large
+%%eg:
+
+$large = kana_to_large ('ぁあぃい');
+
+%%
+out: $large
+expect: ああいい
+%%desc.en:
+
+Convert small-sized kana such as 「ぁ」 into full-sized kana such as
+「あ」.
+
+%%
+%%desc.ja:
+
+「ぁ」など小さい仮名を「あ」に変換する。
 
 %%
 
@@ -426,6 +493,26 @@ see L<kana2hw>.
 
 %%
 
+name: katakana2hw
+%%eg:
+
+$hw = katakana2hw ("あいうえおアイウエオ");
+
+%%
+out: $hw
+expect: あいうえおｱｲｳｴｵ
+%%desc.en:
+
+Convert katakana to halfwidth katakana, leaving hiragana
+unchanged. See also L</kana2hw>.
+
+%%
+%%desc.ja:
+
+全角かたかなを半角かたかなに変換し、ひらがなをそのままにする。L</kana2hw>も参照。
+
+%%
+
 name:  is_kana
 %%eg:
 
@@ -465,42 +552,6 @@ cannot include punctuation marks or the long vowel symbol (chouonpu,
 %%
 
 
-name:  kana2katakana
-%%eg:
-
-%%
-%%desc.en:
-
-Convert any of katakana, halfwidth katakana, circled katakana and
-hiragana to full width katakana.
-
-%%
-%%desc.ja:
-
-全角かたかな、ひらがな、半角かたかな、丸かたかななどあらゆる「仮名」を全角かたかなに変換する。
-
-%%
-
-name: kana_to_large
-%%eg:
-
-$large = kana_to_large ('ぁあぃい');
-
-%%
-out: $large
-expect: ああいい
-%%desc.en:
-
-Convert small-sized kana such as 「ぁ」 into full-sized kana such as
-「あ」.
-
-%%
-%%desc.ja:
-
-「ぁ」など小さい仮名を「あ」に変換する。
-
-%%
-
 name: kana_order
 %%eg:
 
@@ -515,26 +566,6 @@ useful for looping over the kana or sorting.
 %%desc.ja:
 
 仮名の（適当な）順番を返す。
-
-%%
-
-name: katakana2hw
-%%eg:
-
-$hw = katakana2hw ("あいうえおアイウエオ");
-
-%%
-out: $hw
-expect: あいうえおｱｲｳｴｵ
-%%desc.en:
-
-Convert katakana to halfwidth katakana, leaving hiragana
-unchanged. See also L</kana2hw>.
-
-%%
-%%desc.ja:
-
-全角かたかなを半角かたかなに変換し、ひらがなをそのままにする。L</kana2hw>も参照。
 
 %%
 
