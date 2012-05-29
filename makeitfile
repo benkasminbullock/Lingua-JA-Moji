@@ -22,7 +22,8 @@ $(LIB)/Moji.pod $(LIB)/Moji-ja.pod:	$(PODDEP)
 
 clean:
 	-rm -rf Lingua-JA-Moji-0.* Makefile.old MANIFEST.bak META.yml \
-	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod
+	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod cover_db
+
 
 # Local variables:
 # mode: makefile
