@@ -1,7 +1,7 @@
 use warnings;
 use strict;
 use utf8;
-use Test::More tests => 33;
+use Test::More tests => 34;
 # http://code.google.com/p/test-more/issues/detail?id=46
 binmode Test::More->builder->output, ":utf8";
 binmode Test::More->builder->failure_output, ":utf8";
@@ -44,6 +44,9 @@ ok (romaji_styles ("nihon"));
 my $ouhisi = kana2romaji ("おうひし", {style => "nihon", ve_type => "wapuro"});
 #print "$ouhisi\n";
 
+ok ($ouhisi eq "ouhisi");
+
+my $ouhisi = kana2romaji ("おうひし", {style => "kunrei", ve_type => "wapuro"});
 ok ($ouhisi eq "ouhisi");
 
 # "romaji2hiragana" (Romaji to hiragana) tests

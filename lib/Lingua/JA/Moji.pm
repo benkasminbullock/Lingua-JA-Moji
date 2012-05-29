@@ -160,7 +160,8 @@ sub make_convertors
 		my %out2in_table = reverse %{$conv->{in2out}};
 		$conv->{out2in} = \%out2in_table;
 		$sub_out2in = "\$input =~ s/($rhs)/\$conv->{out2in}->{\$1}/eg;";
-	    } else {
+	    }
+            else {
 		$conv->{out2in} = ambiguous_reverse ($conv->{in2out});
 		$sub_out2in = "\$input = \$conv->split_match (\$input, \$convert_type);";
 	    }
@@ -526,10 +527,9 @@ sub romaji_vowel_styles
             if ($check eq $_->{abbrev}) {
                 return 1;
             }
-            return;
         }
+        return;
     }
-
 }
 
 my $romaji2katakana;
@@ -642,12 +642,12 @@ my $strip_daku;
 sub load_strip_daku
 {
     if (!$strip_daku) {
-	my %濁点;
-	@濁点{(make_dak_list (qw/g d z b/))} = 
+	my %dakuten;
+	@dakuten{(make_dak_list (qw/g d z b/))} = 
 	    map {$_."゛"} (make_dak_list (qw/k t s h/));
-	@濁点{(make_dak_list ('p'))} = map {$_."゜"} (make_dak_list ('h'));
-	my $濁点 = join '', keys %濁点;
-	$strip_daku = make_convertors ("ten_joined", "ten_split", \%濁点);
+	@dakuten{(make_dak_list ('p'))} = map {$_."゜"} (make_dak_list ('h'));
+	my $dakuten = join '', keys %dakuten;
+	$strip_daku = make_convertors ("ten_joined", "ten_split", \%dakuten);
     }
 }
 
@@ -673,12 +673,15 @@ sub make_kata2hw
    }
 }
 
+my $kana2hw;
+
 sub kana2hw
 {
    my ($input) = @_;
-   $input = hira2kata ($input);
-   make_kata2hw ();
-   return $kata2hw->convert ($input);
+   if (! $kana2hw) {
+       $kana2hw = kana2hw2 ();
+   }
+   return $kana2hw->convert ($input);
 }
 
 sub katakana2hw
@@ -759,22 +762,6 @@ sub getdistfile
     return $file;
 }
 
-sub sin {my @y=split ''; join ' ',@y}
-sub sout {my @y=split ' '; join '',@y}
-
-sub kana2morse2
-{
-    my $file = getdistfile ('katakana2morse');
-    my $conv = Convert::Moji->new (
-        ["oneway","tr", "あ-ん", "ア-ン"],
-        ["oneway","tr", "ァィゥェォャュョ", "アイウエオヤユヨ"],
-        ["table", \%dakuten],
-        ["code", \&sin , \&sout],
-        ["file", $file],
-    );
-    return $conv;
-}
-
 sub morse2kana
 {
     my ($input) = @_;
@@ -834,43 +821,6 @@ sub kana2katakana
     }
     return $input;
 }
-
-sub brailleon
-{
-    s/(.)゛([ャュョ])/'⠘'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
-    s/(.)゜([ャュョ])/'⠨'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
-    s/(.)([ャュョ])/'⠈'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
-    s/([$vowelclass{o}])ウ/$1ー/g;
-    return $_;
-}
-
-sub brailleback
-{
-    s/⠘(.)/$nippon2kana{$siin{$1}.'i'}.'゛'.$youon{$boin{$1}}/eg;
-    s/⠨(.)/$nippon2kana{$siin{$1}.'i'}.'゜'.$youon{$boin{$1}}/eg;
-    s/⠈(.)/$nippon2kana{$siin{$1}.'i'}.$youon{$boin{$1}}/eg;
-    return $_;
-}
-
-sub brailletrans {s/(.)([⠐⠠])/$2$1/g;return $_}
-sub brailletransinv {s/([⠐⠠])(.)/$2$1/g;return $_}
-
-sub kana2braille2
-{
-    my $conv = Convert::Moji->new (["table", \%dakuten],
-				   ["code",
-                                    \& brailleon,
-                                    \& brailleback
-                                   ],
-				   ["file", getdistfile ("katakana2braille")],
-				   ["code",
-                                    \& brailletrans,
-                                    \& brailletransinv
-                                   ],
-			          );
-    return $conv;
-}
-
 
 sub kana2braille
 {
