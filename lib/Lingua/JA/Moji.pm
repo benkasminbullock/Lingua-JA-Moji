@@ -101,7 +101,9 @@ sub ambiguous_reverse
 sub split_match
 {
     my ($conv, $input, $convert_type) = @_;
-    $convert_type = "all" if (!$convert_type);
+    if (!$convert_type) {
+        $convert_type = "all";
+    }
     my @input = split '', $input;
     my @output;
     for (@input) {
@@ -132,8 +134,8 @@ sub split_match
 
 sub make_convertors
 {
-    my $conv = {};
     my ($in, $out, $table) = @_;
+    my $conv = {};
     if (!$table) {
 	$table = load_convertor ($in, $out);
     }
@@ -351,26 +353,35 @@ my %chouonhyouki;
 
 sub kana2romaji
 {
-    # Parse the options
-
     my ($input, $options) = @_;
     $input = kana2katakana ($input);
-    $options = {} if ! $options;
+    if (! $options) {
+        $options = {};
+    }
+    # Parse the options
     my $debug = $options->{debug};
     my $kunrei;
     my $hepburn;
     my $passport;
     if ($options->{style}) {
         my $style = $options->{style};
-        $kunrei   = 1 if $style eq 'kunrei';
-	$passport = 1 if $style eq 'passport';
-	$hepburn  = 1 if $style eq 'hepburn';
+        if ($style eq 'kunrei') {
+            $kunrei   = 1;
+        }
+        if ($style eq 'passport') {
+            $passport = 1;
+        }
+        if ($style eq 'hepburn') {
+            $hepburn  = 1;
+        }
         if (!$kunrei && !$passport && !$hepburn && $style ne "nihon") {
             die "Unknown romanization style $options->{style}";
         }
     }
     my $wapuro;
-    $wapuro   = 1 if $options->{wapuro};
+    if ($options->{wapuro}) {
+        $wapuro = 1;
+    }
     my $use_m = 0;
     if ($hepburn || $passport) { $use_m = 1 }
     if (defined($options->{use_m})) { $use_m = $options->{use_m} }
@@ -389,7 +400,7 @@ sub kana2romaji
     if ($options->{ve_type}) {
 	$ve_type = $options->{ve_type};
     }
-    unless ($chouonhyouki{$ve_type}) {
+    if (! $chouonhyouki{$ve_type}) {
 	print STDERR "Warning: unrecognized long vowel type '$ve_type'\n";
 	$ve_type = 'circumflex';
     }
@@ -542,11 +553,11 @@ my $longvowels = join '|', sort {length($a)<=>length($b)} keys %longvowels;
 
 sub romaji2kana
 {
+    my ($input, $options) = @_;
     if (! defined $romaji2katakana) {
 	$romaji2katakana = load_convertor ('romaji','katakana');
 	$romaji_regex = make_regex (keys %$romaji2katakana);
     }
-    my ($input, $options) = @_;
     if (! defined $input) {
         return;
     }

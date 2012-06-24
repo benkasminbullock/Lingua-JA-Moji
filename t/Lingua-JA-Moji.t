@@ -46,8 +46,8 @@ my $ouhisi = kana2romaji ("おうひし", {style => "nihon", ve_type => "wapuro"
 
 ok ($ouhisi eq "ouhisi");
 
-my $ouhisi = kana2romaji ("おうひし", {style => "kunrei", ve_type => "wapuro"});
-ok ($ouhisi eq "ouhisi");
+my $ouhisi2 = kana2romaji ("おうひし", {style => "kunrei", ve_type => "wapuro"});
+ok ($ouhisi2 eq "ouhisi");
 
 # "romaji2hiragana" (Romaji to hiragana) tests
 
