@@ -574,8 +574,10 @@ sub romaji2kana
     $input =~ s/[nm](?=[nm][aiueo])/ン/g;
     # shimbun -> しんぶん
     $input =~ s/m(?=[pb]y?[aiueo])/ン/g;
-    # tcha, ccha -> っちゃ
-    $input =~ s/[ct](?=(ch|t)[aiueo])/ッ/g;
+    # tcha -> っちゃ
+    $input =~ s/t(?=ch[aiueo])/ッ/g;
+    # ccha -> っちゃ
+    $input =~ s/c(?=ch[aiueo])/ッ/g;
     # kkya -> っきゃ etc.
     $input =~ s/([ksthmrgzdbp])(?=\1y?[aiueo])/ッ/g;
     # ssha -> っしゃ
