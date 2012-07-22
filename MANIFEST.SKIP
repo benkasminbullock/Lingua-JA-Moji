@@ -13,5 +13,6 @@ Lingua-JA-Moji-[\d.]+
 \.bak
 \.old
 Makefile$
-
-
+build\.pl
+build/.*
+makeitfile
