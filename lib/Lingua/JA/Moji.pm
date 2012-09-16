@@ -67,7 +67,8 @@ sub load_convertor
     if (! $file || ! -f $file) {
 	croak "Could not find distribution file '$filename'";
     }
-    return Convert::Moji::load_convertor ($file);
+    my $convertor = Convert::Moji::load_convertor ($file);
+    return $convertor;
 }
 
 sub add_boilerplate
@@ -555,7 +556,7 @@ sub romaji2kana
 {
     my ($input, $options) = @_;
     if (! defined $romaji2katakana) {
-	$romaji2katakana = load_convertor ('romaji','katakana');
+	$romaji2katakana = load_convertor ('romaji', 'katakana');
 	$romaji_regex = make_regex (keys %$romaji2katakana);
     }
     if (! defined $input) {
@@ -583,6 +584,7 @@ sub romaji2kana
     # ssha -> っしゃ
     $input =~ s/([s])(?=\1h[aiueo])/ッ/g;
     # oh{consonant} -> oo
+    # Bug - does not take into account doubled vowels to chouon above.
     $input =~ s/oh(?=[ksthmrgzdbp])/オオ/g;
     # Substitute all the kana.
     $input =~ s/($romaji_regex)/$romaji2katakana->{$1}/g;
@@ -610,7 +612,10 @@ sub is_voiced
 
 sub is_romaji
 {
+    binmode STDOUT, ":utf8";
     my ($romaji) = @_;
+    # Test that $romaji contains only characters which may be
+    # romanized Japanese.
     if ($romaji =~ /[^\sa-zāīūēōâîûêô'-]/i) {
         return;
     }

@@ -10,7 +10,7 @@ WriteMakefile (
     ABSTRACT => 'Handle many kinds of Japanese characters',
     VERSION_FROM => 'lib/Lingua/JA/Moji.pm',
     PREREQ_PM => {
-        'Convert::Moji' => '0.03',
+        'Convert::Moji' => '0.05',
     },
     META_MERGE => {
         resources => {
