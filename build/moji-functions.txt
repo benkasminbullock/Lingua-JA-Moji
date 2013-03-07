@@ -569,6 +569,27 @@ useful for looping over the kana or sorting.
 
 %%
 
+name: katakana2syllable
+%%eg:
+
+$syllables = katakana2syllable ('ソーシャルブックマークサービス');
+
+%%desc.en:
+
+This breaks the given string into syllables. If the string is broken
+up character by character, it becomes 'ソ', 'ー', 'シ', 'ャ', 'ル'.
+This breaks the string up into meaningful syllables, so that
+C<$syllables> becomes 'ソー', 'シャ', 'ル'.
+
+%%
+%%desc.ja:
+
+カタカナをシラブルにわける。たとえば、「ソーシャル」
+は'ソ', 'ー', 'シ', 'ャ', 'ル'という意味のない文字ではなく、日本語の
+「原子」の'ソー', 'シャ', 'ル'になる。
+
+%%
+
 name: InKana
 %%eg:
 

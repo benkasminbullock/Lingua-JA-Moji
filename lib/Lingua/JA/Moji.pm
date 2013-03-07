@@ -51,6 +51,7 @@ our @EXPORT_OK = qw/
                     kanji2circled
                     bracketed2kanji
                     kanji2bracketed
+                    katakana2syllable
                     /;
 
 our %EXPORT_TAGS = (
@@ -1078,6 +1079,20 @@ END
     # and handakuten half width. The Katakana catches halfwidth
     # katakana, and the InKatakana catches the chouon mark. IsCn means
     # "other, not assigned".
+}
+
+# お
+
+my $kana2syllable_re = qr/ッ?[アイウエオ-モヤユヨ-ヴ](?:[ャュョァィゥェォ])?ー?/;
+
+sub katakana2syllable
+{
+    my ($kana) = @_;
+    my @pieces;
+    while ($kana =~ /($kana2syllable_re)/g) {
+        push @pieces, $1;
+    }
+    return \@pieces;
 }
 
 1; 
