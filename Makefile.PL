@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 my $repo = 'https://github.com/benkasminbullock/Lingua-JA-Moji';
 
 WriteMakefile (
-    NAME => 'Lingua-JA-Moji',
+    NAME => 'Lingua::JA::Moji',
     AUTHOR => 'Ben Bullock bkb@cpan.org',
     ABSTRACT => 'Handle many kinds of Japanese characters',
     VERSION_FROM => 'lib/Lingua/JA/Moji.pm',
