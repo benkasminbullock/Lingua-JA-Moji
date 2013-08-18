@@ -81,6 +81,8 @@ my %names = (
     },
 );
 
+my @notes = (qw/chouon passport wapuro/);
+
 my @functions = read_table ("$FindBin::Bin/moji-functions.txt");
 
 for my $function (@functions) {
@@ -146,9 +148,13 @@ my $tt = Template->new (
 for my $lang (qw/en ja/) {
     get_lang_trans ($trans, \%vars, $lang, $verbose);
     $vars{lang} = $lang;
-    $tt->process ('Moji.pod.tmpl', \%vars, "$dir/$outputs{$lang}",
+    my $out;
+    $tt->process ('Moji.pod.tmpl', \%vars, \$out,
                   {binmode => 'utf8'})
         or die "" . $tt->error ();
+    open my $output, ">:encoding(utf8)", "$dir/$outputs{$lang}" or die $!;
+    print $output $out;
+    close $output or die $!;
 }
 exit;
 

@@ -173,19 +173,19 @@ out: $kana
 expect: ヤマグチ
 %%desc.en:
 
+Convert romanized Japanese to katakana. The romanization is highly
+liberal and will attempt to convert any romanization it sees into
+katakana. The romanization is based on the behaviour of the Microsoft
+IME (input method editor). To convert romanized Japanese into
+hiragana, use L</romaji2hiragana>.
 
-Convert romanized Japanese to kana. The romanization is highly liberal
-and will attempt to convert any romanization it sees into kana. The
-romanization is based on the behaviour of the Microsoft IME. To
-convert romanized Japanese into hiragana, use L</romaji2hiragana>.
-
-The second argument to the function contains options in the
+An optional second argument to the function contains options in the
 form of a hash reference,
 
      $kana = romaji2kana ($romaji, {wapuro => 1});
 
 Use an option C<< wapuro => 1 >> to convert long vowels into the
-equivalent kana rather than I<chouon>.
+equivalent kana rather than L</chouon>.
 
 %%
 %%desc.ja:
@@ -197,7 +197,7 @@ equivalent kana rather than I<chouon>.
 
      $kana = romaji2kana ($romaji, {wapuro => 1});
 
-長音「ou」を「オー」ではなく、「オウ」にしたいときはwapuroを真にする。
+長音「ou」を「オー」ではなく、「オウ」にしたいときはwapuroを真にする C<< wapuro => 1 >>。
 
 %%
 
@@ -212,9 +212,8 @@ expect: ばぶぼ
 %%desc.en:
 
 Convert romanized Japanese into hiragana. This takes the same options
-as L</romaji2kana>. It also switches on the "wapuro" option which makes
-the use of long vowels with a kana rather than a chouon (long vowel
-marker).
+as L</romaji2kana>. It also switches on the "wapuro" option, which
+uses long vowels with a kana rather than a L</chouon>.
 
 %%
 %%desc.ja:
@@ -237,11 +236,11 @@ romaji_styles ("frogs");
 %%
 %%desc.en:
 
-Given an argument, return whether it is a legitimate style of
+Given an argument, this return a true value if it is a known style of
 romanization.
 
-Without an argument, return a list of possible styles, as an array of
-hash references, with each hash reference containing the short name
+Without an argument, it returns a list of possible styles, as an array
+of hash references, with each hash reference containing the short name
 under the key "abbrev" and the full name under the key "full_name".
 
 %%
@@ -255,7 +254,6 @@ under the key "abbrev" and the full name under the key "full_name".
 
 name:  is_voiced
 %%eg:
-
 
 if (is_voiced ('が')) {
      print "が is voiced.\n";
@@ -287,13 +285,14 @@ is_romaji ("atarimae");
 %%
 %%desc.en:
 
-Detect whether a string of alphabetical characters, which may also
-include characters with macrons or circumflexes, "looks like"
-romanized Japanese. If the test is successful, returns the romaji in a
-canonical form.
+This detects whether a string of alphabetical characters, which may
+also include characters with macrons or circumflexes, "looks like"
+romanized Japanese. If the test is successful, it returns a true
+value, and if the test is unsuccessful, it returns a false value. If
+the string is empty, it returns a false value.
 
-This functions by converting the string to kana and seeing if it
-converts cleanly or not.
+This works by converting the string to kana via L</romaji2kana> and
+seeing if it converts cleanly or not.
 
 %%
 %%desc.ja:
@@ -351,14 +350,15 @@ out: $katakana
 expect: ヒラガナ
 %%desc.en:
 
-C<hira2kata> converts hiragana into katakana. If the input is a list,
-it converts each element of the list, and if required, returns a list
-of the converted inputs, otherwise it returns a concatenation of the
-strings.
+C<hira2kata> converts hiragana into katakana. The input may be a
+single string or a list of strings. If the input is a list, it
+converts each element of the list, and in list context it returns a
+list of the converted inputs. In scalar context it returns a
+concatenation of the strings.
 
     my @katakana = hira2kata (@hiragana);
 
-This does not convert chouon signs.
+This does not convert L</chouon> signs.
 
 %%
 %%desc.ja:
@@ -379,14 +379,14 @@ expect:  かきくけこ
 %%desc.en:
 
 C<kata2hira> converts full-width katakana into hiragana. If the input
-is a list, it converts each element of the list, and if required,
+is a list, it converts each element of the list, and in list context,
 returns a list of the converted inputs, otherwise it returns a
 concatenation of the strings.
 
     my @hiragana = hira2kata (@katakana);
 
-This function does not convert chouon signs into long vowels. It also
-does not convert half-width katakana into hiragana.
+This function does not convert L</chouon> signs into long vowels. It
+also does not convert half-width katakana into hiragana.
 
 %%
 %%desc.ja:
@@ -401,8 +401,8 @@ name:  kana2katakana
 %%
 %%desc.en:
 
-Convert any of katakana, halfwidth katakana, circled katakana and
-hiragana to full width katakana.
+This converts any of katakana, L</halfwidth katakana>, circled katakana
+and hiragana to full width katakana.
 
 %%
 %%desc.ja:
@@ -443,7 +443,7 @@ if ('ｱ' =~ /\p{InHankakuKatakana}/) {
 %%desc.en:
 
 C<InHankakuKatakana> is a character class for use in regular
-expressions with C<\p> which can validate halfwidth katakana.
+expressions with C<\p> which can validate L</halfwidth katakana>.
 
 %%
 
@@ -452,14 +452,13 @@ out: $half_width
 expect: ｱｲｳｶｷｷﾞｮｳ｡
 %%eg:
 
-
 $half_width = kana2hw ('あいウカキぎょう。');
 
 %%
 %%desc.en:
 
 C<kana2hw> converts hiragana, katakana, and fullwidth Japanese
-punctuation to halfwidth katakana and halfwidth punctuation. Its
+punctuation to L</halfwidth katakana> and halfwidth punctuation. Its
 function is similar to the Emacs command C<japanese-hankaku-region>.
 For the opposite function, see L<hw2katakana>. See also
 L</katakana2hw> for a function which only converts katakana.
@@ -481,10 +480,10 @@ $full_width = hw2katakana ('ｱｲｳｶｷｷﾞｮｳ｡');
 %%
 %%desc.en:
 
-C<hw2katakana> converts halfwidth katakana and Japanese punctuation to
-fullwidth katakana and punctuation. Its function is similar to the
-Emacs command C<japanese-zenkaku-region>. For the opposite function,
-see L<kana2hw>.
+C<hw2katakana> converts L</halfwidth katakana> and halfwidth Japanese
+punctuation to fullwidth katakana and fullwidth punctuation. Its
+function is similar to the Emacs command
+C<japanese-zenkaku-region>. For the opposite function, see L<kana2hw>.
 
 %%
 %%desc.ja:
@@ -503,7 +502,7 @@ out: $hw
 expect: あいうえおｱｲｳｴｵ
 %%desc.en:
 
-Convert katakana to halfwidth katakana, leaving hiragana
+This converts katakana to L</halfwidth katakana>, leaving hiragana
 unchanged. See also L</kana2hw>.
 
 %%
@@ -516,14 +515,12 @@ unchanged. See also L</kana2hw>.
 name:  is_kana
 %%eg:
 
-
-
 %%
 %%desc.en:
 
 This function returns a true value if its argument is a string of
 kana, or an undefined value if not. The input cannot contain
-punctuation or the long vowel symbol (chouonpu).
+punctuation or L</chouon>.
 
 %%
 %%desc.ja:
@@ -541,8 +538,7 @@ name:  is_hiragana
 This function returns a true value if its argument is a string of
 hiragana, and an undefined value if not. The entire string from
 beginning to end must all be kana for this to return true. The kana
-cannot include punctuation marks or the long vowel symbol (chouonpu,
-「ー」).
+cannot include punctuation marks or L</chouon>.
 
 %%
 %%desc.ja:
@@ -613,11 +609,7 @@ characters.
 class: wide
 %%explain.en:
 
-Functions for handling the "wide ascii" which is sometimes used in
-Japan. The "wide ascii" is a legacy of bitmapped fonts which has
-survived into the present day. "Wide ascii" characters were special
-bitmapped font characters created to be the same size as one kanji or
-kana character.
+Functions for handling L</wide ASCII>.
 
 %%
 %%explain.ja:
@@ -638,8 +630,7 @@ if ('Ａ' =~ /\p{InWideAscii}/) {
 %%
 %%desc.en:
 
-This is a character class for use with \p which matches a "wide ascii"
-(全角英数字).
+This is a character class for use with \p which matches L</wide ASCII>
 
 %%
 %%desc.ja:
@@ -659,8 +650,7 @@ $ascii = wide2ascii ('ａｂＣＥ０１９');
 %%
 %%desc.en:
 
-Convert the "wide ASCII" used in Japan (fullwidth ASCII, 全角英数字)
-into usual ASCII symbols (半角英数字).
+Convert L</wide ASCII> into ASCII.
 
 %%
 %%desc.ja:
@@ -679,8 +669,7 @@ $wide = ascii2wide ('abCE019');
 %%
 %%desc.en:
 
-Convert usual ASCII symbols (半角英数字) into the "wide ASCII" used in
-Japan (fullwidth ASCII, 全角英数字).
+Convert ASCII into L</wide ASCII>.
 
 
 %%
@@ -702,10 +691,9 @@ out: $morse
 expect: --.-. -- .--. ..-. -..-- ..-
 %%desc.en:
 
-Convert Japanese kana into Morse code. Note that Japanese morse code
-does not have any way of representing small kana characters, so
-converting to and then from morse code will result in しょっちゅう
-becoming シヨツチユウ.
+Convert Japanese kana into Morse code. Japanese morse code does not
+have any way of representing small kana characters, so converting to
+and then from morse code will result in しょっちゅう becoming シヨツチユウ.
 
 %%
 %%desc.ja:
@@ -750,7 +738,8 @@ name:  kana2braille
 %%
 %%desc.en:
 
-Converts kana into the equivalent Japanese braille (I<tenji>) forms.
+This converts kana into the equivalent Japanese braille (I<tenji>)
+forms.
 
 %%
 %%desc.ja:
@@ -789,7 +778,6 @@ out: $circled
 expect: ㋐㋑㋒㋓㋔
 %%eg:
 
-
 $circled = kana2circled ('あいうえお');
 
 %%
@@ -798,8 +786,7 @@ $circled = kana2circled ('あいうえお');
 This function converts kana into the "circled katakana" of Unicode,
 which have code points from 32D0 to 32FE. See also L</circled2kana>.
 
-Note that there is no circled form of the ン kana, so this is left
-untouched.
+There is no circled form of the ン kana, so this is left untouched.
 
 %%
 %%desc.ja:
@@ -1023,7 +1010,7 @@ L<Lingua::KO::Munja>.
 
 =over
 
-=item Doesn't deal with ん
+=item Doesn't deal with syllabic n
 
 =item May be incorrect
 
@@ -1041,6 +1028,8 @@ proof of correctness.
 =item 確認がない
 
 =back
+
+L<http://kajiritate-no-hangul.com/kana.html>を使ってみましたがただしいかどうか証明がありません。
 
 %%
 
