@@ -628,6 +628,10 @@ sub is_romaji
     return;
 }
 
+my $vowel_re = qr/[aeiouâêîôûāēōū]/;
+my $no_u_vowel_re = qr/[aeioâêîôāēō]/;
+my $u_re = qr/[uūû]/;
+
 sub is_romaji_strict
 {
     binmode STDOUT, ":utf8";
@@ -638,27 +642,27 @@ sub is_romaji_strict
     if ($romaji =~ /
 		       # Don't allow small vowels, small tsu, or fya,
 		       # fye etc.
-		       (fy|l|x|v)y?([aeiou]|ts?u|wa|ka|ke)
+		       (fy|l|x|v)y?($vowel_re|ts?u|wa|ka|ke)
 		   |
 		       # Don't allow hyi, hye, yi, ye.
-		       [zh]?y[ie]
+		       [zh]?y[ieêîē]
 		   |
 		       # Don't allow tye
-		       tye
+		       ty[eêē]
 		   |
 		       # Don't allow wh-, kw-, gw-, dh-, etc.
-		       (wh|kw|gw|dh)[aeiou]
+		       (wh|kw|gw|dh)$vowel_re
 		   |
 		       # Don't allow tsa, tsi, tse, tso, fa, fe, fi, fo.
-		       (ts|f)[aeio]
+		       (ts|f)$no_u_vowel_re
 		   |
 		       # Don't allow "t'i"
-		       [dt]'(i|yu|u)
+		       [dt]'(i|y?$u_re)
 		   |
 		       # Don't allow dwu, twu
-		       [dt](wu)
+		       [dt](w$u_re)
 		   |
-		       hwyu
+		       hwy$u_re
 		   /ix) {
         return;
     }
