@@ -280,6 +280,8 @@ name:  is_romaji
 # The following line returns "undef"
 is_romaji ("abcdefg");
 # The following line returns a defined value
+is_romaji ('loyehye');
+# The following line returns a defined value
 is_romaji ("atarimae");
 
 %%
@@ -298,6 +300,37 @@ seeing if it converts cleanly or not.
 %%desc.ja:
 
 アルファベットの列はローマ字に見えるなら真、見えないなら偽。
+
+%%
+
+name:  is_romaji_strict
+%%eg:
+
+
+# The following line returns "undef"
+is_romaji_strict ("abcdefg");
+# The following line returns "undef"
+is_romaji_strict ('loyehye');
+# The following line returns a defined value
+is_romaji_strict ("atarimae");
+
+%%
+%%desc.en:
+
+This detects whether a string of alphabetical characters, which may
+also include characters with macrons or circumflexes, "looks like"
+romanized Japanese. If the test is successful, it returns a true
+value, and if the test is unsuccessful, it returns a false value. If
+the string is empty, it returns a false value.
+
+This test is much stricter than L</is_romaji>. It insists that the
+word does not contain constructions which may be valid as inputs to an
+IME, but which do not look like Japanese words.
+
+%%
+%%desc.ja:
+
+アルファベットの列はローマ字に見えるなら真、見えないなら偽。L</is_romaji>より厳しく、コンピューター入力に見えるかどうかではなく、本当に「日本語」かどうか確認する。
 
 %%
 
