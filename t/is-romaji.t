@@ -11,6 +11,10 @@ my @tests = (
 );
 
 my @bugs = (
+{
+    word => 'Hu Piaoye',
+    is => undef,
+}
 );
 
 run (@tests);
