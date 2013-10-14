@@ -16,3 +16,4 @@ Makefile$
 build\.pl
 build/.*
 makeitfile
+MYMETA\..*
