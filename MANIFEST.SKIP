@@ -17,3 +17,4 @@ build\.pl
 build/.*
 makeitfile
 MYMETA\..*
+lib/Lingua/JA/Moji/(gal2kana|kanji2abc)\.txt
