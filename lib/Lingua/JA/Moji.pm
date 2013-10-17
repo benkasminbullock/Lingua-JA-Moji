@@ -663,6 +663,11 @@ sub is_romaji_strict
 		       [dt](w$u_re)
 		   |
 		       hwy$u_re
+		   |
+		       # Don't allow "wi".
+		       wi
+		   |
+		       she
 		   /ix) {
         return;
     }

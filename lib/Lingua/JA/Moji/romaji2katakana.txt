@@ -81,6 +81,8 @@ ji ジ
 jo ジョ
 ju ジュ
 jya ジャ
+jye ジェ
+jyi ジィ
 jyo ジョ
 jyu ジュ
 ka カ
@@ -92,7 +94,10 @@ kwa クァ
 kwe クェ
 kwi クィ
 kwo クォ
+kwu クゥ
 kya キャ
+kye キェ
+kyi キィ
 kyo キョ
 kyu キュ
 la ァ
@@ -101,6 +106,8 @@ li ィ
 lo ォ
 lu ゥ
 lya ャ
+lye ェ
+lyi ィ
 lyo ョ
 lyu ュ
 ma マ
@@ -122,6 +129,8 @@ nn ン
 no ノ
 nu ヌ
 nya ニャ
+nye ニェ
+nyi ニィ
 nyo ニョ
 nyu ニュ
 o オ
@@ -145,6 +154,8 @@ ri リ
 ro ロ
 ru ル
 rya リャ
+rye リェ
+ryi リィ
 ryo リョ
 ryu リュ
 sa サ
