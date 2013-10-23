@@ -1,5 +1,9 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.28 2013-10-23
+
+* Fix bug "ttsu" not converted to "ッツ" in romaji2kana.
+
 0.27 2013-10-14
 
 * Romaji to kana for hyi, hye, fya, fye, fyi, fyo, fyu, dyi, dye.

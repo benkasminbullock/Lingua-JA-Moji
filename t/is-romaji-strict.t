@@ -6,6 +6,7 @@ use Lingua::JA::Moji 'is_romaji_strict';
 ok (is_romaji_strict ('Shigeru Yoshikawa'), "Shigeru Yoshikawa = Japanese");
 ok (! is_romaji_strict ('Lolita'), "Lolita != Japanese");
 ok (! is_romaji_strict ('Hu Piaoye'), "Hu Piaoye != Japanese");
+ok (is_romaji_strict ('gottsuu suiterunen'), "gottsuu suiterunen");
 my @bad_boys;
 # These are bad with ye and yi.
 my @ye_yi_bad = (qw/k d j t p r l n m/);

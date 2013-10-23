@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.27';
+our $VERSION = '0.28';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -583,6 +583,8 @@ sub romaji2kana
     $input =~ s/c(?=ch[aiueo])/ッ/g;
     # kkya -> っきゃ etc.
     $input =~ s/([ksthmrgzdbp])(?=\1y?[aiueo])/ッ/g;
+    # kkya -> っきゃ etc.
+    $input =~ s/ttsu/ッツ/g;
     # ssha -> っしゃ
     $input =~ s/([s])(?=\1h[aiueo])/ッ/g;
     # oh{consonant} -> oo
@@ -622,7 +624,7 @@ sub is_romaji
         return;
     }
     my $kana = romaji2kana ($romaji, {wapuro => 1});
-    if ($kana =~ /^[ア-ンー\s]+$/) {
+    if ($kana =~ /^[ア-ンッー\s]+$/) {
         return kana2romaji ($kana, {wapuro => 1});
     }
     return;
