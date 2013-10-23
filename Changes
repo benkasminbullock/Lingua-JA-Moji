@@ -2,7 +2,9 @@ Revision history for perl module Lingua::JA::Moji
 
 0.28 2013-10-23
 
-* Fix bug "ttsu" not converted to "ッツ" in romaji2kana.
+* Fix bug "ttsu" not converted to "ッツ" in "romaji2kana".
+* More romaji constructions like nyi, nye, etc. in "romaji2kana".
+* Disallow "wi" in "is_romaji_strict".
 
 0.27 2013-10-14
 
