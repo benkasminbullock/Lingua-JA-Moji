@@ -7,6 +7,16 @@ ok (is_romaji_strict ('Shigeru Yoshikawa'), "Shigeru Yoshikawa = Japanese");
 ok (! is_romaji_strict ('Lolita'), "Lolita != Japanese");
 ok (! is_romaji_strict ('Hu Piaoye'), "Hu Piaoye != Japanese");
 ok (is_romaji_strict ('gottsuu suiterunen'), "gottsuu suiterunen");
+ok (! is_romaji_strict ('kitchen'), "'kitchen' is not Japanese");
+# Bug with upper/lower case vowels, did not put /i after qr/ for
+# "$vowel_re" before "is_romaji_strict".
+ok (! is_romaji_strict ('WHO'), "'WHO' is not Japanese");
+ok (! is_romaji_strict ('irritate'), "double-r is not Japanese");
+ok (! is_romaji_strict ('yya'), "double-y is not Japanese");
+ok (! is_romaji_strict ('adithya'), "'adithya' is not Japanese");
+
+# List of romanizations we don't want to allow.
+
 my @bad_boys;
 # These are bad with ye and yi.
 my @ye_yi_bad = (qw/k d j t p r l n m/);
@@ -36,6 +46,11 @@ push @bad_boys, (qw/
 		       tso
 		       twu
 		       wi
+		       syi
+		       sye
+		       je
+		       thy
+		       thya
 		  /);
 
 my %c;
@@ -47,4 +62,10 @@ for my $bad_boy (@bad_boys) {
     $c{$bad_boy} = 1;
     ok (! is_romaji_strict ($bad_boy), "$bad_boy is not Japanese");
 }
+TODO: {
+    local $TODO='bugs';
+# Add bugs here.
+#    ok (! is_romaji_strict ('1'), "'1' is not Japanese");
+};
+
 done_testing ();

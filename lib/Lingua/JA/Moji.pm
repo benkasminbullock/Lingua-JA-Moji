@@ -630,9 +630,9 @@ sub is_romaji
     return;
 }
 
-my $vowel_re = qr/[aeiouâêîôûāēōū]/;
-my $no_u_vowel_re = qr/[aeioâêîôāēō]/;
-my $u_re = qr/[uūû]/;
+my $vowel_re = qr/[aeiouâêîôûāēōū]/i;
+my $no_u_vowel_re = qr/[aeioâêîôāēō]/i;
+my $u_re = qr/[uūû]/i;
 
 sub is_romaji_strict
 {
@@ -653,7 +653,7 @@ sub is_romaji_strict
 		       ty[eêē]
 		   |
 		       # Don't allow wh-, kw-, gw-, dh-, etc.
-		       (wh|kw|gw|dh)$vowel_re
+		       (wh|kw|gw|dh|thy)$vowel_re
 		   |
 		       # Don't allow tsa, tsi, tse, tso, fa, fe, fi, fo.
 		       (ts|f)$no_u_vowel_re
@@ -669,7 +669,11 @@ sub is_romaji_strict
 		       # Don't allow "wi".
 		       wi
 		   |
-		       she
+		       # Don't allow 'je', 'che', 'she'
+		       (?:[cs]h|j)e
+		   |
+		       # Don't allow some non-Japanese double consonants.
+		       (?:rr|yy)
 		   /ix) {
         return;
     }

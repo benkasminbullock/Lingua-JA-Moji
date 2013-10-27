@@ -8,19 +8,27 @@ my @tests = (
     word => 'Maractite',
     is => undef,
 },
-);
-
-my @bugs = (
 {
-    word => 'Hu Piaoye',
+    word => 'WHO',
+    is => 'uxo',
+},
+{
+    word => 'who',
+    is => 'uxo',
+},
+{
+    word => 'thya',
     is => undef,
-}
+},
+{
+    word => 'thy',
+    is => undef,
+},
 );
 
 run (@tests);
 TODO: {
     local $TODO = 'bugs';
-    run (@bugs);
 }
 done_testing ();
 exit;
@@ -29,7 +37,11 @@ sub run
 {
     my (@list) = @_;
     for my $test (@list) {
-        my $message = '';
+        my $message = "'$test->{word}' is ";
+	if (! $test->{is}) {
+	    $message .= "not ";
+	}
+	$message .= " romaji.";
         is (is_romaji ($test->{word}), $test->{is}, $message);
     }
 }
