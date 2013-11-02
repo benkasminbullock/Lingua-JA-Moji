@@ -1,10 +1,13 @@
 Revision history for perl module Lingua::JA::Moji
 
-0.29
+0.29 2013-11-03
 
-* Don't allow 'je', 'che', 'rr', 'yy', 'thya' in 'is_romaji_strict'.
+* Don't allow 'je', 'che', 'rr', 'yy', 'thya', 'thi', 'yi' in
+  'is_romaji_strict'.
 * Fix bug 'WHO' allowed in 'is_romaji_strict'.
 * Remove 'thy' from possible romaji inputs.
+* Add 'use_wo' option for "kana2romaji".
+* Add 'ime' option for "romaji2kana" and "romaji2hiragana".
 
 0.28 2013-10-23
 

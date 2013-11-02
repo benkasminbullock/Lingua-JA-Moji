@@ -14,6 +14,7 @@ ok (! is_romaji_strict ('WHO'), "'WHO' is not Japanese");
 ok (! is_romaji_strict ('irritate'), "double-r is not Japanese");
 ok (! is_romaji_strict ('yya'), "double-y is not Japanese");
 ok (! is_romaji_strict ('adithya'), "'adithya' is not Japanese");
+ok (is_romaji_strict ('AREKKUSU'), "'AREKKUSU' is romaji");
 
 # List of romanizations we don't want to allow.
 
@@ -36,21 +37,23 @@ for my $x (@small_bad) {
 }
 # Other stuff we don't like.
 push @bad_boys, (qw/
+		       je
 		       she
+		       sye
+		       syi
 		       t'i
 		       t'u
 		       t'yu
+		       thi
+		       thy
+		       thya
 		       tsa
 		       tse
 		       tsi
 		       tso
 		       twu
+		       we
 		       wi
-		       syi
-		       sye
-		       je
-		       thy
-		       thya
 		  /);
 
 my %c;

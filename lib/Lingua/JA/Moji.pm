@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.28';
+our $VERSION = '0.29';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -14,11 +14,13 @@ use utf8;
 
 our @EXPORT_OK = qw/
                     InHankakuKatakana
-                    InWideAscii
                     InKana
+                    InWideAscii
                     ascii2wide
+                    bracketed2kanji
                     braille2kana
                     circled2kana
+                    circled2kanji
                     cyrillic2katakana
                     hira2kata
                     hw2katakana
@@ -32,13 +34,16 @@ our @EXPORT_OK = qw/
                     kana2cyrillic
                     kana2hangul
                     kana2hw
-                    katakana2hw
                     kana2katakana
                     kana2morse
                     kana2romaji
                     kana_order
                     kana_to_large
+                    kanji2bracketed
+                    kanji2circled
                     kata2hira
+                    katakana2hw
+                    katakana2syllable
                     morse2kana
                     new2old_kanji
                     normalize_romaji
@@ -48,12 +53,7 @@ our @EXPORT_OK = qw/
                     romaji_styles
                     romaji_vowel_styles
                     wide2ascii
-                    circled2kanji
-                    kanji2circled
-                    bracketed2kanji
-                    kanji2bracketed
-                    katakana2syllable
-                    /;
+		   /;
 
 our %EXPORT_TAGS = (
     'all' => \@EXPORT_OK,
@@ -386,8 +386,12 @@ sub kana2romaji
         $wapuro = 1;
     }
     my $use_m = 0;
-    if ($hepburn || $passport) { $use_m = 1 }
-    if (defined($options->{use_m})) { $use_m = $options->{use_m} }
+    if ($hepburn || $passport) {
+	$use_m = 1;
+    }
+    if (defined $options->{use_m}) {
+	$use_m = $options->{use_m}
+    }
     my $ve_type = 'circumflex'; # type of vowel extension to use.
     if ($hepburn) {
 	$ve_type = 'macron';
@@ -407,7 +411,10 @@ sub kana2romaji
 	print STDERR "Warning: unrecognized long vowel type '$ve_type'\n";
 	$ve_type = 'circumflex';
     }
-
+    my $wo;
+    if ($options->{wo}) {
+	$wo = 1;
+    }
     # Start of conversion
 
     # 撥音 (ん)
@@ -456,7 +463,13 @@ sub kana2romaji
     }
     $input =~ s/([$vowelclass{i}])([$youon])/$siin{$1}y$boin{$2}/g;
     # その他
-    $input =~ s/([アイウエオヲ])/$boin{$1}/g;
+    if ($wo) {
+	$input =~ s/ヲ/wo/g;
+	$input =~ s/([アイウエオ])/$boin{$1}/g;
+    }
+    else {
+	$input =~ s/([アイウエオヲ])/$boin{$1}/g;
+    }
     $input =~ s/([ァィゥェォ])/q$boin{$1}/g;
     if ($hepburn) {
 	$input =~ s/([$hep_list])/$hepburn{$1}$boin{$1}/g;
@@ -561,20 +574,41 @@ sub romaji2kana
 	$romaji2katakana = load_convertor ('romaji', 'katakana');
 	$romaji_regex = make_regex (keys %$romaji2katakana);
     }
+    # Set to true if we want long o to be オウ rather than オー
+    my $wapuro;
+    # Set to true if we want gumma to be ぐっま and onnna to be おんな.
+    my $ime;
+    if ($options) {
+	$wapuro = $options->{wapuro};
+	$ime = $options->{ime};
+    }
+
     if (! defined $input) {
         return;
     }
     $input = lc $input;
     # Deal with long vowels
     $input =~ s/($longvowels)/$longvowels{$1}/g;
-    if (!$options || !$options->{wapuro}) {
+    if (! $wapuro) {
         # Doubled vowels to chouon
         $input =~ s/([aiueo])\1/$1ー/g;
     }
     # Deal with double consonants
     # danna -> だんな
-    # gumma -> gunma
-    $input =~ s/[nm](?=[nm][aiueo])/ン/g;
+    if ($ime) {
+	# IME romaji rules:
+	# Allow double n for ん:
+	# gunnma -> グンマ, dannna -> ダンナ
+	$input =~ s/n{1,2}(?=[nm][aiueo])/ン/g;
+	# Substitute sokuon for mm + vowel:
+	# gumma -> グッマ
+	$input =~ s/m(?=[nm][aiueo])/ッ/g;
+    }
+    else {
+	# Usual romaji rules: Don't allow double n for ん, change
+	# gumma to グンマ.
+	$input =~ s/[nm](?=[nm][aiueo])/ン/g;
+    }
     # shimbun -> しんぶん
     $input =~ s/m(?=[pb]y?[aiueo])/ン/g;
     # tcha -> っちゃ
@@ -582,15 +616,24 @@ sub romaji2kana
     # ccha -> っちゃ
     $input =~ s/c(?=ch[aiueo])/ッ/g;
     # kkya -> っきゃ etc.
-    $input =~ s/([ksthmrgzdbp])(?=\1y?[aiueo])/ッ/g;
+    $input =~ s/([kstfhmrgzdbpjqvwy])(?=\1y?[aiueo])/ッ/g;
     # kkya -> っきゃ etc.
     $input =~ s/ttsu/ッツ/g;
     # ssha -> っしゃ
     $input =~ s/([s])(?=\1h[aiueo])/ッ/g;
+    # Passport romaji,
     # oh{consonant} -> oo
-    # Bug - does not take into account doubled vowels to chouon above.
-    $input =~ s/oh(?=[ksthmrgzdbp])/オオ/g;
-    # Substitute all the kana.
+    if (! $ime) {
+	# IMEs do not recognize passport romaji.
+	if ($wapuro) {
+	    $input =~ s/oh(?=[ksthmrgzdbp])/オウ/g;
+	}
+	else {
+	    $input =~ s/oh(?=[ksthmrgzdbp])/オー/g;
+	}
+    }
+    # All the special cases have been dealt with, now substitute all
+    # the kana.
     $input =~ s/($romaji_regex)/$romaji2katakana->{$1}/g;
     return $input;
 }
@@ -666,14 +709,17 @@ sub is_romaji_strict
 		   |
 		       hwy$u_re
 		   |
-		       # Don't allow "wi".
-		       wi
+		       # Don't allow "wi" or "we".
+		       w(i|e)
 		   |
 		       # Don't allow 'je', 'che', 'she'
 		       (?:[cs]h|j)e
 		   |
 		       # Don't allow some non-Japanese double consonants.
 		       (?:rr|yy)
+		   |
+		       # Don't allow 'thi'
+		       thi
 		   /ix) {
         return;
     }
@@ -686,14 +732,14 @@ sub hira2kata
     if (!@input) {
         return;
     }
-    for (@input) {tr/ぁ-ん/ァ-ン/}
+    for (@input) {tr/ぁ-んゔ/ァ-ンヴ/}
     return wantarray ? @input : "@input";
 }
 
 sub kata2hira
 {
     my (@input) = @_;
-    for (@input) {tr/ァ-ン/ぁ-ん/}
+    for (@input) {tr/ァ-ンヴ/ぁ-んゔ/}
     return wantarray ? @input : "@input";
 }
 

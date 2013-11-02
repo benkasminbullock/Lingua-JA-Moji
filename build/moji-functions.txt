@@ -77,6 +77,13 @@ Chouon marks become hyphens, and おう becomes ou.
 
 =back
 
+=item wo
+
+     kana2romaji ("ちりぬるを", { wo => 1 });
+
+If "wo" is set to a true value, "を" becomes "wo", otherwise it
+becomes "o".
+
 =back
 
 %%
@@ -158,6 +165,12 @@ Chouon marks become hyphens, and おう becomes ou.
 
 ワープロローマ字。長音符は使わない。「少女」が「shoujo」など。
 
+=item wo
+
+     kana2romaji ("ちりぬるを", { wo => 1 });
+
+"wo"が真なら、「を」が"wo"になります。そうでもない場合は"o"になります。
+
 =back
 
 %%
@@ -187,6 +200,13 @@ form of a hash reference,
 Use an option C<< wapuro => 1 >> to convert long vowels into the
 equivalent kana rather than L</chouon>.
 
+     $kana = romaji2kana ($romaji, {ime => 1});
+
+Use the C<< ime => 1 >> option to approximate the behaviour of an
+IME. For example, input "gumma" becomes グッマ and input "onnna"
+becomes オンナ. Passport romaji ("Ohshimizu") is disallowed if this
+option is switched on.
+
 %%
 %%desc.ja:
 
@@ -198,6 +218,10 @@ equivalent kana rather than L</chouon>.
      $kana = romaji2kana ($romaji, {wapuro => 1});
 
 長音「ou」を「オー」ではなく、「オウ」にしたいときはwapuroを真にする C<< wapuro => 1 >>。
+
+     $kana = romaji2kana ($romaji, {ime => 1});
+
+C<< ime => 1 >>オプションでIMEのような変換ができます。たとえば、"gumma"が「グッマ」、"onnna"が「オンナ」となります。パスポートローマ字 ("Ohshimizu") は無効となります。
 
 %%
 
