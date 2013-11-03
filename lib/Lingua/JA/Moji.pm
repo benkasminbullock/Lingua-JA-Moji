@@ -52,6 +52,8 @@ our @EXPORT_OK = qw/
                     romaji2kana
                     romaji_styles
                     romaji_vowel_styles
+		    square2katakana
+		    katakana2square
                     wide2ascii
 		   /;
 
@@ -1192,6 +1194,29 @@ sub katakana2syllable
         push @pieces, $1;
     }
     return \@pieces;
+}
+
+my $square2katakana;
+
+sub load_square2katakana
+{
+    if (! $square2katakana) {
+        $square2katakana =
+        Convert::Moji->new (["file",
+                             getdistfile ('square-katakana')]);
+    }
+}
+
+sub square2katakana
+{
+    load_square2katakana ();
+    return $square2katakana->convert (@_);
+}
+
+sub katakana2square
+{
+    load_square2katakana ();
+    return $square2katakana->invert (@_);
 }
 
 1; 
