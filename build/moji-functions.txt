@@ -43,6 +43,35 @@ to "macron". The "common" style is the same as the Hepburn style, but
 it does things like changing "ジェット" to "jetto" rather than
 ignoring the small vowel.
 
+Possible styles are as follows:
+
+=over
+
+=item none/empty
+
+Without a style, the Nippon-shiki romanization is used. See
+L<http://www.sljfaq.org/afaq/nippon-shiki.html>.
+
+=item hepburn
+
+This gives Hepburn romanization. See
+L<http://www.sljfaq.org/afaq/hepburn.html>.
+
+=item kunrei
+
+This is the form of romanization used in childrens' education. See
+L<http://www.sljfaq.org/afaq/kunrei-shiki.html> and
+L<http://www.sljfaq.org/afaq/education.html>.
+
+=item common
+
+This is a modification of the Hepburn system which also changes
+combinations of large kana + small vowel kana into the commonest
+romanized form. For example "ジェット" becomes "jetto" and "ウェ"
+becomes "we".
+
+=back
+
 =item use_m
 
 If this is true, syllabic I<n>s (ん) which come before "b" or "p"
@@ -125,6 +154,10 @@ becomes "o".
 
 ヘボン式（「つづり」が「tsuzuri」, 「少女」が「shōjo」）。
 これを選べば、下記のuse_mが真になり、ve_typeがmacronになります。
+
+=item common
+
+「ジェット」が「jetto」になります。「ウェ」が「we」になります。
 
 =back
 

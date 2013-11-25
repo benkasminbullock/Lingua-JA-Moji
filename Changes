@@ -1,8 +1,13 @@
 Revision history for perl module Lingua::JA::Moji
 
-0.30 
+0.31 2013-11-26
+
+
+
+0.30 2013-11-25
 
 * Add squared katakana / katakana conversion
+* Add new style for kana2romaji "common".
 
 0.29 2013-11-03
 

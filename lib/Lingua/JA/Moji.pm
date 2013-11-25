@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.30';
+our $VERSION = '0.31';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -290,7 +290,7 @@ for my $vowel (keys %dan) {
 
 # Added d to the list for ウッド BKB 2010-07-20 23:27:07
 # Added z for "badge" etc.
-# add d for ドッグ
+# Added g for ドッグ etc.
 
 my @takes_sokuon_gyou = qw/s t k p d z g/;
 my @takes_sokuon = (map {@{$gyou{$_}}} @takes_sokuon_gyou);
@@ -521,6 +521,9 @@ sub romaji_styles
     }, {
         abbrev    => 'kunrei',
         full_name => 'Kunrei-shiki',
+    }, {
+	abbrev => 'common',
+	full_name => 'common',
     });
     if (! defined ($check)) {
         return (@styles);
