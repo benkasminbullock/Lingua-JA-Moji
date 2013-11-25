@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.29';
+our $VERSION = '0.30';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -255,7 +255,8 @@ for my $consonant (keys %gyou) {
     for my $kana (@{$gyou{$consonant}}) {
         if ($consonant eq 'a') {
             $siin{$kana} = '';
-        } else {
+        }
+	else {
             $siin{$kana} = $consonant;
         }
     }
@@ -289,8 +290,9 @@ for my $vowel (keys %dan) {
 
 # Added d to the list for ウッド BKB 2010-07-20 23:27:07
 # Added z for "badge" etc.
+# add d for ドッグ
 
-my @takes_sokuon_gyou = qw/s t k p d z/;
+my @takes_sokuon_gyou = qw/s t k p d z g/;
 my @takes_sokuon = (map {@{$gyou{$_}}} @takes_sokuon_gyou);
 my $takes_sokuon = join '', @takes_sokuon;
 
@@ -368,6 +370,7 @@ sub kana2romaji
     my $kunrei;
     my $hepburn;
     my $passport;
+    my $common;
     if ($options->{style}) {
         my $style = $options->{style};
         if ($style eq 'kunrei') {
@@ -379,8 +382,13 @@ sub kana2romaji
         if ($style eq 'hepburn') {
             $hepburn  = 1;
         }
-        if (!$kunrei && !$passport && !$hepburn && $style ne "nihon") {
-            die "Unknown romanization style $options->{style}";
+        if ($style eq 'common') {
+            $hepburn  = 1;
+	    $common = 1;
+        }
+        if (!$kunrei && !$passport && !$hepburn && $style ne "nihon" &&
+	    $style ne 'nippon') {
+            croak "Unknown romanization style '$options->{style}'";
         }
     }
     my $wapuro;
@@ -481,6 +489,12 @@ sub kana2romaji
     }
     $input =~ s/([カ-ヂツ-ヱヴ])/$siin{$1}$boin{$1}/g;
     $input =~ s/q([aiueo])/x$1/g;
+    if ($common) {
+	# Convert kana + small vowel into thingumibob.
+	$input =~ s/([^aiueo])[aiueo]x([aiueo])/$1$2/;
+	# Convert u + small kana into w + vowel
+	$input =~ s/([aiueo]|\b)ux([iue])/$1w$2/
+    }
     return $input;
 }
 

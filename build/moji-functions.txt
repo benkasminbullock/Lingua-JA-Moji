@@ -37,9 +37,11 @@ The options are
 
 The style of romanization. The default style of romanization is
 "Nippon-shiki". The user can set the conversion style to "hepburn" or
-"passport" or "kunrei". If Hepburn is selected, then the following
-option C<use_m> is set to "true", and the C<ve_type> is set to
-"macron".
+"passport" or "kunrei" or "common". If Hepburn is selected, then the
+following option C<use_m> is set to "true", and the C<ve_type> is set
+to "macron". The "common" style is the same as the Hepburn style, but
+it does things like changing "ジェット" to "jetto" rather than
+ignoring the small vowel.
 
 =item use_m
 
@@ -680,6 +682,34 @@ are not matched.
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
 と殆どおなじ効果ですが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。
+
+%%
+
+name: square2katakana
+%%eg:
+
+$kata = square2katakana ('㌆');
+
+%%
+out: $kata
+expect: ウォン
+%%desc.en:
+
+Convert a square katakana box into its components.
+
+%%
+
+name: katakana2square
+%%eg:
+
+$sq = katakana2square ('アイウエオウォン');
+
+%%
+out: $sq
+expect: アイウエオ㌆
+%%desc.en:
+
+Convert katakana into a square thing if possible.
 
 %%
 

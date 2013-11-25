@@ -20,5 +20,6 @@ is (romaji2kana ('fyu'), 'フュ', "Romaji conversion of fyu to huxyu");
 is (romaji2kana ('dye dyi'), 'ヂェ ヂィ', "Conversion of dye, dyi");
 is (romaji2kana ('mye myi'), 'ミェ ミィ', "Conversion of mye, myi");
 is (romaji2kana ('gottsu'), 'ゴッツ', 'Conversion of gottsu');
+is (romaji2kana ('rojji'), 'ロッジ', 'Conversion of "rojji"');
 
 done_testing ();

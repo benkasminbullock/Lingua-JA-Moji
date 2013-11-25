@@ -24,11 +24,18 @@ my @tests = (
     word => 'thy',
     is => undef,
 },
+{
+    word => 'rojji',
+    is => 'rozzi',
+},
 );
 
 run (@tests);
 TODO: {
     local $TODO = 'bugs';
+    my @bug_tests = (
+    );
+    run (@bug_tests);
 }
 done_testing ();
 exit;
