@@ -490,10 +490,11 @@ sub kana2romaji
     $input =~ s/([カ-ヂツ-ヱヴ])/$siin{$1}$boin{$1}/g;
     $input =~ s/q([aiueo])/x$1/g;
     if ($common) {
-	# Convert kana + small vowel into thingumibob.
-	$input =~ s/([^aiueo])[aiueo]x([aiueo])/$1$2/;
+	# Convert kana + small vowel into thingumibob, if there is a
+	# consonant before.
+	$input =~ s/([^\Waiueo])[aiueo]x([aiueo])/$1$2/;
 	# Convert u + small kana into w + vowel
-	$input =~ s/([aiueo]|\b)ux([iue])/$1w$2/
+	$input =~ s/([aiueo]|\b)ux([iue])/$1w$2/i;
     }
     return $input;
 }

@@ -7,6 +7,12 @@ is (kana2romaji ('ドッグ'), 'doggu');
 # Common
 is (kana2romaji ('ジェット', {style => 'common'}), 'jetto');
 is (kana2romaji ('ウェ', {style => 'common'}), 'we');
+my $week;
+is ($week = kana2romaji ('ウィーク', {style => 'common'}), 'wiiku', "$week");
+like ($week = kana2romaji ('ゴールデン ウィーク', {style => 'common'}), qr/wiiku/);
 
+TODO: {
+    local $TODO = 'bugs';
+};
 done_testing ();
 
