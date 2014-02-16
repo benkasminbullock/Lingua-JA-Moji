@@ -1,8 +1,17 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.33 2014-02-17
+
+* Add more circled kanji forms
+
+0.32 2013-11-30
+
+* InKana does not match KATAKANA MIDDLE DOT any more.
+
 0.31 2013-11-26
 
-
+* Fix bug with uxi -> wi.
+* Clearer documentation of "kana2romaji" "style" option in English manual.
 
 0.30 2013-11-25
 

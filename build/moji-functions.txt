@@ -691,19 +691,20 @@ expect: 1
 A character class for use in regular expressions which matches all
 kana characters. This class catches meaningful combinations of
 hiragana, katakana, halfwidth katakana, circled katakana, and katakana
-combined words.
+combined words. 
 
 This is a combination of the existing Perl character classes
 C<Katakana>, C<InKatakana>, and C<InHiragana>, minus unassigned
 characters, plus the "halfwidth katakana prolonged sound mark"
 (U+FF70) <ｰ> (chouon), the "halfwidth katakana voiced sound mark"
 (U+FF9E) <ﾞ> (dakuten) and the "halfwidth katakana semivoiced sound
-mark" (U+FF9F) <ﾟ> (handakuten). It is somewhat like the following:
+mark" (U+FF9F) <ﾟ> (handakuten), minus '・', Unicode 30FB, "KATAKANA
+MIDDLE DOT". It is somewhat like the following:
 
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
 except that the unassigned points which are matched by C<\p{Katakana}>
-are not matched.
+are not matched and KATAKANA MIDDLE DOT is not matched.
 
 %%
 %%desc.ja:
@@ -714,7 +715,7 @@ are not matched.
 
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
-と殆どおなじ効果ですが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。
+と殆どおなじ効果ですが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。
 
 %%
 

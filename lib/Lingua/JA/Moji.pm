@@ -1193,11 +1193,13 @@ sub InKana
 FF9E\tFF9F
 FF70
 -utf8::IsCn
+-30FB
 END
     # Explanation of the above gibberish: The funny hex is for dakuten
     # and handakuten half width. The Katakana catches halfwidth
     # katakana, and the InKatakana catches the chouon mark. IsCn means
-    # "other, not assigned".
+    # "other, not assigned". 30FB is "Katakana middle dot", which is
+    # not kana as far as I know.
 }
 
 # お
