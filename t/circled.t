@@ -23,7 +23,7 @@ my $expect3 = '可';
 my $output3 = circled2kanji ($accept);
 is ($output3, $expect3);
 my $round_trip3 = kanji2circled ($output3);
-is ($expect3, $output3);
+is ($round_trip3, $accept);
 
 done_testing ();
 
