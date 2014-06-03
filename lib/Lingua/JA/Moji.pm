@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.32';
+our $VERSION = '0.33';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -608,8 +608,15 @@ sub romaji2kana
     }
     $input = lc $input;
     # Deal with long vowels
-    $input =~ s/($longvowels)/$longvowels{$1}/g;
-    if (! $wapuro) {
+    if ($wapuro) {
+        $input =~ s/[âā]/aa/g;
+        $input =~ s/[îī]/ii/g;
+        $input =~ s/[êē]/ee/g;
+	$input =~ s/[ûū]/uu/g;
+	$input =~ s/[ôō]/ou/g;
+    }
+    else {
+	$input =~ s/($longvowels)/$longvowels{$1}/g;
         # Doubled vowels to chouon
         $input =~ s/([aiueo])\1/$1ー/g;
     }

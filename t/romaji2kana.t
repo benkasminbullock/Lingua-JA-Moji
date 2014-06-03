@@ -1,6 +1,6 @@
 use warnings;
 use strict;
-use Lingua::JA::Moji 'romaji2kana';
+use Lingua::JA::Moji qw/romaji2kana romaji2hiragana/;
 use Test::More;
 my $builder = Test::More->builder;
 binmode $builder->output,         ":utf8";
@@ -21,5 +21,10 @@ is (romaji2kana ('dye dyi'), 'ヂェ ヂィ', "Conversion of dye, dyi");
 is (romaji2kana ('mye myi'), 'ミェ ミィ', "Conversion of mye, myi");
 is (romaji2kana ('gottsu'), 'ゴッツ', 'Conversion of gottsu');
 is (romaji2kana ('rojji'), 'ロッジ', 'Conversion of "rojji"');
+
+my $juyokka = 'jūyokka';
+is (romaji2hiragana ($juyokka), 'じゅうよっか', "u-macron to u kana");
+my $yoka = 'yōka';
+is (romaji2hiragana ($yoka), 'ようか', "o-macron to u kana");
 
 done_testing ();

@@ -538,6 +538,11 @@ C<InHankakuKatakana> is a character class for use in regular
 expressions with C<\p> which can validate L</halfwidth katakana>.
 
 %%
+%%desc.ja:
+
+C<InHankakuKatakana>は正規表現に使う半角カタカナにマッチする。
+
+%%
 
 name:  kana2hw
 out: $half_width
@@ -732,6 +737,11 @@ expect: ウォン
 Convert a square katakana box into its components.
 
 %%
+%%desc.ja:
+
+「㌆」を「ウォン」にするなど。
+
+%%
 
 name: katakana2square
 %%eg:
@@ -744,6 +754,12 @@ expect: アイウエオ㌆
 %%desc.en:
 
 Convert katakana into a square thing if possible.
+
+%%
+%%desc.ja:
+
+可能なかぎり、「ウォン」を「㌆」にするなど。
+
 
 %%
 

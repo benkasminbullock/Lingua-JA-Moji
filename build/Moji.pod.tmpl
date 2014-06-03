@@ -31,8 +31,10 @@ Lingua::JA::Moji - [% trans.abstract %]
 [% END %]
 [% ELSE %]
 
-=head2 [% function.name %] [% IF function.defined ('abstract') -%]
--- [% function.abstract.$lang %]
+=head2 [% function.name %] 
+
+[% IF function.defined ('abstract') -%]
+[% function.name %] - [% function.abstract.$lang %]
 [%- END %]
 
     use [% module %] '[% function.name %]';

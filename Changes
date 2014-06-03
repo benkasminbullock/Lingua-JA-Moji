@@ -1,5 +1,10 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.33 2014-06-03
+
+* "romaji2hiragana" now works as it was documented to do (o-macron
+  becomes "ou" in kana)
+
 0.32 2014-02-17
 
 * InKana does not match KATAKANA MIDDLE DOT any more.
