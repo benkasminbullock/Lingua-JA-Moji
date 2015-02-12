@@ -1,7 +1,7 @@
 use warnings;
 use strict;
 use utf8;
-use Test::More tests => 34;
+use Test::More;
 # http://code.google.com/p/test-more/issues/detail?id=46
 binmode Test::More->builder->output, ":utf8";
 binmode Test::More->builder->failure_output, ":utf8";
@@ -13,7 +13,8 @@ use Lingua::JA::Moji qw/romaji2kana
                         romaji2hiragana
                         is_kana
                         romaji_styles
-                        kana_to_large/;
+                        kana_to_large
+			nigori_first/;
 
 # Sanity tests
 
@@ -99,13 +100,26 @@ my $rev_gunma = kana2romaji ($gumma);
 print "$rev_gunma\n";
 ok ($rev_gunma eq 'gunma');
 
+my $hep_donmai = kana2romaji ('ドンマイ', {style => 'hepburn', use_m => 0});
+ok ($hep_donmai eq 'donmai');
+my $hep_shinbun = kana2romaji ('しんぶん', {style => 'hepburn', use_m => 0});
+ok ($hep_shinbun eq 'shinbun');
+
+my $reform = kana2romaji ('リフォーム', {style => 'common'});
+is ($reform, 'rifōmu');
+
 my $niigata = kana2romaji ('にいがた', {style => 'hepburn'});
-ok ($niigata eq 'niigata');
+is ($niigata, 'niigata');
 
 my $small = "きゃきょうゎぉ";
 my $large = kana_to_large ($small);
-ok ($large eq 'きやきようわお');
+is ($large, 'きやきようわお');
 my $small2 = "キャキョウヮォ";
 my $large2 = kana_to_large ($small2);
-ok ($large2 eq 'キヤキヨウワオ');
+is ($large2, 'キヤキヨウワオ');
 
+my @list = (qw/カン スウ ハツ オオ/);
+nigori_first (\@list);
+is_deeply (\@list, [qw/カン スウ ハツ オオ ガン ズウ バツ パツ/]);
+
+done_testing ();

@@ -34,14 +34,14 @@ Lingua::JA::Moji - [% trans.abstract %]
 =head2 [% function.name %] 
 
 [% IF function.defined ('abstract') -%]
-[% function.name %] - [% function.abstract.$lang %]
+[% function.abstract.$lang %].
 [%- END %]
 
     use [% module %] '[% function.name %]';
 [% IF function.defined ('eg') %]
 [% function.eg | indent ('    ') %]
 [%- IF function.defined ('out') && function.defined ('expect') %]
-    # Now [% function.out %] = '[% function.expect %]'
+    # [% function.out %] = '[% function.expect %]'
 [%- END %]
 [% END %]
 [% IF function.desc.defined (lang) %]
@@ -54,7 +54,7 @@ Lingua::JA::Moji - [% trans.abstract %]
 
 =head3 [% trans.bugs %]
 
-[%- function.bugs.$lang %]
+[% function.bugs.$lang %]
 
 [%- END %]
 
@@ -62,20 +62,11 @@ Lingua::JA::Moji - [% trans.abstract %]
 
 [%- END %]
 
-=head1 SUPPORT
+=head1 [% trans.also | upper %]
 
-=head2 Mailing list
+[% trans.modules %]
 
-There is a mailing list for this module and L<Convert::Moji> at
-L<http://groups.google.com/group/perl-moji>. 
-
-=head2 Other modules
-
-=head1 SEE ALSO
-
-Other Perl modules on CPAN include
-
-=head2 Japanese kana/romanization
+=head2 [% trans.romajikanahenkan %]
 
 =over
 
@@ -135,7 +126,7 @@ This is similar to the present module for Korean.
 
 =back
 
-=head2 Kana/kanji conversion
+=head2 [% trans.kanjikanahenkan %]
 
 =over
 
@@ -151,9 +142,11 @@ Romanization of Japanese language via kakasi.
 
 =back
 
-=head2 Books
+=head2 [% trans.books %]
 
 [% trans.naokitomitabook %]
+
+[% IF lang == 'en' %]
 
 =head1 NOTES
 
@@ -179,6 +172,8 @@ encoding of katakana based on an eight-bit encoding. See
 L<http://www.sljfaq.org/afaq/half-width-katakana.html> for full
 details.
 
+[% END # lang == 'en' %]
+
 =head1 EXPORT
 
 This module exports its functions only on request. To export all the
@@ -192,7 +187,7 @@ Ben Bullock, C<< <bkb@cpan.org> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008-2013 Ben Bullock, all rights reserved.
+Copyright 2008-2014 Ben Bullock, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

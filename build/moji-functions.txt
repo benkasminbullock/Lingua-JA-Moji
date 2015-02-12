@@ -49,19 +49,18 @@ Possible styles are as follows:
 
 =item none/empty
 
-Without a style, the Nippon-shiki romanization is used. See
-L<http://www.sljfaq.org/afaq/nippon-shiki.html>.
+Without a style, the L<Nippon-shiki
+romanization|http://www.sljfaq.org/afaq/nippon-shiki.html> is
+used.
 
 =item hepburn
 
-This gives Hepburn romanization. See
-L<http://www.sljfaq.org/afaq/hepburn.html>.
+This gives L<Hepburn romanization|http://www.sljfaq.org/afaq/hepburn.html>.
 
 =item kunrei
 
-This is the form of romanization used in childrens' education. See
-L<http://www.sljfaq.org/afaq/kunrei-shiki.html> and
-L<http://www.sljfaq.org/afaq/education.html>.
+This is L<the form of romanization used in childrens'
+education|http://www.sljfaq.org/afaq/kunrei-shiki.html>.
 
 =item common
 
@@ -198,7 +197,7 @@ becomes "o".
 
 =item wapuro
 
-ワープロローマ字。長音符は使わない。「少女」が「shoujo」など。
+ワープロローマ字。長音符を使わない。「少女」が「shoujo」など。
 
 =item wo
 
@@ -520,6 +519,25 @@ Convert small-sized kana such as 「ぁ」 into full-sized kana such as
 %%desc.ja:
 
 「ぁ」など小さい仮名を「あ」に変換する。
+
+%%
+
+name: nigori_first
+%%eg:
+
+my @list = (qw/カン スウ ハツ オオ/);
+nigori_first (\@list);
+# Now @list = (qw/カン スウ ハツ オオ ガン ズウ バツ パツ/);
+
+%%desc.en:
+
+Given a list of kana, add all the possible versions of the words with
+the first kana with either a dakuten or a handakuten added.
+
+%%
+%%desc.ja:
+
+一番最初のかなに濁点又は半濁点をつける.
 
 %%
 
@@ -927,6 +945,11 @@ name:  braille2kana
 %%desc.en:
 
 Converts Japanese braille (I<tenji>) into the equivalent katakana.
+
+%%
+%%desc.ja:
+
+点字をカタカナに変換。
 
 %%
 

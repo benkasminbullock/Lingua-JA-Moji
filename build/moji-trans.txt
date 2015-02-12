@@ -117,3 +117,19 @@ or kana into kanji.
 全てのfunctionはユニコードを前提とします。全ての入出力はutf-8でやる。
 
 %%
+
+id: modules
+en: Other Perl modules on CPAN include
+ja: CPANの本モジュール意外のものは次にあります
+
+id: romajikanahenkan
+en: Japanese kana/romanization
+ja: ローマ字かな変換
+
+id: kanjikanahenkan
+en: Kana/kanji conversion
+ja: 漢字かな変換
+
+id: books
+en: Books
+ja: 本

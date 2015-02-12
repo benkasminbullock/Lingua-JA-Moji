@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.33';
+our $VERSION = '0.36';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -55,6 +55,7 @@ our @EXPORT_OK = qw/
 		    square2katakana
 		    katakana2square
                     wide2ascii
+		    nigori_first
 		   /;
 
 our %EXPORT_TAGS = (
@@ -265,10 +266,10 @@ for my $consonant (keys %gyou) {
 # Vowel => kana mapping.
 
 my %dan = (a => [qw/ア カ ガ サ ザ タ ダ ナ ハ バ パ マ ヤ ラ ワ ャ ァ/],
-	  i => [qw/イ キ ギ シ ジ チ ヂ ニ ヒ ビ ピ ミ リ ヰ ィ/],
-	  u => [qw/ウ ク グ ス ズ ツ ヅ ヌ フ ブ プ ム ユ ル ュ ゥ ヴ/],
-	  e => [qw/エ ケ ゲ セ ゼ テ デ ネ ヘ ベ ペ メ レ ヱ ェ/],
-	  o => [qw/オ コ ゴ ソ ゾ ト ド ノ ホ ボ ポ モ ヨ ロ ヲ ョ ォ/]);
+	   i => [qw/イ キ ギ シ ジ チ ヂ ニ ヒ ビ ピ ミ リ ヰ ィ/],
+	   u => [qw/ウ ク グ ス ズ ツ ヅ ヌ フ ブ プ ム ユ ル ュ ゥ ヴ/],
+	   e => [qw/エ ケ ゲ セ ゼ テ デ ネ ヘ ベ ペ メ レ ヱ ェ/],
+	   o => [qw/オ コ ゴ ソ ゾ ト ド ノ ホ ボ ポ モ ヨ ロ ヲ ョ ォ/]);
 
 # Kana => vowel mapping
 
@@ -357,6 +358,10 @@ my %chouonhyouki;
 @{$chouonhyouki{wapuro}}{@aiueo}     = qw/aa ii uu ee oo ou/;
 @{$chouonhyouki{passport}}{@aiueo}   = qw/a  i  u  e  oh oh/;
 @{$chouonhyouki{none}}{@aiueo}       = qw/a  ii  u  e  o  o/;
+
+my $vowel_re = qr/[aeiouâêîôûāēōū]/i;
+my $no_u_vowel_re = qr/[aeioâêîôāēō]/i;
+my $u_re = qr/[uūû]/i;
 
 sub kana2romaji
 {
@@ -488,13 +493,13 @@ sub kana2romaji
 	$input =~ s/([$kun_list])/$kunrei{$1}$boin{$1}/g;
     }
     $input =~ s/([カ-ヂツ-ヱヴ])/$siin{$1}$boin{$1}/g;
-    $input =~ s/q([aiueo])/x$1/g;
+    $input =~ s/q($vowel_re)/x$1/g;
     if ($common) {
 	# Convert kana + small vowel into thingumibob, if there is a
 	# consonant before.
-	$input =~ s/([^\Waiueo])[aiueo]x([aiueo])/$1$2/;
+	$input =~ s/([^\Waiueo])$vowel_re[x]($vowel_re)/$1$2/;
 	# Convert u + small kana into w + vowel
-	$input =~ s/([aiueo]|\b)ux([iue])/$1w$2/i;
+	$input =~ s/($vowel_re|\b)ux([iue])/$1w$2/i;
     }
     return $input;
 }
@@ -700,9 +705,6 @@ sub is_romaji
     return;
 }
 
-my $vowel_re = qr/[aeiouâêîôûāēōū]/i;
-my $no_u_vowel_re = qr/[aeioâêîôāēō]/i;
-my $u_re = qr/[uūû]/i;
 
 sub is_romaji_strict
 {
@@ -1244,6 +1246,60 @@ sub katakana2square
 {
     load_square2katakana ();
     return $square2katakana->invert (@_);
+}
+
+# Turn shima into jima etc.
+
+my %nigori = (qw/
+カ ガ
+キ ギ
+ク グ
+ケ ゲ
+コ ゴ
+サ ザ
+シ ジ
+ス ズ
+セ ゼ
+ソ ゾ
+タ ダ
+チ ヂ
+ツ ヅ
+テ デ
+ト ド
+ハ バ
+ヒ ビ
+フ ブ
+ヘ ベ
+ホ ボ
+/);
+
+my %handaku = (qw/
+ハ パ
+ヒ ピ
+フ プ
+ヘ ペ
+ホ ポ
+/);
+
+sub nigori_first
+{
+    my ($list) = @_;
+    my @nigori;
+    for my $kana (@$list) {
+	my ($first, $remaining) = split //, $kana, 2;
+	my $nf = $nigori{$first};
+	if ($nf) {
+	    #	print "$kana -> $nf$remaining\n";
+	    push @nigori, $nf.$remaining;
+	}
+	my $hf = $handaku{$first};
+	if ($hf) {
+	    push @nigori, $hf.$remaining;
+	}
+    }
+    if (@nigori) {
+	push @$list, @nigori;
+    }
 }
 
 1; 

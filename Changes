@@ -1,5 +1,9 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.34 2014-08-16
+
+* Updated Japanese documentation
+
 0.33 2014-06-03
 
 * "romaji2hiragana" now works as it was documented to do (o-macron
