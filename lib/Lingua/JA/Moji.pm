@@ -56,6 +56,7 @@ our @EXPORT_OK = qw/
 		    katakana2square
                     wide2ascii
 		    nigori_first
+		    bad_kanji
 		   /;
 
 our %EXPORT_TAGS = (
@@ -1213,7 +1214,7 @@ END
 
 # お
 
-my $kana2syllable_re = qr/ッ?[アイウエオ-モヤユヨ-ヴ](?:[ャュョァィゥェォ])?ー?/;
+my $kana2syllable_re = qr/ッ?[アイウエオ-モヤユヨ-ヴ](?:[ャュョァィゥェォ])?ー?ン?/;
 
 sub katakana2syllable
 {

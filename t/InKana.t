@@ -34,6 +34,7 @@ unlike ('・', qr/\p{InKana}/, "katakana middle dot is not kana");
 
 TODO: {
     local $TODO = 'bugs';
+
 };
 
 done_testing ();

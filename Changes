@@ -1,5 +1,13 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.37 2015-09-21
+
+* 'n' by itself is not a syllable any more in katakana2syllable.
+
+0.36 2015-02-12
+
+* Add "nigori_first" function.
+
 0.34 2014-08-16
 
 * Updated Japanese documentation

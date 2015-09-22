@@ -2,7 +2,7 @@ WWW=/usr/local/www/data
 POD2HTML=perl -MPod::Simple::HTML -e Pod::Simple::HTML::go
 LIB=lib/Lingua/JA
 
-all:	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod
+all:	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod lib/Lingua/JA/Moji/bad-kanji.txt
 
 html:	$(WWW)/moji.html $(WWW)/moji-ja.html
 
@@ -12,6 +12,8 @@ $(WWW)/moji.html: $(LIB)/Moji.pod
 $(WWW)/moji-ja.html: $(LIB)/Moji-ja.pod 
 	$(POD2HTML) $(LIB)/Moji-ja.pod > $(WWW)/moji-ja.html
 
+lib/Lingua/JA/Moji/bad-kanji.txt: /usr/home/ben/projects/kanjivg/png/bad-kanji.txt
+	cp /usr/home/ben/projects/kanjivg/png/bad-kanji.txt $@
 
 BUILD=build
 PODDEP=$(BUILD)/make-pod.pl $(BUILD)/Moji.pod.tmpl \

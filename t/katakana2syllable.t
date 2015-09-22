@@ -3,6 +3,14 @@ use strict;
 use Test::More;
 use utf8;
 use Lingua::JA::Moji 'katakana2syllable';
+use warnings;
+use strict;
+my $builder = Test::More->builder;
+binmode $builder->output,         ":utf8";
+binmode $builder->failure_output, ":utf8";
+binmode $builder->todo_output,    ":utf8";
+binmode STDOUT, ":encoding(utf8)";
+binmode STDERR, ":encoding(utf8)";
 
 my $long = 'ソーシャルブックマークサービス';
 
@@ -19,5 +27,8 @@ $pieces = katakana2syllable ($long);
 is_deeply ($pieces,
            ['ソー', 'シャー', 'ル'],
            "ya plus chouon");
+
+my $syllables = katakana2syllable ('ジョン・フラナガン');
+unlike (join ('!', @$syllables), qr/!ン/, "ン is not a syllable");
 
 done_testing ();
