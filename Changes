@@ -1,8 +1,14 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.38 2015-09-23
+
+* Remove unused file and unimplemented function
+
 0.37 2015-09-21
 
 * 'n' by itself is not a syllable any more in katakana2syllable.
+* Undocumented function is_romaji_semistrict
+* Removed faulty "binmode" statements.
 
 0.36 2015-02-12
 

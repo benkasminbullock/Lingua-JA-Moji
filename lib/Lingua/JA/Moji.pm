@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.36';
+our $VERSION = '0.38';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -27,6 +27,7 @@ our @EXPORT_OK = qw/
                     is_hiragana
                     is_kana
                     is_romaji
+                    is_romaji_semistrict
                     is_romaji_strict
                     is_voiced
                     kana2braille
@@ -56,7 +57,6 @@ our @EXPORT_OK = qw/
 		    katakana2square
                     wide2ascii
 		    nigori_first
-		    bad_kanji
 		   /;
 
 our %EXPORT_TAGS = (
@@ -692,7 +692,6 @@ sub is_voiced
 
 sub is_romaji
 {
-    binmode STDOUT, ":utf8";
     my ($romaji) = @_;
     # Test that $romaji contains only characters which may be
     # romanized Japanese.
@@ -707,9 +706,50 @@ sub is_romaji
 }
 
 
+sub is_romaji_semistrict
+{
+    my ($romaji) = @_;
+    if (! is_romaji ($romaji)) {
+	return;
+    }
+    if ($romaji =~ /
+		       # Don't allow small vowels, small tsu, or fya,
+		       # fye etc.
+		       (fy|l|x|v)y?($vowel_re|ts?u|wa|ka|ke)
+		   |
+		       # Don't allow hyi, hye, yi, ye.
+		       [zh]?y[ieêîē]
+		   |
+		       # Don't allow tye
+		       ty[eêē]
+		   |
+		       # Don't allow wh-, kw-, gw-, dh-, etc.
+		       (wh|kw|gw|dh|thy)$vowel_re
+		   |
+		       # Don't allow "t'i"
+		       [dt]'(i|y?$u_re)
+		   |
+		       # Don't allow dwu, twu
+		       [dt](w$u_re)
+		   |
+		       hwy$u_re
+		   |
+		       # Don't allow "wi" or "we".
+		       w(i|e)
+		   |
+		       # Don't allow some non-Japanese double consonants.
+		       (?:rr|yy)
+		   |
+		       # Don't allow 'thi'
+		       thi
+		   /ix) {
+        return;
+    }
+    return 1;
+}
+
 sub is_romaji_strict
 {
-    binmode STDOUT, ":utf8";
     my ($romaji) = @_;
     if (! is_romaji ($romaji)) {
 	return;
