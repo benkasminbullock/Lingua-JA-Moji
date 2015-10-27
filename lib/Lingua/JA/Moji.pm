@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.38';
+our $VERSION = '0.39';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -452,7 +452,8 @@ sub kana2romaji
 	if ($vowel eq 'ou') {
 	    $vowelclass = $vowelclass{o};
 	    $vowel_kana = 'ウ';
-	} else {
+	}
+	else {
 	    $vowelclass = $vowelclass{$vowel};
 	    $vowel_kana = $dan{$vowel}->[0];
 	}
@@ -487,6 +488,7 @@ sub kana2romaji
 	$input =~ s/([アイウエオヲ])/$boin{$1}/g;
     }
     $input =~ s/([ァィゥェォ])/q$boin{$1}/g;
+    $input =~ s/ヮ/xwa/g;
     if ($hepburn) {
 	$input =~ s/([$hep_list])/$hepburn{$1}$boin{$1}/g;
     }
@@ -693,6 +695,9 @@ sub is_voiced
 sub is_romaji
 {
     my ($romaji) = @_;
+    if (length ($romaji) == 0) {
+	return;
+    }
     # Test that $romaji contains only characters which may be
     # romanized Japanese.
     if ($romaji =~ /[^\sa-zāīūēōâîûêô'-]/i) {
@@ -751,7 +756,8 @@ sub is_romaji_semistrict
 sub is_romaji_strict
 {
     my ($romaji) = @_;
-    if (! is_romaji ($romaji)) {
+    my $canonical = is_romaji ($romaji);
+    if (! $canonical) {
 	return;
     }
     if ($romaji =~ /
@@ -793,7 +799,7 @@ sub is_romaji_strict
 		   /ix) {
         return;
     }
-    return 1;
+    return $canonical;
 }
 
 sub hira2kata

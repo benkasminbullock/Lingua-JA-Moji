@@ -73,7 +73,7 @@ becomes "we".
 
 =item use_m
 
-If this is true, syllabic I<n>s (ん) which come before "b" or "p"
+If this is true, L</syllabic n>s (ん) which come before "b" or "p"
 sounds, such as the first "n" in "shinbun" (しんぶん, newspaper) will
 be converted into "m" rather than "n".
 
@@ -103,7 +103,7 @@ Long vowels are not indicated.
 
 =item wapuro
 
-Chouon marks become hyphens, and おう becomes ou.
+The L</chouon> marks become hyphens, and おう becomes ou.
 
 =back
 
@@ -354,10 +354,15 @@ the string is empty, it returns a false value.
 This works by converting the string to kana via L</romaji2kana> and
 seeing if it converts cleanly or not.
 
+The "true" value returned is the output of the round-trip conversion,
+converted into wapuro format.
+
 %%
 %%desc.ja:
 
-アルファベットの列はローマ字に見えるなら真、見えないなら偽。
+アルファベットの列はローマ字に見えるなら真、見えないなら偽。緩い。厳しいはL</is_romaji_strict>を使う。
+
+真の値はローマ字のワープロ変換。
 
 %%
 
@@ -385,10 +390,41 @@ This test is much stricter than L</is_romaji>. It insists that the
 word does not contain constructions which may be valid as inputs to an
 IME, but which do not look like Japanese words.
 
+The "true" value returned is the output of the round-trip conversion,
+converted into wapuro format.
+
 %%
 %%desc.ja:
 
 アルファベットの列はローマ字に見えるなら真、見えないなら偽。L</is_romaji>より厳しく、コンピューター入力に見えるかどうかではなく、本当に「日本語」かどうか確認する。
+
+真の値はローマ字のワープロ変換。
+
+%%
+
+name:  is_romaji_semistrict
+%%eg:
+
+# The following line returns "undef"
+is_romaji_semistrict ("abcdefg");
+# The following line returns "undef"
+is_romaji_semistrict ('loyehye');
+# The following line returns a defined value
+is_romaji_semistrict ("atarimae");
+# The following line returns a defined value
+is_romaji_semistrict ("pinku no dorufin");
+
+%%
+%%desc.en:
+
+Halfway between L</is_romaji> and L</is_romaji_strict>, this allows
+some formations like "pinku no dorufin" but not the really unlikely
+stuff which "is_romaji" allows.
+
+%%
+%%desc.ja:
+
+"pinku no dorufin"を受けるがL</is_romaji>ほど緩くない。
 
 %%
 
@@ -690,14 +726,17 @@ $syllables = katakana2syllable ('ソーシャルブックマークサービス')
 This breaks the given string into syllables. If the string is broken
 up character by character, it becomes 'ソ', 'ー', 'シ', 'ャ', 'ル'.
 This breaks the string up into meaningful syllables, so that
-C<$syllables> becomes 'ソー', 'シャ', 'ル'.
+C<$syllables> becomes 'ソー', 'シャ', 'ル'. A L</syllabic n> is
+attached to the preceding sequence, so for example フラナガン is
+broken up into four syllables, フ, ラ, ナ, ガン.
 
 %%
 %%desc.ja:
 
 カタカナをシラブルにわける。たとえば、「ソーシャル」
 は'ソ', 'ー', 'シ', 'ャ', 'ル'という意味のない文字ではなく、日本語の
-「原子」の'ソー', 'シャ', 'ル'になる。
+「原子」の'ソー', 'シャ', 'ル'になる。撥音(ん)は前の仮名に付く。例えば、
+「フラナガン」は「フ」, 「ラ」, 「ナ」, 「ガン」となります。
 
 %%
 
@@ -966,7 +1005,8 @@ $circled = kana2circled ('あいうえお');
 This function converts kana into the "circled katakana" of Unicode,
 which have code points from 32D0 to 32FE. See also L</circled2kana>.
 
-There is no circled form of the ン kana, so this is left untouched.
+There is no circled form of the ン kana, L</syllabic n>, so this is
+left untouched.
 
 %%
 %%desc.ja:
@@ -1190,7 +1230,7 @@ L<Lingua::KO::Munja>.
 
 =over
 
-=item Doesn't deal with syllabic n
+=item Doesn't deal with L</syllabic n>
 
 =item May be incorrect
 

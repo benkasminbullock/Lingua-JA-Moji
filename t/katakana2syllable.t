@@ -31,4 +31,8 @@ is_deeply ($pieces,
 my $syllables = katakana2syllable ('ジョン・フラナガン');
 unlike (join ('!', @$syllables), qr/!ン/, "ン is not a syllable");
 
+my $nobrand = katakana2syllable ('ノーブランド');
+
+is_deeply ($nobrand, ['ノー', 'ブ', 'ラン', 'ド']); 
+
 done_testing ();

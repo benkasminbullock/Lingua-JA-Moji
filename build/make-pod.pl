@@ -142,7 +142,7 @@ my $tt = Template->new (
     ENCODING => 'UTF8',
     STRICT => 1,
     ABSOLUTE => 1,
-    INCLUDE_PATH => [$FindBin::Bin],
+    INCLUDE_PATH => [$FindBin::Bin, '/home/ben/projects/Perl-Build/lib/Perl/Build/templates/'],
 );
 
 for my $lang (qw/en ja/) {
