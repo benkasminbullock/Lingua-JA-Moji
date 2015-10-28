@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.39';
+our $VERSION = '0.40';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -1023,9 +1023,9 @@ sub kana2braille
     $input = kana2katakana ($input);
     load_strip_daku;
     $input = $strip_daku->convert ($input);
-    $input =~ s/(.)゛([ャュョ])/'⠘'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
-    $input =~ s/(.)゜([ャュョ])/'⠨'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
-    $input =~ s/(.)([ャュョ])/'⠈'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
+    $input =~ s/([キシチヒ])゛([ャュョ])/'⠘'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
+    $input =~ s/(ヒ)゜([ャュョ])/'⠨'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
+    $input =~ s/([キシチニヒミリ])([ャュョ])/'⠈'.$nippon2kana{$siin{$1}.$boin{$2}}/eg;
     $input =~ s/([$vowelclass{o}])ウ/$1ー/g;
     $input = $kana2braille->convert ($input);
     $input =~ s/(.)([⠐⠠])/$2$1/g;
