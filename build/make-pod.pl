@@ -5,10 +5,11 @@ use Table::Readable qw/read_table/;
 use ReadTranslations qw/read_translations_table get_lang_trans/;
 use Template;
 use utf8;
-use FindBin;
+use FindBin '$Bin';
+use Perl::Build 'get_version';
 
 my %vars;
-my $trans = read_translations_table ("$FindBin::Bin/moji-trans.txt");
+my $trans = read_translations_table ("$Bin/moji-trans.txt");
 
 my %names = (
     kana => {
@@ -83,7 +84,7 @@ my %names = (
 
 my @notes = (qw/chouon passport wapuro/);
 
-my @functions = read_table ("$FindBin::Bin/moji-functions.txt");
+my @functions = read_table ("$Bin/moji-functions.txt");
 
 for my $function (@functions) {
     if ($function->{class}) {
@@ -97,7 +98,7 @@ for my $function (@functions) {
     if ($function->{out} && $function->{expect}) {
         my $out;
         my $commands =<<EOF;
-use lib '$FindBin::Bin/../lib';
+use lib '$Bin/../lib';
 use Lingua::JA::Moji '$function->{name}';
 my $function->{out};
 $function->{eg}
@@ -136,13 +137,13 @@ my $verbose;
 
 $vars{module} = 'Lingua::JA::Moji';
 
-my $dir = "$FindBin::Bin/../lib/Lingua/JA";
+my $dir = "$Bin/../lib/Lingua/JA";
 
 my $tt = Template->new (
     ENCODING => 'UTF8',
     STRICT => 1,
     ABSOLUTE => 1,
-    INCLUDE_PATH => [$FindBin::Bin, '/home/ben/projects/Perl-Build/lib/Perl/Build/templates/'],
+    INCLUDE_PATH => [$Bin, '/home/ben/projects/Perl-Build/lib/Perl/Build/templates/'],
 );
 
 for my $lang (qw/en ja/) {
@@ -157,6 +158,9 @@ for my $lang (qw/en ja/) {
     close $output or die $!;
 }
 exit;
+
+# Make bilingual versions of the values, falling back to English if
+# Japanese is not available.
 
 sub bilingualize
 {
