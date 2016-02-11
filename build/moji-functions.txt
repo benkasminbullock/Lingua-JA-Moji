@@ -143,11 +143,11 @@ becomes "o".
 
 =item passport
 
-パスポート式(「伊藤」が「itoh」)
+パスポート式（「いとう」が「itoh」になります。）
 
 =item kunrei
 
-訓令式（少学校４年で習うローマ字法）
+訓令式（小学校４年生が習うローマ字法）
 
 =item hepburn
 
@@ -156,48 +156,48 @@ becomes "o".
 
 =item common
 
-「ジェット」が「jetto」になります。「ウェ」が「we」になります。
+「ジェット」が「jetto」になります。「ウェ」が「we」になります。つまり普通のローマ字です。
 
 =back
 
 =item use_m
 
-真なら「しんぶん」が「shimbun」
-偽なら「ぐんま」が「gunma」
+真なら「しんぶん」が「shimbun」、「ぐんま」が「gumma」
+偽なら「しんぶん」が「shinbun」、「ぐんま」が「gunma」
 
 =item ve_type
 
-長い母音はどの様に表現する。
+長い母音はどの様に表現するか選ぶために使います。
 
 =over
 
 =item undef
 
-曲折アクセント(ô)を使う。
+曲折アクセント(ô)を使います。
 
 =item macron
 
-マクロン(ō)を使う。
+マクロン(ō)を使います。
 
 =item passport
 
-「アー」、「イー」、「ウー」、「エー」が「a」, 「i」, 「u」, 「e」になり、「オー」が「oh」になる。
+「アー」、「イー」、「ウー」、「エー」が「a」, 「i」, 「u」, 「e」になり、「オー」が「oh」になります。
 
 =item none
 
-「アー」、「イー」、「ウー」、「エー」ガ「a」, 「i」, 「u」, 「e」, 「o」になる。
+「アー」、「イー」、「ウー」、「エー」が「a」, 「i」, 「u」, 「e」, 「o」になります。
 
 =item wapuro
 
-「アー」、「イー」、「ウー」、「エー」ガ「a-」, 「i-」, 「u-」, 「e-」,
-「o-」になる。「おう」が「ou」など、仮名の長音を仮名で代表するよう、ロー
+「アー」、「イー」、「ウー」、「エー」が「a-」, 「i-」, 「u-」, 「e-」,
+「o-」になります。「おう」が「ou」など、仮名の長音を仮名で代表するよう、ロー
 マ字入力のようなことです。
 
 =back
 
 =item wapuro
 
-ワープロローマ字。長音符を使わない。「少女」が「shoujo」など。
+ワープロローマ字。長音符を使いません。「少女」が「shoujo」など、ASCIIのみの記号で表記するローマ字です。
 
 =item wo
 
@@ -222,9 +222,9 @@ expect: ヤマグチ
 
 Convert romanized Japanese to katakana. The romanization is highly
 liberal and will attempt to convert any romanization it sees into
-katakana. The romanization is based on the behaviour of the Microsoft
-IME (input method editor). To convert romanized Japanese into
-hiragana, use L</romaji2hiragana>.
+katakana. The rules of romanization are based on the behaviour of the
+Microsoft IME (input method editor). To convert romanized Japanese
+into hiragana, use L</romaji2hiragana>.
 
 An optional second argument to the function contains options in the
 form of a hash reference,
@@ -244,14 +244,14 @@ option is switched on.
 %%
 %%desc.ja:
 
-ローマ字をカタカナに変換する。ローマ字はできるだけ幅広く受け入れる。
+ローマ字をカタカナに変換します。ローマ字はできるだけ幅広く受け入れる。
 ローマ字をひらがなに変換したいときはL</romaji2hiragana>をお使いください。
 
 ローマ字変換のオプションは関数の２番目の引数でハシュリファレンスとして入る。
 
      $kana = romaji2kana ($romaji, {wapuro => 1});
 
-長音「ou」を「オー」ではなく、「オウ」にしたいときはwapuroを真にする C<< wapuro => 1 >>。
+長音「ou」を「オー」ではなく、「オウ」にしたいときはwapuroを真にします C<< wapuro => 1 >>。
 
      $kana = romaji2kana ($romaji, {ime => 1});
 
@@ -276,8 +276,8 @@ uses long vowels with a kana rather than a L</chouon>.
 %%
 %%desc.ja:
 
-ローマ字をひらがなに変関する。オプションはL</romaji2kana>と同じ。wapuroオプション
-もオンにしたら、「ou」が「おー」ではなく、「おう」になる。
+ローマ字をひらがなに変関します。オプションはL</romaji2kana>と同じ。wapuroオプション
+もオンにしたら、「ou」が「おー」ではなく、「おう」になります。
 
 %%
 
@@ -304,9 +304,9 @@ under the key "abbrev" and the full name under the key "full_name".
 %%
 %%desc.ja:
 
-引数があれば、その引数をローマ字方法として認めるなら真、認めないなら偽。
+引数があれば、その引数をローマ字方法として認めるなら真、認めないなら偽です。
 
-引数がなければ、すべてのローマ字方法をハシュリファレンスの列として戻す。
+引数がなければ、すべてのローマ字方法をハシュリファレンスの列として戻します。
 
 %%
 
@@ -360,9 +360,10 @@ converted into wapuro format.
 %%
 %%desc.ja:
 
-アルファベットの列はローマ字に見えるなら真、見えないなら偽。緩い。厳しいはL</is_romaji_strict>を使う。
+アルファベットの列はローマ字に見えるなら真、見えないなら偽を戻します。
+厳密に確認したい時はL</is_romaji_strict>をお勧めします。
 
-真の値はローマ字のワープロ変換。
+真の戻し値はローマ字のワープロ変換。
 
 %%
 
@@ -396,9 +397,11 @@ converted into wapuro format.
 %%
 %%desc.ja:
 
-アルファベットの列はローマ字に見えるなら真、見えないなら偽。L</is_romaji>より厳しく、コンピューター入力に見えるかどうかではなく、本当に「日本語」かどうか確認する。
+アルファベットの列はローマ字に見えるなら真、見えないなら偽。
+L</is_romaji>より厳しく、コンピューター入力に見えるかどうかではなく、
+「日本語になる」かどうか確認します。
 
-真の値はローマ字のワープロ変換。
+真の値はローマ字のワープロ変換です。
 
 %%
 
@@ -424,7 +427,7 @@ stuff which "is_romaji" allows.
 %%
 %%desc.ja:
 
-"pinku no dorufin"を受けるがL</is_romaji>ほど緩くない。
+L</is_romaji_strict>とL</is_romaji>の間にローマ字ですが厳密に日本語ではない言葉もあります。例えば、"pinku no dorufin"は「ピンク ノ ドルフィン」というカタカナになりますが純粋日本語ではありません。is_romaji_semistrictはこういう言葉をみとめても、is_romajiのように出鱈目の文字を許さないというものです。
 
 %%
 
@@ -451,7 +454,7 @@ officially-sanctioned form of romanization.
 %%
 %%desc.ja:
 
-C<normalize_romaji>はかなやローマ字で書いた言葉を比べるため、かなやローマ字の言葉を決まったローマ字の書き方になおします。この「決まった」ローマ字は本モジュール限定のもので、あくまでも違ったかなや違ったローマ字法で書いた言葉を比べるためだけのものに過ぎませんので、正式なローマ字法と間違わないように。
+C<normalize_romaji>はかなやローマ字で書いた言葉を比べるため、かなやローマ字の言葉を決まったローマ字の書き方になおします。この「決まった」ローマ字は本モジュール限定のもので、あくまでも違ったかなや違ったローマ字法で書いた言葉を比べるためだけのものに過ぎませんので、正式なローマ字法と間違わないようによろしくおねがいします。
 
 %%
 
@@ -463,7 +466,7 @@ These functions convert one form of kana into another.
 %%
 %%explain.ja:
 
-仮名を仮名に変換すること。
+仮名を仮名に変換する関数。
 
 %%
 
@@ -518,7 +521,7 @@ also does not convert half-width katakana into hiragana.
 %%
 %%desc.ja:
 
-かたかなを平仮名に変換します。長音符は変換しません。
+かたかなを平仮名に変換します。長音符は変換しません。半角かたかなを変換しません。
 
 %%
 
@@ -534,7 +537,7 @@ and hiragana to full width katakana.
 %%
 %%desc.ja:
 
-全角かたかな、ひらがな、半角かたかな、丸かたかななどあらゆる「仮名」を全角かたかなに変換する。
+全角かたかな、ひらがな、半角かたかな、丸かたかななどあらゆる「仮名」を全角かたかなに変換します。
 
 %%
 
@@ -554,7 +557,7 @@ Convert small-sized kana such as 「ぁ」 into full-sized kana such as
 %%
 %%desc.ja:
 
-「ぁ」など小さい仮名を「あ」に変換する。
+「ぁ」など小さい仮名を「あ」に変換します。
 
 %%
 
@@ -573,7 +576,7 @@ the first kana with either a dakuten or a handakuten added.
 %%
 %%desc.ja:
 
-一番最初のかなに濁点又は半濁点をつける.
+一番最初のかなに濁点又は半濁点をつけます。
 
 %%
 
@@ -594,7 +597,7 @@ expressions with C<\p> which can validate L</halfwidth katakana>.
 %%
 %%desc.ja:
 
-C<InHankakuKatakana>は正規表現に使う半角カタカナにマッチする。
+C<InHankakuKatakana>は正規表現に使う半角カタカナにマッチします。
 
 %%
 
@@ -617,7 +620,7 @@ L</katakana2hw> for a function which only converts katakana.
 %%
 %%desc.ja:
 
-あらゆる仮名文字を半角カタカナに変換する。かたかなのみを変換する場合はL</katakana2hw>を使ってください。
+あらゆる仮名文字を半角カタカナに変換します。かたかなのみを変換する場合はL</katakana2hw>を使ってください。
 
 %%
 
@@ -639,7 +642,7 @@ C<japanese-zenkaku-region>. For the opposite function, see L<kana2hw>.
 %%
 %%desc.ja:
 
-半角カタカナを全角カタカナに変換する。
+半角カタカナを全角カタカナに変換します。
 
 %%
 
@@ -659,7 +662,7 @@ unchanged. See also L</kana2hw>.
 %%
 %%desc.ja:
 
-全角かたかなを半角かたかなに変換し、ひらがなをそのままにする。L</kana2hw>も参照。
+全角かたかなを半角かたかなに変換し、ひらがなをそのままにします。L</kana2hw>も参照。
 
 %%
 
@@ -694,7 +697,7 @@ cannot include punctuation marks or L</chouon>.
 %%
 %%desc.ja:
 
-入力が平仮名のみの場合、真、入力が平仮名なでない文字を含む場合、偽(undef)。「ー」があれば偽になる。
+入力が平仮名のみの場合、真、入力が平仮名なでない文字を含む場合、偽(undef)。「ー」があれば偽になります。
 
 %%
 
@@ -712,7 +715,7 @@ useful for looping over the kana or sorting.
 %%
 %%desc.ja:
 
-仮名の（適当な）順番を返す。
+仮名の（適当な）順番を返します。例えば、全ての仮名をループしたい時に使えます。
 
 %%
 
@@ -735,7 +738,7 @@ broken up into four syllables, フ, ラ, ナ, ガン.
 
 カタカナをシラブルにわける。たとえば、「ソーシャル」
 は'ソ', 'ー', 'シ', 'ャ', 'ル'という意味のない文字ではなく、日本語の
-「原子」の'ソー', 'シャ', 'ル'になる。撥音(ん)は前の仮名に付く。例えば、
+「原子」の'ソー', 'シャ', 'ル'になります。撥音(ん)は前の仮名に付く。例えば、
 「フラナガン」は「フ」, 「ラ」, 「ナ」, 「ガン」となります。
 
 %%
@@ -771,13 +774,13 @@ are not matched and KATAKANA MIDDLE DOT is not matched.
 %%
 %%desc.ja:
 
-正規表現に使うカタカナとひらがなにマッチする。
+正規表現に使うカタカナとひらがなにマッチします。
 
 詳しくいうと以下の正規表現
 
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
-と殆どおなじ効果ですが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。
+と殆ど同じことにマッチしますが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。
 
 %%
 
@@ -849,7 +852,7 @@ This is a character class for use with \p which matches L</wide ASCII>
 %%
 %%desc.ja:
 
-正規表現に使う全角英数字にマッチする。
+正規表現に使う全角英数字にマッチします。
 
 %%
 
@@ -869,7 +872,7 @@ Convert L</wide ASCII> into ASCII.
 %%
 %%desc.ja:
 
-全角英数字を半角英数字(ASCII)に変換する。
+全角英数字を半角英数字(ASCII)に変換します。
 
 %%
 
@@ -889,7 +892,7 @@ Convert ASCII into L</wide ASCII>.
 %%
 %%desc.ja:
 
-半角英数字(ASCII)を全角英数字に変換する。
+半角英数字(ASCII)を全角英数字に変換します。
 
 %%
 
@@ -912,7 +915,7 @@ and then from morse code will result in しょっちゅう becoming シヨツチ
 %%
 %%desc.ja:
 
-かなをモースコードに変換する。日本語のモースコードは「っ」など小さいかなを表現できないので、仮名をモースコードにして、モースコードからまた仮名にする場合は「しょっちゅう」が「シヨツチユウ」になる。
+かなをモースコードに変換します。日本語のモースコードは「っ」など小さいかなを表現できないので、仮名をモースコードにして、モースコードからまた仮名にする場合は「しょっちゅう」が「シヨツチユウ」になります。
 
 %%
 
@@ -931,7 +934,7 @@ Convert Japanese Morse code into kana. Each Morse code element must be separated
 %%
 %%desc.ja:
 
-モースコードをかなに変換する。モースコードは分かち書きが必要だ。
+モースコードをかなに変換します。モースコードは分かち書きが必要だ。
 
 %%
 %%bugs.en:
@@ -941,7 +944,7 @@ This has not been extensively tested.
 %%
 %%bugs.ja:
 
-テストが不十分。
+テストが不十分です。
 
 %%
 
@@ -958,7 +961,7 @@ forms.
 %%
 %%desc.ja:
 
-仮名を点字に変換する。
+仮名を点字に変換します。
 
 %%
 %%bugs.en:
@@ -972,7 +975,7 @@ convertor could start here.
 %%
 %%bugs.ja:
 
-きちんとしたテストがない。日本語を点字に変換することはわたちがきが必要だがこの関数はそれをしないので、不十分な変換機能だ。
+きちんとしたテストがありません。日本語を本物の点字に変換することはわたちがきが必要ですがこの関数はそれをしませんので、不十分な変換機能です。
 
 %%
 
@@ -988,7 +991,7 @@ Converts Japanese braille (I<tenji>) into the equivalent katakana.
 %%
 %%desc.ja:
 
-点字をカタカナに変換。
+点字をカタカナに変換します。
 
 %%
 
@@ -1011,8 +1014,8 @@ left untouched.
 %%
 %%desc.ja:
 
-仮名を丸付けかたかなに変換する。丸付け「ン」がないので、ンはそのままとなる。
-丸付け片假名はユニコード32D0〜32FEにある。
+仮名を丸付けかたかなに変換します。丸付け「ン」がありませんので、「ン」はそのままとなります。
+丸付け片假名はユニコード32D0〜32FEにあります。
 
 %%
 
@@ -1033,7 +1036,7 @@ full-width katakana. See also L</kana2circled>.
 %%
 %%desc.ja:
 
-丸がついているかたかなを全角かたかなに変換する。
+丸がついているかたかなを全角かたかなに変換します。
 
 %%
 
@@ -1055,7 +1058,7 @@ Convert new-style (post-1949) kanji (Chinese characters) into old-style (pre-194
 %%
 %%desc.ja:
 
-親字体を旧字体に変換する
+親字体を旧字体に変換します。
 
 %%
 %%bugs.en:
@@ -1069,7 +1072,7 @@ equivalents in the old system.
 %%
 %%bugs.ja:
 
-新旧字体の情報は適当なものだ。「弁」は旧字体が三つなので、変換不可能。
+新旧字体の情報は確認不足です。「弁」は旧字体が三つありますなので、変換不可能です。
 
 %%
 
@@ -1090,7 +1093,7 @@ Convert old-style (pre-1949) kanji (Chinese characters) into new-style
 %%
 %%desc.ja:
 
-旧字体を親字体に変換する
+旧字体を親字体に変換します。
 
 %%
 
@@ -1109,7 +1112,7 @@ Convert the circled forms of kanji into their uncircled equivalents.
 %%
 %%desc.ja:
 
-丸付け漢字を普通の漢字に変換する。
+丸付け漢字を普通の漢字に変換します。
 
 %%
 
@@ -1129,7 +1132,7 @@ exist. Note that only a limited number of kanji have circled forms.
 %%
 %%desc.ja:
 
-漢字を丸付け漢字に変換する。
+漢字を丸付け漢字に変換します。
 
 %%
 
@@ -1148,7 +1151,7 @@ Convert bracketed form of kanji into unbracketed form.
 %%
 %%desc.ja:
 
-括弧漢字を普通の漢字に変換する。
+括弧漢字を普通の漢字に変換します。
 
 %%
 
@@ -1162,12 +1165,13 @@ out: $kanji
 expect: ㈱
 %%desc.en:
 
-Convert unbracketed form of kanji into bracketed form, if it exists.
+Convert an unbracketed form of kanji into bracketed form, if it
+exists, otherwise do nothing with it.
 
 %%
 %%desc.ja:
 
-普通の漢字を括弧漢字をに変換する。
+普通の漢字を括弧漢字に変換します。括弧形がある漢字は数少ないので、ご了承ください。当てはまる括弧漢字がなければ、そのままにします。
 
 %%
 
@@ -1183,7 +1187,7 @@ assistance in correcting this is very welcome.
 %%
 %%explain.ja:
 
-実験的に仮名とキリル文字の変換をする。キリル文字に詳しい方の確認がない。
+実験的に仮名とキリル文字の変換をする。キリル文字に詳しい方の確認がありませんので、その結果をよく確認しますように。
 
 %%
 
@@ -1223,7 +1227,7 @@ L<Lingua::KO::Munja>.
 %%
 %%explain.ja:
 
-かなをハングルに変換する。L<Lingua::KO::Munja>もご利用ください。
+かなをハングルに変換します。L<Lingua::KO::Munja>もご利用ください。
 
 %%
 %%bugs.en:

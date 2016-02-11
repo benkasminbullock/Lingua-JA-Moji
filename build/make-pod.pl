@@ -6,7 +6,7 @@ use ReadTranslations qw/read_translations_table get_lang_trans/;
 use Template;
 use utf8;
 use FindBin '$Bin';
-use Perl::Build 'get_version';
+use Perl::Build qw/get_version get_commit/;
 
 my %vars;
 my $trans = read_translations_table ("$Bin/moji-trans.txt");
@@ -145,6 +145,9 @@ my $tt = Template->new (
     ABSOLUTE => 1,
     INCLUDE_PATH => [$Bin, '/home/ben/projects/Perl-Build/lib/Perl/Build/templates/'],
 );
+
+$vars{version} = get_version (base => "$Bin/..",);
+$vars{commit} = get_commit (base => "$Bin/..");
 
 for my $lang (qw/en ja/) {
     get_lang_trans ($trans, \%vars, $lang, $verbose);

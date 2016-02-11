@@ -15,6 +15,12 @@ Lingua::JA::Moji - [% trans.abstract %]
     my $kana = romaji2kana ($romaji);
     # $kana is now 'アイウエオ'.
 
+=head1 VERSION
+
+This document describes Lingua::JA::Moji version [% version %]
+corresponding to git commit [% commit.commit %] released on [%
+commit.date %].
+
 =head1 [% trans.description | upper %]
 
 [% trans.description_body %]
@@ -218,9 +224,7 @@ L</romaji2kana>, is rather messy, the use of the digit "2" to mean
 "to", as in "kana2romaji", was ill-considered, and some of the
 defaults are rather strange, but since it was described in Naoki
 Tomita's book, and some people may be using it as is, I'm not very
-keen to change it in incompatible ways. As for the internals, at some
-point when I have time I will be removing the dependence on
-Convert::Moji, and very likely deleting that module from CPAN.
+keen to change it in incompatible ways. 
 
 [% start_year=2008 %]
 [% INCLUDE "author" %]

@@ -1,5 +1,10 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.41 2016-02-11
+
+* Japanese-language documentation overhauled.
+* Added VERSION section to documentation.
+
 0.40 2015-10-27
 * Documentation cleaned up and clarified
 * Added HISTORY section to pod describing why I made this.
