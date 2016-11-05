@@ -916,7 +916,7 @@ END
 # "Replacement list is longer than search list" warning and leave the
 # others intact.
 
-no warnings;
+no warnings 'misc';
 
 sub wide2ascii
 {
