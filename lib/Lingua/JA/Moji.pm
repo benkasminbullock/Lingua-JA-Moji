@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.41';
+our $VERSION = '0.42';
 
 use Carp;
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -902,6 +902,22 @@ sub InHankakuKatakana
 END
 }
 
+# The two lists in wide2ascii and ascii2wide have exactly the same
+# length.
+#
+# The warnings produced by Perl versions later than 22 are bugs in
+# Perl:
+#
+# https://rt.perl.org/Public/Bug/Display.html?id=125493
+#
+# To save problems for users, switch off warnings in these routines.
+#
+# I have no idea what command to use to switch off just the
+# "Replacement list is longer than search list" warning and leave the
+# others intact.
+
+no warnings;
+
 sub wide2ascii
 {
     my ($input) = @_;
@@ -915,6 +931,8 @@ sub ascii2wide
     $input =~ tr/ -~/\x{3000}\x{FF01}-\x{FF5E}/;
     return $input;
 }
+
+use warnings;
 
 sub InWideAscii
 {

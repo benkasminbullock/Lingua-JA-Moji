@@ -934,7 +934,7 @@ Convert Japanese Morse code into kana. Each Morse code element must be separated
 %%
 %%desc.ja:
 
-モースコードをかなに変換します。モースコードは分かち書きが必要だ。
+モースコードをかなに変換します。（本物のモースコードは分かち書きが必要です。）
 
 %%
 %%bugs.en:

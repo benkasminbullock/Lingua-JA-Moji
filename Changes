@@ -1,5 +1,9 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.42 2016-11-05
+
+* Work around for a bug in Perl 22 and later
+
 0.41 2016-02-11
 
 * Japanese-language documentation overhauled.
