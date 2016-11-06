@@ -164,7 +164,7 @@ links.
 =head2 chouon
 
 The long vowel marker, "ー", or I<chōon>, which is used in Japanese
-katakana to indicate a lengthened vowel.
+katakana to indicate a lengthened vowel. See L<What is the long line symbol used in katakana?|http://www.sljfaq.org/afaq/chouon.html>
 
 =head2 wide ASCII
 
@@ -174,18 +174,18 @@ day. "Wide ascii" characters were originally special bitmapped font
 characters created to be the same size as one kanji or kana
 character. The name for normal ASCII characters in Japanese is
 I<hankaku eisūji> (半角英数字), literally "half width English letters
-and numerals".
+and numerals". See L<What is "wide ASCII"?|http://www.sljfaq.org/afaq/wide-ascii.html> for full details.
 
 =head2 halfwidth katakana
 
 Halfwidth katakana, I<hankaku katakana> (半角かたかな) is a legacy
 encoding of katakana based on an eight-bit encoding. See
-L<http://www.sljfaq.org/afaq/half-width-katakana.html> for full
-details.
+L<What is half-width katakana?|http://www.sljfaq.org/afaq/half-width-katakana.html>
+for full details.
 
 =head2 syllabic n
 
-In this document, "syllabic n" means the kana ん or ン.
+In this document, "syllabic n" means the kana ん or ン. See L<What is syllabic n?|http://www.sljfaq.org/afaq/syllabic-n.html> for full details.
 
 [% END # lang == 'en' %]
 
@@ -211,21 +211,19 @@ comprehensive or robust. Lingua::JA::Moji was originally a private
 module. Most of the functions in the module are things I needed for my
 own projects.
 
-The strange design, using L<Convert::Moji>, was part of an abandoned
-plan to make a cross-language module which could produce, say, a
-JavaScript converter doing the same things as this Perl one, using the
-same text sources. 
+The design using L<Convert::Moji> was part of an abandoned plan to
+make a cross-language module which could produce, say, a JavaScript
+converter doing the same things as this Perl one, using the same text
+sources.
 
 I wasn't really sure whether to release it, but eventually I released
 it to CPAN as a result of requests for the source code of an online
 romaji/kana converter by website users. The module interface, in
 particular the hash reference options to L</kana2romaji> and
-L</romaji2kana>, is rather messy, the use of the digit "2" to mean
-"to", as in "kana2romaji", was ill-considered, and some of the
-defaults are rather strange, but since it was described in Naoki
-Tomita's book, and some people may be using it as is, I'm not very
-keen to change it in incompatible ways. 
+L</romaji2kana>, is rather messy, and some of the defaults are rather
+strange, but since it was described in Naoki Tomita's book, and some
+people may be using it as is, I'm not very keen to change it in
+incompatible ways.
 
 [% start_year=2008 %]
 [% INCLUDE "author" %]
-[% INCLUDE "terminology" %]

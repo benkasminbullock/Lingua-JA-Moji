@@ -21,6 +21,11 @@ WriteMakefile (
         no_index => {
             directory => 'build',
         },
+	x_contributors => [
+	    'Naoki Tomita <tomita@cpan.org>',
+	    'David Steinbrunner',
+	    'Neil Bowers <neilb@cpan.org>',
+	],
     },
     LICENSE => 'perl',
     MIN_PERL_VERSION => '5.008009',

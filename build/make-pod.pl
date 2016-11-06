@@ -95,23 +95,23 @@ for my $function (@functions) {
     }
     if ($function->{eg}) {
         $function->{eg} =~ s/^\s+|\s+$//g;
-    if ($function->{out} && $function->{expect}) {
-        my $out;
-        my $commands =<<EOF;
+	if ($function->{out} && $function->{expect}) {
+	    my $out;
+	    my $commands =<<EOF;
 use lib '$Bin/../lib';
 use Lingua::JA::Moji '$function->{name}';
 my $function->{out};
 $function->{eg}
 \$out = $function->{out};
 EOF
-        eval $commands;
-        if ($@) {
-            die "Eval died with $@ during\n$commands\n";
-        }
-        if ($out ne $function->{expect}) {
-            die "Bad value '$out': expected '$function->{expect}'";
-        }
-    }
+	    eval $commands;
+	    if ($@) {
+		die "Eval died with $@ during\n$commands\n";
+	    }
+	    if ($out ne $function->{expect}) {
+		die "Bad value '$out': expected '$function->{expect}'";
+	    }
+	}
     }
 
     if ($function->{name} =~ /^([a-z_]+)2([a-z_]+)$/ &&
@@ -156,9 +156,14 @@ for my $lang (qw/en ja/) {
     $tt->process ('Moji.pod.tmpl', \%vars, \$out,
                   {binmode => 'utf8'})
         or die "" . $tt->error ();
-    open my $output, ">:encoding(utf8)", "$dir/$outputs{$lang}" or die $!;
+    my $ofile = "$dir/$outputs{$lang}";
+    if (-f $ofile) {
+	chmod 0644, $ofile or die $!;
+    }
+    open my $output, ">:encoding(utf8)", $ofile or die "Can't open '$outputs{$lang}': $!";
     print $output $out;
     close $output or die $!;
+    chmod 0444, $ofile or die $!;
 }
 exit;
 
