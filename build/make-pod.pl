@@ -7,6 +7,7 @@ use Template;
 use utf8;
 use FindBin '$Bin';
 use Perl::Build qw/get_version get_commit/;
+use Perl::Build::Pod ':all';
 
 my %vars;
 my $trans = read_translations_table ("$Bin/moji-trans.txt");
@@ -143,7 +144,7 @@ my $tt = Template->new (
     ENCODING => 'UTF8',
     STRICT => 1,
     ABSOLUTE => 1,
-    INCLUDE_PATH => [$Bin, '/home/ben/projects/Perl-Build/lib/Perl/Build/templates/'],
+    INCLUDE_PATH => [$Bin, '/home/ben/projects/perl-build/lib/Perl/Build/templates/'],
 );
 
 $vars{version} = get_version (base => "$Bin/..",);
