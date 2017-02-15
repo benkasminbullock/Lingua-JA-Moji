@@ -22,6 +22,7 @@ our @EXPORT_OK = qw/
                     circled2kana
                     circled2kanji
                     cyrillic2katakana
+		    hangul2kana
                     hira2kata
                     hw2katakana
                     is_hiragana
@@ -1189,10 +1190,35 @@ sub kana2hangul
     my $katakana = kana2katakana ($kana);
     if (! $first2hangul) {
         load_kana2hangul ();
-        $katakana =~ s/($first2hangul_re)/$first2hangul->{$1}/g;
-        $katakana =~ s/($rest2hangul_re)/$rest2hangul->{$1}/g;
     }
+    $katakana =~ s/($first2hangul_re)/$first2hangul->{$1}/g;
+    $katakana =~ s/($rest2hangul_re)/$rest2hangul->{$1}/g;
     return $katakana;
+}
+
+my $firsth2k_re;
+my $resth2k_re;
+my $firsth2k;
+my $resth2k;
+
+sub load_hangul2kana
+{
+    load_kana2hangul ();
+    $firsth2k = { reverse %$first2hangul };
+    $resth2k = { reverse %$rest2hangul };
+    $firsth2k_re = '\b' . make_regex (keys %$firsth2k);
+    $resth2k_re = make_regex (keys %$resth2k);
+}
+
+sub hangul2kana
+{
+    my ($hangul) = @_;
+    if (! $firsth2k) {
+	load_hangul2kana ();
+    }
+    $hangul =~ s/($firsth2k_re)/$firsth2k->{$1}/;
+    $hangul =~ s/($resth2k_re)/$resth2k->{$1}/;
+    return $hangul;
 }
 
 sub kana_to_large
