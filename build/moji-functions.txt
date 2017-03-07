@@ -1238,22 +1238,29 @@ L<Lingua::KO::Munja>.
 
 =item May be incorrect
 
-This is based on a list found on the internet at
-L<http://kajiritate-no-hangul.com/kana.html>. There is currently no
+This is based on lists found on the internet at
+L<http://kajiritate-no-hangul.com/kana.html> and
+L<http://lesson-hangeul.com/50itiranhyo.html>. There is currently no
 proof of correctness.
+
+=item No reverse conversion
+
+There is currently no hangul to kana conversion.
 
 =back
 %%bugs.ja:
 
 =over
 
-=item 「ん」を変換しない
+=item 確認がありません
 
-=item 確認がない
+L<http://kajiritate-no-hangul.com/kana.html>とL<http://lesson-hangeul.com/50itiranhyo.html>を元にして使りみましたが正しいかどうかわかりません。
+
+=item 逆変換がありません
+
+ハングルから仮名への変換機能はありません。
 
 =back
-
-L<http://kajiritate-no-hangul.com/kana.html>を使ってみましたがただしいかどうか証明がありません。
 
 %%
 
