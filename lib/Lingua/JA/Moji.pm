@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.43';
+our $VERSION = '0.44';
 
 use Carp 'croak';
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -62,6 +62,7 @@ our @EXPORT_OK = qw/
 		    hentai2kana
 		    hentai2kanji
 		    kana2hentai
+		    kanji2hentai
 		   /;
 
 our %EXPORT_TAGS = (
@@ -1408,10 +1409,12 @@ my %hen2hi;
 my %hi2hen;
 # Hentaigana to kanji
 my %hen2k;
-# Hentai regex
+# Kanji to hentaigana
+my %k2hen;
+my $k2hen_re;
+# Hentai to hiragana/kanji regex (recycled for the kanji case).
 my $hen_re;
-# Hiragana to hentai regex. This is slightly complex because a single
-# hentaigana might correspond to two or more hiraganas.
+# Hiragana to hentai regex
 my $hi2hen_re;
 # Hentai data
 my $hendat;
@@ -1423,11 +1426,15 @@ sub load_hentai
 	my $hi = $h->{hi};
 	my $hen = chr ($h->{u});
 	$hen2hi{$hen} = $hi;
-	push @{$hi2hen{$hi}}, $hen;
+	for my $hiragana (@$hi) {
+	    push @{$hi2hen{$hiragana}}, $hen;
+	}
 	$hen2k{$hen} = $h->{ka};
+	push @{$k2hen{$h->{ka}}}, $hen;
     }
     $hen_re = make_regex (keys %hen2hi);
     $hi2hen_re = make_regex (keys %hi2hen);
+    $k2hen_re = make_regex (keys %k2hen);
 }
 
 sub hentai2kana
@@ -1436,13 +1443,20 @@ sub hentai2kana
     if (! $hendat) {
 	load_hentai ();
     }
-    $text =~ s/$hen_re/$hen2hi{$1}/g;
+    $text =~ s/$hen_re/join ('・', @{$hen2hi{$1}})/ge;
     return $text;
 }
 
 sub kana2hentai
 {
-    my ($kana) = @_;
+    my ($text) = @_;
+    if (! $hendat) {
+	load_hentai ();
+    }
+    # Make it all-hiragana.
+    $text = kata2hira ($text);
+    $text =~ s/$hi2hen_re/join ('・', @{$hi2hen{$1}})/ge;
+    return $text;
     # what to do?
 }
 
@@ -1452,7 +1466,18 @@ sub hentai2kanji
     if (! $hendat) {
 	load_hentai ();
     }
+    # This uses the same regex as the kanji case.
     $text =~ s/$hen_re/$hen2k{$1}/g;
+    return $text;
+}
+
+sub kanji2hentai
+{
+    my ($text) = @_;
+    if (! $hendat) {
+	load_hentai ();
+    }
+    $text =~ s/$k2hen_re/join ('・', @{$k2hen{$1}})/ge;
     return $text;
 }
 

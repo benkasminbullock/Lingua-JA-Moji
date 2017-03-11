@@ -25,17 +25,14 @@ while ($text =~ /
     if ($dcheck !~ /^\p{InCJKUnifiedIdeographs}$/) {
 	die "Bad boy $dcheck.\n";
     }
-    # Chouons look like hyphens so whap them before conving
-    $kana =~ s/-//g;
-
-    $kana = romaji2hiragana ($kana);
-    # Remove non-kana characters
-    $kana =~ s/[^\p{InKana}]//g;
+    my @kana = split /-/, $kana;
+    @kana = map {romaji2hiragana ($_)} @kana;
+    @kana = grep /\p{InKana}/, @kana;
     push @h, {
 	# Unicode
 	u => hex ($unicode),
 	# Hiragana
-	hi => $kana,
+	hi => \@kana,
 	# Kanji
 	ka => $dcheck,
     };

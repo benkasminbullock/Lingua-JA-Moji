@@ -756,7 +756,7 @@ expect: 1
 A character class for use in regular expressions which matches all
 kana characters. This class catches meaningful combinations of
 hiragana, katakana, halfwidth katakana, circled katakana, and katakana
-combined words. 
+combined words. As of [% info.version %], it does not match hentaigana.
 
 This is a combination of the existing Perl character classes
 C<Katakana>, C<InKatakana>, and C<InHiragana>, minus unassigned
@@ -780,7 +780,7 @@ are not matched and KATAKANA MIDDLE DOT is not matched.
 
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
-と殆ど同じことにマッチしますが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。
+と殆ど同じことにマッチしますが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。変体仮名もマッチしません。
 
 %%
 
@@ -834,14 +834,16 @@ Variant kana forms. Hentaigana are new in Unicode 10.0 (June 2017).
 name: hentai2kana
 %%desc.en:
 
-Convert hentaigana into hiragana.
+Convert hentaigana into hiragana. Hentaigana with multiple
+interpretations are converted into a list of kana separated by a
+middle dot character.
 
 This was added to the module in version 0.43.
 
 %%
 %%desc.ja:
 
-変体仮名をひらがなに変換します。
+変体仮名をひらがなに変換します。複数のかなにあてはまる変体仮名は「・」でつないだ列になります。
 
 %%
 
@@ -858,6 +860,10 @@ This was added to the module in version 0.43.
 変体仮名を漢字に変換します。
 
 %%
+
+name: kanji2hentai
+
+name: kana2hentai
 
 class: wide
 %%explain.en:
