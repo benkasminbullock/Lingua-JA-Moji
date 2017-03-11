@@ -6,7 +6,7 @@ use ReadTranslations qw/read_translations_table get_lang_trans/;
 use Template;
 use utf8;
 use FindBin '$Bin';
-use Perl::Build qw/get_version get_commit/;
+use Perl::Build qw/get_version get_commit get_info/;
 use Perl::Build::Pod ':all';
 
 my %vars;
@@ -81,6 +81,10 @@ my %names = (
         en => 'the Cyrillic (Russian) alphabet',
         ja => 'キリル文字',
     },
+    hentaigana => {
+	en => 'Hentaigana',
+	ja => '変体仮名',
+    },
 );
 
 my @notes = (qw/chouon passport wapuro/);
@@ -144,11 +148,12 @@ my $tt = Template->new (
     ENCODING => 'UTF8',
     STRICT => 1,
     ABSOLUTE => 1,
-    INCLUDE_PATH => [$Bin, '/home/ben/projects/perl-build/lib/Perl/Build/templates/'],
+    INCLUDE_PATH => [$Bin, pbtmpl (), ],
 );
-
-$vars{version} = get_version (base => "$Bin/..",);
-$vars{commit} = get_commit (base => "$Bin/..");
+my %pbv = (base => "$Bin/..");
+$vars{version} = get_version (%pbv);
+$vars{commit} = get_commit (%pbv);
+$vars{info} = get_info (%pbv);
 
 for my $lang (qw/en ja/) {
     get_lang_trans ($trans, \%vars, $lang, $verbose);

@@ -133,3 +133,8 @@ ja: 漢字かな変換
 id: books
 en: Books
 ja: 本
+
+id: hentaigana
+en: Hentaigana
+ja: 変体仮名
+

@@ -17,9 +17,9 @@ Lingua::JA::Moji - [% trans.abstract %]
 
 =head1 VERSION
 
-This document describes Lingua::JA::Moji version [% version %]
-corresponding to git commit [% commit.commit %] released on [%
-commit.date %].
+This document describes Lingua::JA::Moji version [% info.version %]
+corresponding to git commit L<[% commit.commit %]|[% info.repo
+%]/commit/[% commit.commit %]> made on [% commit.date %].
 
 =head1 [% trans.description | upper %]
 
@@ -242,6 +242,13 @@ L</romaji2kana>, is rather messy, and some of the defaults are rather
 strange, but since it was described in Naoki Tomita's book, and some
 people may be using it as is, I'm not very keen to change it in
 incompatible ways.
+
+0.43 added support for
+L<hentaigana|http://www.sljfaq.org/afaq/hentaigana.html>. This is
+based on copy and paste of the Unicode 10.0 standard draft
+documents. See the directory L<F<data>|[% info.repo
+%]/tree/master/data> in the github repository for the files used to
+generate this data.
 
 [% start_year=2008 %]
 [% INCLUDE "author" %]

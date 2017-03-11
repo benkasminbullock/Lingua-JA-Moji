@@ -806,11 +806,11 @@ Convert a square katakana box into its components.
 name: katakana2square
 %%eg:
 
-$sq = katakana2square ('アイウエオウォン');
+$sq = katakana2square ('カロリーアイウエオウォン');
 
 %%
 out: $sq
-expect: アイウエオ㌆
+expect: ㌍アイウエオ㌆
 %%desc.en:
 
 Convert katakana into a square thing if possible.
@@ -820,6 +820,42 @@ Convert katakana into a square thing if possible.
 
 可能なかぎり、「ウォン」を「㌆」にするなど。
 
+
+%%
+
+class: hentaigana
+%%explain.en:
+Variant kana forms. Hentaigana are new in Unicode 10.0 (June 2017).
+%%
+%%explain.ja:
+変体仮名はUnicode 10.0 (２０１７年６月）にあたらしいです。
+%%
+
+name: hentai2kana
+%%desc.en:
+
+Convert hentaigana into hiragana.
+
+This was added to the module in version 0.43.
+
+%%
+%%desc.ja:
+
+変体仮名をひらがなに変換します。
+
+%%
+
+name: hentai2kanji
+%%desc.en:
+
+Convert hentaigana into their equivalent kanji.
+
+This was added to the module in version 0.43.
+
+%%
+%%desc.ja:
+
+変体仮名を漢字に変換します。
 
 %%
 
@@ -1263,4 +1299,5 @@ L<http://kajiritate-no-hangul.com/kana.html>とL<http://lesson-hangeul.com/50iti
 =back
 
 %%
+
 
