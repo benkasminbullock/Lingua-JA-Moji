@@ -1,0 +1,570 @@
+1B002 " HENTAIGANA LETTER A-1
+• derived from 5B89 安
+1B003 # HENTAIGANA LETTER A-2
+• derived from 611B 愛
+1B004 $ HENTAIGANA LETTER A-3
+• derived from 963F 阿
+1B005 % HENTAIGANA LETTER A-WO
+• derived from 60E1 惡
+1B006 & HENTAIGANA LETTER I-1
+• derived from 4EE5 以
+1B007 ' HENTAIGANA LETTER I-2
+• derived from 4F0A 伊
+1B008 ( HENTAIGANA LETTER I-3
+• derived from 610F 意
+1B009 ) HENTAIGANA LETTER I-4
+• derived from 79FB 移
+1B00A * HENTAIGANA LETTER U-1
+• derived from 5B87 宇
+1B00B + HENTAIGANA LETTER U-2
+• derived from 5B87 宇
+1B00C , HENTAIGANA LETTER U-3
+• derived from 6182 憂
+1B00D - HENTAIGANA LETTER U-4
+• derived from 6709 有
+1B00E . HENTAIGANA LETTER U-5
+• derived from 96F2 雲
+1B00F / HENTAIGANA LETTER E-2
+• derived from 76C8 盈
+1B010 0 HENTAIGANA LETTER E-3
+• derived from 7E01 縁
+1B011 1 HENTAIGANA LETTER E-4
+• derived from 8863 衣
+1B012 2 HENTAIGANA LETTER E-5
+• derived from 8863 衣
+1B013 3 HENTAIGANA LETTER E-6
+• derived from 8981 要
+1B014 4 HENTAIGANA LETTER O-1
+• derived from 65BC 於
+1B015 5 HENTAIGANA LETTER O-2
+• derived from 65BC 於
+1B016 6 HENTAIGANA LETTER O-3
+• derived from 96B1 隱
+1B017 7 HENTAIGANA LETTER KA-1
+• derived from 4F73 佳
+1B018 8 HENTAIGANA LETTER KA-2
+• derived from 52A0 加
+1B019 9 HENTAIGANA LETTER KA-3
+• derived from 53EF 可
+1B01A : HENTAIGANA LETTER KA-4
+• derived from 53EF 可
+1B01B ; HENTAIGANA LETTER KA-5
+• derived from 5609 嘉
+1B01C < HENTAIGANA LETTER KA-6
+• derived from 6211 我
+1B01D  HENTAIGANA LETTER KA-7
+• derived from 6B5F 歟
+1B01E  HENTAIGANA LETTER KA-8
+• derived from 8CC0 賀
+1B01F  HENTAIGANA LETTER KA-9
+• derived from 9591 閑
+1B020  HENTAIGANA LETTER KA-10
+• derived from 9999 香
+1B021  HENTAIGANA LETTER KA-11
+• derived from 99D5 駕
+1B022  HENTAIGANA LETTER KA-KE
+• derived from 5BB6 家
+1B023  HENTAIGANA LETTER KI-1
+• derived from 559C 喜
+1B024 	 HENTAIGANA LETTER KI-2
+• derived from 5E7E 幾
+1B025  HENTAIGANA LETTER KI-3
+• derived from 5E7E 幾
+1B026  HENTAIGANA LETTER KI-4
+• derived from 652F 支
+1B027  HENTAIGANA LETTER KI-5
+• derived from 6728 木
+1B028  HENTAIGANA LETTER KI-6
+• derived from 7948 祈
+1B029  HENTAIGANA LETTER KI-7
+• derived from 8CB4 貴
+1B02A  HENTAIGANA LETTER KI-8
+• derived from 8D77 起
+1B02B  HENTAIGANA LETTER KU-1
+• derived from 4E45 久
+1B02C  HENTAIGANA LETTER KU-2
+• derived from 4E45 久
+1B02D  HENTAIGANA LETTER KU-3
+• derived from 4E5D 九
+1B02E  HENTAIGANA LETTER KU-4
+• derived from 4F9B 供
+1B02F  HENTAIGANA LETTER KU-5
+• derived from 5036 倶
+1B030  HENTAIGANA LETTER KU-6
+• derived from 5177 具
+1B031  HENTAIGANA LETTER KU-7
+• derived from 6C42 求
+1B032  HENTAIGANA LETTER KE-1
+• derived from 4ECB 介
+1B033  HENTAIGANA LETTER KE-2
+• derived from 4ECB 介
+1B034  HENTAIGANA LETTER KE-3
+• derived from 5E0C 希
+1B035  HENTAIGANA LETTER KE-4
+• derived from 6C23 氣
+1B036  HENTAIGANA LETTER KE-5
+• derived from 8A08 計
+1B037  HENTAIGANA LETTER KE-6
+• derived from 9063 遣
+1B038  HENTAIGANA LETTER KO-1
+• derived from 53E4 古
+1B039  HENTAIGANA LETTER KO-2
+• derived from 6545 故
+1B03A  HENTAIGANA LETTER KO-3
+• derived from 8A31 許
+1B03B HENTAIGANA LETTER KO-KI
+• derived from 671F 期
+1B03C \ HENTAIGANA LETTER SA-1
+• derived from 4E4D 乍
+1B03D ] HENTAIGANA LETTER SA-2
+• derived from 4F50 佐
+1B03E ^ HENTAIGANA LETTER SA-3
+• derived from 4F50 佐
+1B03F _ HENTAIGANA LETTER SA-4
+• derived from 5DE6 左
+1B040 ` HENTAIGANA LETTER SA-5
+• derived from 5DEE 差
+1B041 a HENTAIGANA LETTER SA-6
+• derived from 6563 散
+1B042 b HENTAIGANA LETTER SA-7
+• derived from 659C 斜
+1B043 c HENTAIGANA LETTER SA-8
+• derived from 6C99 沙
+1B044 d HENTAIGANA LETTER SI-1
+• derived from 4E4B 之
+1B045 e HENTAIGANA LETTER SI-2
+• derived from 4E4B 之
+1B046 f HENTAIGANA LETTER SI-3
+• derived from 4E8B 事
+1B047 g HENTAIGANA LETTER SI-4
+• derived from 56DB 四
+1B048 h HENTAIGANA LETTER SI-5
+• derived from 5FD7 志
+1B049 i HENTAIGANA LETTER SI-6
+• derived from 65B0 新
+1B04A j HENTAIGANA LETTER SU-1
+• derived from 53D7 受
+1B04B k HENTAIGANA LETTER SU-2
+• derived from 58FD 壽
+1B04C l HENTAIGANA LETTER SU-3
+• derived from 6578 數
+1B04D m HENTAIGANA LETTER SU-4
+• derived from 6578 數
+1B04E n HENTAIGANA LETTER SU-5
+• derived from 6625 春
+1B04F o HENTAIGANA LETTER SU-6
+• derived from 6625 春
+1B050 p HENTAIGANA LETTER SU-7
+• derived from 9808 須
+1B051 q HENTAIGANA LETTER SU-8
+• derived from 9808 須
+1B052 r HENTAIGANA LETTER SE-1
+• derived from 4E16 世
+1B053 s HENTAIGANA LETTER SE-2
+• derived from 4E16 世
+1B054 t HENTAIGANA LETTER SE-3
+• derived from 4E16 世
+1B055 u HENTAIGANA LETTER SE-4
+• derived from 52E2 勢
+1B056 v HENTAIGANA LETTER SE-5
+• derived from 8072 聲
+1B057 w HENTAIGANA LETTER SO-1
+• derived from 6240 所
+1B058 x HENTAIGANA LETTER SO-2
+• derived from 6240 所
+1B059 y HENTAIGANA LETTER SO-3
+• derived from 66FE 曾
+1B05A z HENTAIGANA LETTER SO-4
+• derived from 66FE 曾
+1B05B = HENTAIGANA LETTER SO-5
+• derived from 695A 楚
+1B05C > HENTAIGANA LETTER SO-6
+• derived from 8607 蘇
+1B05D ? HENTAIGANA LETTER SO-7
+• derived from 8655 處
+1B05E @ HENTAIGANA LETTER TA-1
+• derived from 5802 堂
+1B05F A HENTAIGANA LETTER TA-2
+• derived from 591A 多
+1B060 B HENTAIGANA LETTER TA-3
+• derived from 591A 多
+1B061 C HENTAIGANA LETTER TA-4
+• derived from 7576 當
+1B062 D HENTAIGANA LETTER TI-1
+• derived from 5343 千
+1B063 E HENTAIGANA LETTER TI-2
+• derived from 5730 地
+1B064 F HENTAIGANA LETTER TI-3
+• derived from 667A 智
+1B065 G HENTAIGANA LETTER TI-4
+• derived from 77E5 知
+1B066 H HENTAIGANA LETTER TI-5
+• derived from 77E5 知
+1B067 I HENTAIGANA LETTER TI-6
+• derived from 81F4 致
+1B068 J HENTAIGANA LETTER TI-7
+• derived from 9072 遲
+1B069 K HENTAIGANA LETTER TU-1
+• derived from 5DDD 川
+1B06A L HENTAIGANA LETTER TU-2
+• derived from 5DDD 川
+1B06B M HENTAIGANA LETTER TU-3
+• derived from 6D25 津
+1B06C N HENTAIGANA LETTER TU-4
+• derived from 90FD 都
+1B06D O HENTAIGANA LETTER TU-TO
+• derived from 5F92 徒
+1B06E P HENTAIGANA LETTER TE-1
+• derived from 4EAD 亭
+1B06F Q HENTAIGANA LETTER TE-2
+• derived from 4F4E 低
+1B070 R HENTAIGANA LETTER TE-3
+• derived from 50B3 傳
+1B071 S HENTAIGANA LETTER TE-4
+• derived from 5929 天
+1B072 T HENTAIGANA LETTER TE-5
+• derived from 5929 天
+1B073 U HENTAIGANA LETTER TE-6
+• derived from 5929 天
+1B074 V HENTAIGANA LETTER TE-7
+• derived from 5E1D 帝
+1B075 W HENTAIGANA LETTER TE-8
+• derived from 5F16 弖
+1B076 X HENTAIGANA LETTER TE-9
+• derived from 8F49 轉
+1B077 Y HENTAIGANA LETTER TO-1
+• derived from 571F 土
+1B078 Z HENTAIGANA LETTER TO-2
+• derived from 5EA6 度
+1B079 [ HENTAIGANA LETTER TO-3
+• derived from 6771 東
+1B07A  HENTAIGANA LETTER TO-4
+• derived from 767B 登
+1B07B  HENTAIGANA LETTER TO-5
+• derived from 767B 登
+1B07C  HENTAIGANA LETTER TO-6
+• derived from 7825 砥
+1B07D  HENTAIGANA LETTER TO-RA
+• derived from 7B49 等
+1B07E  HENTAIGANA LETTER NA-1
+• derived from 5357 南
+1B07F  HENTAIGANA LETTER NA-2
+• derived from 540D 名
+1B080   HENTAIGANA LETTER NA-3
+• derived from 5948 奈
+1B081 ¡ HENTAIGANA LETTER NA-4
+• derived from 5948 奈
+1B082 ¢ HENTAIGANA LETTER NA-5
+• derived from 5948 奈
+1B083 £ HENTAIGANA LETTER NA-6
+• derived from 83DC 菜
+1B084 ¤ HENTAIGANA LETTER NA-7
+• derived from 90A3 那
+1B085 ¥ HENTAIGANA LETTER NA-8
+• derived from 90A3 那
+1B086 ¦ HENTAIGANA LETTER NA-9
+• derived from 96E3 難
+1B087 § HENTAIGANA LETTER NI-1
+• derived from 4E39 丹
+1B088 ¨ HENTAIGANA LETTER NI-2
+• derived from 4E8C 二
+1B089 © HENTAIGANA LETTER NI-3
+• derived from 4EC1 仁
+1B08A ª HENTAIGANA LETTER NI-4
+• derived from 5152 兒
+1B08B « HENTAIGANA LETTER NI-5
+• derived from 723E 爾
+1B08C ¬ HENTAIGANA LETTER NI-6
+• derived from 723E 爾
+1B08D ­ HENTAIGANA LETTER NI-7
+• derived from 8033 耳
+1B08E ® HENTAIGANA LETTER NI-TE
+• derived from 800C 而
+1B08F ¯ HENTAIGANA LETTER NU-1
+• derived from 52AA 努
+1B090 ° HENTAIGANA LETTER NU-2
+• derived from 5974 奴
+1B091 ± HENTAIGANA LETTER NU-3
+• derived from 6012 怒
+1B092 ² HENTAIGANA LETTER NE-1
+• derived from 5E74 年
+1B093 ³ HENTAIGANA LETTER NE-2
+• derived from 5E74 年
+1B094 ´ HENTAIGANA LETTER NE-3
+• derived from 5E74 年
+1B095 µ HENTAIGANA LETTER NE-4
+• derived from 6839 根
+1B096 ¶ HENTAIGANA LETTER NE-5
+• derived from 71B1 熱
+1B097 · HENTAIGANA LETTER NE-6
+• derived from 79B0 禰
+1B098 ¸ HENTAIGANA LETTER NE-KO
+• derived from 5B50 子
+1B099 { HENTAIGANA LETTER NO-1
+• derived from 4E43 乃
+1B09A | HENTAIGANA LETTER NO-2
+• derived from 6FC3 濃
+1B09B } HENTAIGANA LETTER NO-3
+• derived from 80FD 能
+1B09C ~ HENTAIGANA LETTER NO-4
+• derived from 80FD 能
+1B09D  HENTAIGANA LETTER NO-5
+• derived from 8FB2 農
+1B09E  HENTAIGANA LETTER HA-1
+• derived from 516B 八
+1B09F  HENTAIGANA LETTER HA-2
+• derived from 534A 半
+1B0A0  HENTAIGANA LETTER HA-3
+• derived from 5A46 婆
+1B0A1  HENTAIGANA LETTER HA-4
+• derived from 6CE2 波
+1B0A2  HENTAIGANA LETTER HA-5
+• derived from 76E4 盤
+1B0A3  HENTAIGANA LETTER HA-6
+• derived from 76E4 盤
+1B0A4  HENTAIGANA LETTER HA-7
+• derived from 7834 破
+1B0A5  HENTAIGANA LETTER HA-8
+• derived from 8005 者
+1B0A6  HENTAIGANA LETTER HA-9
+• derived from 8005 者
+1B0A7  HENTAIGANA LETTER HA-10
+• derived from 8449 葉
+1B0A8  HENTAIGANA LETTER HA-11
+• derived from 9817 頗
+1B0A9  HENTAIGANA LETTER HI-1
+• derived from 60B2 悲
+1B0AA  HENTAIGANA LETTER HI-2
+• derived from 65E5 日
+1B0AB  HENTAIGANA LETTER HI-3
+• derived from 6BD4 比
+1B0AC  HENTAIGANA LETTER HI-4
+• derived from 907F 避
+1B0AD  HENTAIGANA LETTER HI-5
+• derived from 975E 非
+1B0AE  HENTAIGANA LETTER HI-6
+• derived from 98DB 飛
+1B0AF  HENTAIGANA LETTER HI-7
+• derived from 98DB 飛
+1B0B0  HENTAIGANA LETTER HU-1
+• derived from 4E0D 不
+1B0B1  HENTAIGANA LETTER HU-2
+• derived from 5A66 婦
+1B0B2  HENTAIGANA LETTER HU-3
+• derived from 5E03 布
+1B0B3  HENTAIGANA LETTER HE-1
+• derived from 500D 倍
+1B0B4  HENTAIGANA LETTER HE-2
+• derived from 5F0A 弊
+1B0B5  HENTAIGANA LETTER HE-3
+• derived from 5F0A 弊
+1B0B6  HENTAIGANA LETTER HE-4
+• derived from 904D 遍
+1B0B7  HENTAIGANA LETTER HE-5
+• derived from 908A 邊
+1B0B8 Ø HENTAIGANA LETTER HE-6
+• derived from 908A 邊
+1B0B9 Ù HENTAIGANA LETTER HE-7
+• derived from 90E8 部
+1B0BA Ú HENTAIGANA LETTER HO-1
+• derived from 4FDD 保
+1B0BB Û HENTAIGANA LETTER HO-2
+• derived from 4FDD 保
+1B0BC Ü HENTAIGANA LETTER HO-3
+• derived from 5831 報
+1B0BD Ý HENTAIGANA LETTER HO-4
+• derived from 5949 奉
+1B0BE Þ HENTAIGANA LETTER HO-5
+• derived from 5BF6 寶
+1B0BF ß HENTAIGANA LETTER HO-6
+• derived from 672C 本
+1B0C0 à HENTAIGANA LETTER HO-7
+• derived from 672C 本
+1B0C1 á HENTAIGANA LETTER HO-8
+• derived from 8C50 豐
+1B0C2 â HENTAIGANA LETTER MA-1
+• derived from 4E07 万
+1B0C3 ã HENTAIGANA LETTER MA-2
+• derived from 672B 末
+1B0C4 ä HENTAIGANA LETTER MA-3
+• derived from 672B 末
+1B0C5 å HENTAIGANA LETTER MA-4
+• derived from 6EFF 滿
+1B0C6 æ HENTAIGANA LETTER MA-5
+• derived from 6EFF 滿
+1B0C7 ç HENTAIGANA LETTER MA-6
+• derived from 842C 萬
+1B0C8 è HENTAIGANA LETTER MA-7
+• derived from 9EBB 麻
+1B0C9 é HENTAIGANA LETTER MI-1
+• derived from 4E09 三
+1B0CA ê HENTAIGANA LETTER MI-2
+• derived from 5FAE 微
+1B0CB ë HENTAIGANA LETTER MI-3
+• derived from 7F8E 美
+1B0CC ì HENTAIGANA LETTER MI-4
+• derived from 7F8E 美
+1B0CD í HENTAIGANA LETTER MI-5
+• derived from 7F8E 美
+1B0CE î HENTAIGANA LETTER MI-6
+• derived from 898B 見
+1B0CF ï HENTAIGANA LETTER MI-7
+• derived from 8EAB 身
+1B0D0 ð HENTAIGANA LETTER MU-1
+• derived from 6B66 武
+1B0D1 ñ HENTAIGANA LETTER MU-2
+• derived from 7121 無
+1B0D2 ò HENTAIGANA LETTER MU-3
+• derived from 725F 牟
+1B0D3 ó HENTAIGANA LETTER MU-4
+• derived from 821E 舞
+1B0D4 ô HENTAIGANA LETTER ME-1
+• derived from 514D 免
+1B0D5 õ HENTAIGANA LETTER ME-2
+• derived from 9762 面
+1B0D6 ö HENTAIGANA LETTER ME-MA
+• derived from 99AC 馬
+1B0D7 ¹ HENTAIGANA LETTER MO-1
+• derived from 6BCD 母
+1B0D8 º HENTAIGANA LETTER MO-2
+• derived from 6BDB 毛
+1B0D9 » HENTAIGANA LETTER MO-3
+• derived from 6BDB 毛
+1B0DA ¼ HENTAIGANA LETTER MO-4
+• derived from 6BDB 毛
+1B0DB ½ HENTAIGANA LETTER MO-5
+• derived from 8302 茂
+1B0DC ¾ HENTAIGANA LETTER MO-6
+• derived from 88F3 裳
+1B0DD ¿ HENTAIGANA LETTER YA-1
+• derived from 4E5F 也
+1B0DE À HENTAIGANA LETTER YA-2
+• derived from 4E5F 也
+1B0DF Á HENTAIGANA LETTER YA-3
+• derived from 5C4B 屋
+1B0E0 Â HENTAIGANA LETTER YA-4
+• derived from 8036 耶
+1B0E1 Ã HENTAIGANA LETTER YA-5
+• derived from 8036 耶
+1B0E2 Ä HENTAIGANA LETTER YA-YO
+• derived from 591C 夜
+1B0E3 Å HENTAIGANA LETTER YU-1
+• derived from 6E38 游
+1B0E4 Æ HENTAIGANA LETTER YU-2
+• derived from 7531 由
+1B0E5 Ç HENTAIGANA LETTER YU-3
+• derived from 7531 由
+1B0E6 È HENTAIGANA LETTER YU-4
+• derived from 904A 遊
+1B0E7 É HENTAIGANA LETTER YO-1
+• derived from 4EE3 代
+1B0E8 Ê HENTAIGANA LETTER YO-2
+• derived from 4F59 余
+1B0E9 Ë HENTAIGANA LETTER YO-3
+• derived from 8207 與
+1B0EA Ì HENTAIGANA LETTER YO-4
+• derived from 8207 與
+1B0EB Í HENTAIGANA LETTER YO-5
+• derived from 8207 與
+1B0EC Î HENTAIGANA LETTER YO-6
+• derived from 9918 餘
+1B0ED Ï HENTAIGANA LETTER RA-1
+• derived from 7F85 羅
+1B0EE Ð HENTAIGANA LETTER RA-2
+• derived from 826F 良
+1B0EF Ñ HENTAIGANA LETTER RA-3
+• derived from 826F 良
+1B0F0 Ò HENTAIGANA LETTER RA-4
+• derived from 826F 良
+1B0F1 Ó HENTAIGANA LETTER RI-1
+• derived from 5229 利
+1B0F2 Ô HENTAIGANA LETTER RI-2
+• derived from 5229 利
+1B0F3 Õ HENTAIGANA LETTER RI-3
+• derived from 674E 李
+1B0F4 Ö HENTAIGANA LETTER RI-4
+• derived from 68A8 梨
+1B0F5 × HENTAIGANA LETTER RI-5
+• derived from 7406 理
+1B0F6 ÷ HENTAIGANA LETTER RI-6
+• derived from 91CC 里
+1B0F7 ø HENTAIGANA LETTER RI-7
+• derived from 96E2 離
+1B0F8 ù HENTAIGANA LETTER RU-1
+• derived from 6D41 流
+1B0F9 ú HENTAIGANA LETTER RU-2
+• derived from 7559 留
+1B0FA û HENTAIGANA LETTER RU-3
+• derived from 7559 留
+1B0FB ü HENTAIGANA LETTER RU-4
+• derived from 7559 留
+1B0FC ý HENTAIGANA LETTER RU-5
+• derived from 7D2F 累
+1B0FD þ HENTAIGANA LETTER RU-6
+• derived from 985E 類
+1B0FE  HENTAIGANA LETTER RE-1
+• derived from 79AE 禮
+1B0FF  HENTAIGANA LETTER RE-2
+• derived from 79AE 禮
+1B100  HENTAIGANA LETTER RE-3
+• derived from 9023 連
+1B101  HENTAIGANA LETTER RE-4
+• derived from 9E97 麗
+1B102  HENTAIGANA LETTER RO-1
+• derived from 5442 呂
+1B103  HENTAIGANA LETTER RO-2
+• derived from 5442 呂
+1B104  HENTAIGANA LETTER RO-3
+• derived from 5A41 婁
+1B105 	 HENTAIGANA LETTER RO-4
+• derived from 6A13 樓
+1B106  HENTAIGANA LETTER RO-5
+• derived from 8DEF 路
+1B107  HENTAIGANA LETTER RO-6
+• derived from 9732 露
+1B108  HENTAIGANA LETTER WA-1
+• derived from 502D 倭
+1B109  HENTAIGANA LETTER WA-2
+• derived from 548C 和
+1B10A  HENTAIGANA LETTER WA-3
+• derived from 548C 和
+1B10B  HENTAIGANA LETTER WA-4
+• derived from 738B 王
+1B10C  HENTAIGANA LETTER WA-5
+• derived from 738B 王
+1B10D  HENTAIGANA LETTER WI-1
+• derived from 4E95 井
+1B10E  HENTAIGANA LETTER WI-2
+• derived from 4E95 井
+1B10F  HENTAIGANA LETTER WI-3
+• derived from 5C45 居
+1B110  HENTAIGANA LETTER WI-4
+• derived from 7232 爲
+1B111  HENTAIGANA LETTER WI-5
+• derived from 907A 遺
+1B112  HENTAIGANA LETTER WE-1
+• derived from 60E0 惠
+1B113  HENTAIGANA LETTER WE-2
+• derived from 885E 衞
+1B114  HENTAIGANA LETTER WE-3
+• derived from 885E 衞
+1B115  HENTAIGANA LETTER WE-4
+• derived from 885E 衞
+1B116  HENTAIGANA LETTER WO-1
+• derived from 4E4E 乎
+1B117  HENTAIGANA LETTER WO-2
+• derived from 4E4E 乎
+1B118  HENTAIGANA LETTER WO-3
+• derived from 5C3E 尾
+1B119  HENTAIGANA LETTER WO-4
+• derived from 7DD2 緒
+1B11A  HENTAIGANA LETTER WO-5
+• derived from 8D8A 越
+1B11B  HENTAIGANA LETTER WO-6
+• derived from 9060 遠
+1B11C HENTAIGANA LETTER WO-7
+• derived from 9060 遠
+1B11D ! HENTAIGANA LETTER N-MU-MO-1
+• derived from 65E0 无
+1B11E  HENTAIGANA LETTER N-MU-MO-2
+• derived from 65E0 无

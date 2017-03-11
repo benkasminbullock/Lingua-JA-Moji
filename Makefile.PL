@@ -13,6 +13,7 @@ WriteMakefile (
     ABSTRACT_FROM => $pod,
     PREREQ_PM => {
         'Convert::Moji' => '0.05',
+	'JSON::Parse' => '0.49',
     },
     META_MERGE => {
         resources => {

@@ -1,6 +1,6 @@
 use warnings;
 use strict;
-use Lingua::JA::Moji qw/kana2hangul/;
+use Lingua::JA::Moji qw/kana2hangul hangul2kana/;
 use utf8;
 use Test::More;
 my $builder = Test::More->builder;
@@ -16,5 +16,6 @@ is ($h, '스고와자', "Hangul conversion");
 TODO: {
     local $TODO='Make this work better';
     is (kana2hangul ('とうきょうと かちゅしかく'), '도쿄토 가추시카쿠');
+is (hangul2kana ('도쿄토 가추시카쿠'), 'トキョト カチュシカク');
 };
 done_testing ();

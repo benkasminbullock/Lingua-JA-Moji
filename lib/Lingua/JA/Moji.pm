@@ -6,10 +6,11 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.43';
+our $VERSION = '0.44';
 
 use Carp 'croak';
 use Convert::Moji qw/make_regex length_one unambiguous/;
+use JSON::Parse 'json_file_to_perl';
 use utf8;
 
 our @EXPORT_OK = qw/
@@ -58,6 +59,9 @@ our @EXPORT_OK = qw/
 		    katakana2square
                     wide2ascii
 		    nigori_first
+		    hentai2kana
+		    hentai2kanji
+		    kana2hentai
 		   /;
 
 our %EXPORT_TAGS = (
@@ -1391,6 +1395,65 @@ sub nigori_first
     if (@nigori) {
 	push @$list, @nigori;
     }
+}
+
+# Hentaigana (Unicode 10.0) related
+
+my $hentai_file = __FILE__;
+$hentai_file =~ s!\.pm$!/!;
+$hentai_file .= "hentaigana.json";
+# Hentai to hiragana (one to one)
+my %hen2hi;
+# Hiragana to hentai (one to many)
+my %hi2hen;
+# Hentaigana to kanji
+my %hen2k;
+# Hentai regex
+my $hen_re;
+# Hiragana to hentai regex. This is slightly complex because a single
+# hentaigana might correspond to two or more hiraganas.
+my $hi2hen_re;
+# Hentai data
+my $hendat;
+
+sub load_hentai
+{
+    $hendat = json_file_to_perl ($hentai_file);
+    for my $h (@$hendat) {
+	my $hi = $h->{hi};
+	my $hen = chr ($h->{u});
+	$hen2hi{$hen} = $hi;
+	push @{$hi2hen{$hi}}, $hen;
+	$hen2k{$hen} = $h->{ka};
+    }
+    $hen_re = make_regex (keys %hen2hi);
+    $hi2hen_re = make_regex (keys %hi2hen);
+}
+
+sub hentai2kana
+{
+    my ($text) = @_;
+    if (! $hendat) {
+	load_hentai ();
+    }
+    $text =~ s/$hen_re/$hen2hi{$1}/g;
+    return $text;
+}
+
+sub kana2hentai
+{
+    my ($kana) = @_;
+    # what to do?
+}
+
+sub hentai2kanji
+{
+    my ($text) = @_;
+    if (! $hendat) {
+	load_hentai ();
+    }
+    $text =~ s/$hen_re/$hen2k{$1}/g;
+    return $text;
 }
 
 1; 

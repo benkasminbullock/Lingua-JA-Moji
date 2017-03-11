@@ -1,8 +1,10 @@
 Revision history for perl module Lingua::JA::Moji
 
-0.43 2017-03-07
+0.43 2017-03-11
 
 * Small improvements in kana to hangul converter
+* Added hentaigana from Unicode 10.0
+* Dependence on JSON::Parse added
 
 0.42 2016-11-05
 
