@@ -310,6 +310,18 @@ under the key "abbrev" and the full name under the key "full_name".
 
 %%
 
+name: romaji_vowel_styles
+%%desc.en:
+
+Returns a list of valid styles of romaji vowels.
+
+%%
+%%desc.ja:
+
+有効な母音スタイルのリスト・レファレンス
+
+%%
+
 name:  is_voiced
 %%eg:
 
@@ -1275,8 +1287,6 @@ L<Lingua::KO::Munja>.
 %%bugs.en:
 
 =over
-
-=item Doesn't deal with L</syllabic n>
 
 =item May be incorrect
 
