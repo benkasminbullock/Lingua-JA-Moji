@@ -114,7 +114,7 @@ EOF
 		die "Eval died with $@ during\n$commands\n";
 	    }
 	    if ($out ne $function->{expect}) {
-		die "Bad value '$out': expected '$function->{expect}'";
+		die "Bad value '$out': expected '$function->{expect}' from\n$commands\n";
 	    }
 	}
     }

@@ -6,7 +6,7 @@ require Exporter;
 use warnings;
 use strict;
 
-our $VERSION = '0.45';
+our $VERSION = '0.46';
 
 use Carp 'croak';
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -689,14 +689,14 @@ sub is_romaji
     }
     # Test that $romaji contains only characters which may be
     # romanized Japanese.
-    if ($romaji =~ /[^\sa-zāīūēōâîûêô'-]/i) {
-        return;
+    if ($romaji =~ /[^\sa-zāīūēōâîûêô'-]|^-/i) {
+        return undef;
     }
     my $kana = romaji2kana ($romaji, {wapuro => 1});
     if ($kana =~ /^[ア-ンッー\s]+$/) {
         return kana2romaji ($kana, {wapuro => 1});
     }
-    return;
+    return undef;
 }
 
 
@@ -750,8 +750,6 @@ sub is_romaji_strict
 	return;
     }
     if ($romaji =~ /
-		       # Don't allow small vowels, small tsu, or fya,
-		       # fye etc.
 		       (fy|l|x|v)y?($vowel_re|ts?u|wa|ka|ke)
 		   |
 		       # Don't allow hyi, hye, yi, ye.
@@ -786,7 +784,7 @@ sub is_romaji_strict
 		       # Don't allow 'thi'
 		       thi
 		   /ix) {
-        return;
+        return undef;
     }
     return $canonical;
 }

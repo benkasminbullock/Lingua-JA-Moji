@@ -25,6 +25,8 @@ ok (! is_romaji_strict ('adithya'), "'adithya' is not Japanese");
 ok (! is_romaji_semistrict ('adithya'), "'adithya' is not Japanese");
 ok (is_romaji_strict ('AREKKUSU'), "'AREKKUSU' is romaji");
 ok (is_romaji_semistrict ('AREKKUSU'), "'AREKKUSU' is romaji");
+ok (! is_romaji_strict ('-romaji'), "hyphen as first character rejected");
+ok (! is_romaji_semistrict ('-romaji'), "hyphen as first character rejected");
 
 # List of romanizations we don't want to allow.
 

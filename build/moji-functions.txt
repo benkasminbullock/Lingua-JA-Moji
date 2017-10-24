@@ -361,7 +361,8 @@ This detects whether a string of alphabetical characters, which may
 also include characters with macrons or circumflexes, "looks like"
 romanized Japanese. If the test is successful, it returns a true
 value, and if the test is unsuccessful, it returns a false value. If
-the string is empty, it returns a false value.
+the string is empty, it returns a false value. Hyphens are not allowed
+as the first character.
 
 This works by converting the string to kana via L</romaji2kana> and
 seeing if it converts cleanly or not.
@@ -373,7 +374,7 @@ converted into wapuro format.
 %%desc.ja:
 
 アルファベットの列はローマ字に見えるなら真、見えないなら偽を戻します。
-厳密に確認したい時はL</is_romaji_strict>をお勧めします。
+厳密に確認したい時はL</is_romaji_strict>をお勧めします。「-」で初まる文字列の場合は戻し値が偽(undef)となります。
 
 真の戻し値はローマ字のワープロ変換。
 
@@ -834,6 +835,42 @@ Convert katakana into a square thing if possible.
 
 
 %%
+
+name: smallize_kana
+%%eg:
+
+$smallize = smallize_kana ('オキヤクサマガカツタ');
+
+%%
+out: $smallize
+expect: オキャクサマガカッタ
+%%desc.en:
+
+Given katakana input, convert possible "old-style" kana usage with
+large kanas used for youon or sokuon into smaller kana. If the
+conversion succeeds, return the converted value, otherwise return the
+undefined value. This function is experimental.
+
+%%
+%%desc.ja:
+
+片仮名の列に拗音と促音を入れる。昔の仮名使いを現代のに直す。あくまで実験的です。
+
+%%
+
+name: cleanup_kana
+%%desc.en:
+
+Clean up mixed kana and romaji inputs into katakana, and convert stray
+"one" kanjis into chouons. This function is experimental.
+
+%%
+%%desc.ja:
+
+間違ったかな入力を直す。例えば「一」（漢字のいち）を「ー」（長音）に。
+
+%%
+
 
 class: hentaigana
 %%explain.en:
