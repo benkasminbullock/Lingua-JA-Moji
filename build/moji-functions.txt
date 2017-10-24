@@ -851,6 +851,8 @@ large kanas used for youon or sokuon into smaller kana. If the
 conversion succeeds, return the converted value, otherwise return the
 undefined value. This function is experimental.
 
+This was added to the module in version 0.46.
+
 %%
 %%desc.ja:
 
@@ -863,6 +865,8 @@ name: cleanup_kana
 
 Clean up mixed kana and romaji inputs into katakana, and convert stray
 "one" kanjis into chouons. This function is experimental.
+
+This was added to the module in version 0.46.
 
 %%
 %%desc.ja:
