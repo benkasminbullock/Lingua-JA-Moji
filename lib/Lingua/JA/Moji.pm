@@ -14,9 +14,6 @@ use JSON::Parse 'json_file_to_perl';
 use utf8;
 
 our @EXPORT_OK = qw/
-                    InHankakuKatakana
-                    InKana
-                    InWideAscii
 		    cleanup_kana
 		    hangul2kana
 		    hentai2kana
@@ -25,7 +22,11 @@ our @EXPORT_OK = qw/
 		    kanji2hentai
 		    katakana2square
 		    nigori_first
+		    smallize_kana
 		    square2katakana
+                    InHankakuKatakana
+                    InKana
+                    InWideAscii
                     ascii2wide
                     bracketed2kanji
                     braille2kana
@@ -63,8 +64,8 @@ our @EXPORT_OK = qw/
                     romaji2kana
                     romaji_styles
                     romaji_vowel_styles
-		    smallize_kana
                     wide2ascii
+		    yurei_moji
 		   /;
 
 our %EXPORT_TAGS = (
@@ -1494,7 +1495,32 @@ sub cleanup_kana
     return $kana;
 }
 
+my @yurei = qw/
+穃
+粫
+挧
+橸
+膤
+袮
+閠
+妛
+暃
+椦
+軅
+鵈
+恷
+碵
+駲
+墸
+壥
+彁
+蟐
+/;
 
+sub yurei_moji
+{
+    return @yurei;
+}
 
 1; 
 

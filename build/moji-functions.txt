@@ -1270,6 +1270,16 @@ exists, otherwise do nothing with it.
 
 %%
 
+
+name: yurei_moji
+%%explain.en:
+
+    my @yurei = yurei_moji ();
+
+Returns a list of the yurei moji (幽霊文字).
+
+%%
+
 class: cyrillization
 %%explain.en:
 
