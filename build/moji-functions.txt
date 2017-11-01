@@ -1280,6 +1280,14 @@ Returns a list of the yurei moji (幽霊文字).
 
 %%
 
+name: bad_kanji
+%%explain.en:
+
+    my @bad_kanji = bad_kanji ();
+
+Returns a list of kanji with negative meanings. See also
+L<https://www.lemoda.net/japanese/offensive-kanji/index.html>.
+
 class: cyrillization
 %%explain.en:
 

@@ -14,6 +14,7 @@ use JSON::Parse 'json_file_to_perl';
 use utf8;
 
 our @EXPORT_OK = qw/
+		    bad_kanji
 		    cleanup_kana
 		    hangul2kana
 		    hentai2kana
@@ -970,7 +971,7 @@ sub morse2kana
     for (@input) {
 	$_ = $kana2morse->invert ($_);
     }
-    $input = join '',@input;
+    $input = join '', @input;
     $input = $strip_daku->invert ($input);
     return $input;
 }
@@ -1495,31 +1496,30 @@ sub cleanup_kana
     return $kana;
 }
 
-my @yurei = qw/
-穃
-粫
-挧
-橸
-膤
-袮
-閠
-妛
-暃
-椦
-軅
-鵈
-恷
-碵
-駲
-墸
-壥
-彁
-蟐
-/;
+sub load_kanji
+{
+    my ($file) = @_;
+    my $bkfile = getdistfile ('bad-kanji');
+    open my $in, "<:encoding(utf8)", $bkfile
+        or die "Error opening '$bkfile': $!";
+    my @bk;
+    while (<$in>) {
+	while (/(\p{InCJKUnifiedIdeographs})/g) {
+	    push @bk, $1;
+	}
+    }
+    close $in or die $!;
+    return @bk;
+}
 
 sub yurei_moji
 {
-    return @yurei;
+    return load_kanji ('yurei-moji')
+}
+
+sub bad_kanji
+{
+    return load_kanji ('bad-kanji');
 }
 
 1; 
