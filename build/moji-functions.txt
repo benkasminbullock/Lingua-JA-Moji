@@ -1288,6 +1288,8 @@ name: bad_kanji
 Returns a list of kanji with negative meanings. See also
 L<https://www.lemoda.net/japanese/offensive-kanji/index.html>.
 
+%%
+
 class: cyrillization
 %%explain.en:
 
