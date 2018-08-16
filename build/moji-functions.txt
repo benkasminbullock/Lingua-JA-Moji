@@ -1276,7 +1276,13 @@ name: yurei_moji
 
     my @yurei = yurei_moji ();
 
-Returns a list of the yurei moji (幽霊文字).
+Returns a list of the yurei moji (幽霊文字), kanji which don't
+actually exist but were mistakenly included in a computer standard.
+
+%%
+%%explain.ja:
+
+幽霊文字（実際には存在しない漢字）
 
 %%
 
@@ -1287,6 +1293,12 @@ name: bad_kanji
 
 Returns a list of kanji with negative meanings. See also
 L<https://www.lemoda.net/japanese/offensive-kanji/index.html>.
+
+%%
+%%explain.ja:
+
+否定的な意味（病名、不愉快な物、軽率の意味など）の漢字。
+L<https://www.lemoda.net/japanese/offensive-kanji/index.html>。
 
 %%
 
