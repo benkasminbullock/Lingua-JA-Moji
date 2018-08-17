@@ -1284,7 +1284,7 @@ information.
 %%
 %%desc.ja:
 
-幽霊文字（実際には存在しない漢字）。L<https://www.wdic.org/w/WDIC/%E5%B9%BD%E9%9C%8A%E6%96%87%E5%AD%97>ご参照ください。
+幽霊文字（実際には存在しない漢字）。L<https://www.wdic.org/w/WDIC/%E5%B9%BD%E9%9C%8A%E6%96%87%E5%AD%97>ご参照ください。こちらのページの典拠不詳・典拠不明・同定不能の字です。
 
 %%
 
