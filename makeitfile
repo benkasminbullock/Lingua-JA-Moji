@@ -1,8 +1,12 @@
 WWW=/usr/local/www/data
 POD2HTML=perl -MPod::Simple::HTML -e Pod::Simple::HTML::go
 LIB=lib/Lingua/JA
+# Data library
+DLIB=lib/Lingua/JA/Moji
 
-all:	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod
+FILES=$(DLIB)/bad-kanji.txt
+
+all:	$(LIB)/Moji.pod $(LIB)/Moji-ja.pod $(FILES)
 
 html:	$(WWW)/moji.html $(WWW)/moji-ja.html
 
@@ -18,6 +22,14 @@ PODDEP=$(BUILD)/make-pod.pl $(BUILD)/Moji.pod.tmpl \
 
 $(LIB)/Moji.pod $(LIB)/Moji-ja.pod:	$(PODDEP)
 	$(BUILD)/make-pod.pl
+
+# The original "bad kanji" file is here at the moment.
+
+BKORIG=/home/ben/projects/kanjivg/png/bad-kanji.txt
+
+$(DLIB)/bad-kanji.txt: $(BKORIG)
+	cp -f $(BKORIG) $@
+	chmod 0444 $@
 
 clean:
 	-rm -rf Lingua-JA-Moji-0.* Makefile.old MANIFEST.bak META.yml \
