@@ -1272,22 +1272,24 @@ exists, otherwise do nothing with it.
 
 
 name: yurei_moji
-%%explain.en:
+%%desc.en:
 
     my @yurei = yurei_moji ();
 
 Returns a list of the yurei moji (幽霊文字), kanji which don't
-actually exist but were mistakenly included in a computer standard.
+actually exist but were mistakenly included in a computer
+standard. See L<https://www.sljfaq.org/afaq/yuureimoji.html> for more
+information.
 
 %%
-%%explain.ja:
+%%desc.ja:
 
-幽霊文字（実際には存在しない漢字）
+幽霊文字（実際には存在しない漢字）。L<https://www.wdic.org/w/WDIC/%E5%B9%BD%E9%9C%8A%E6%96%87%E5%AD%97>ご参照ください。
 
 %%
 
 name: bad_kanji
-%%explain.en:
+%%desc.en:
 
     my @bad_kanji = bad_kanji ();
 
@@ -1295,7 +1297,7 @@ Returns a list of kanji with negative meanings. See also
 L<https://www.lemoda.net/japanese/offensive-kanji/index.html>.
 
 %%
-%%explain.ja:
+%%desc.ja:
 
 否定的な意味（病名、不愉快な物、軽率の意味など）の漢字。
 L<https://www.lemoda.net/japanese/offensive-kanji/index.html>。
