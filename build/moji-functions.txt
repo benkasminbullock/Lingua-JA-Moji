@@ -901,6 +901,13 @@ This was added to the module in version 0.43.
 %%
 
 name: hentai2kanji
+%%eg:
+
+$kanji = hentai2kanji ('𛀢');
+
+%%
+out: $kanji
+expect: 家
 %%desc.en:
 
 Convert hentaigana into their equivalent kanji.
@@ -915,8 +922,47 @@ This was added to the module in version 0.43.
 %%
 
 name: kanji2hentai
+%%eg:
+
+$kanji = kanji2hentai ('家');
+
+%%
+out: $kanji
+expect: 𛀢
+%%desc.en:
+
+Convert kanji to equivalent hentaigana, where they exist.
+
+This was added to the module in version 0.43.
+
+%%
+%%desc.ja:
+
+あてはまる変体仮名があるかぎり、漢字を変体仮名に変換します。
+
+%%
 
 name: kana2hentai
+%%eg:
+
+$hentai = kana2hentai ('ケンブ');
+
+%%
+out: $hentai
+expect: 𛀢・𛀲・𛀳・𛀴・𛀵・𛀶・𛀷𛄝・𛄞ぶ
+%%desc.en:
+
+Convert kana to equivalent hentaigana. If more than one hentaigana
+exists, they are returned joined with a middle dot.
+
+This was added to the module in version 0.43.
+
+%%
+%%desc.ja:
+
+あてはまる変体仮名があるかぎり、普通の仮名を変体仮名に変換します。複数の仮名があれば、「・」で分けます。
+
+%%
 
 class: wide
 %%explain.en:

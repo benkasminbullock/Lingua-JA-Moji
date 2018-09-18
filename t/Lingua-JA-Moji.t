@@ -137,6 +137,8 @@ is_deeply (\@list, [qw/カン スウ ハツ オオ ガン ズウ バツ パツ/]
 is (smallize_kana ('シヤツター'), 'シャッター',
     "Basic operation of smallize_kana");
 
+is (smallize_kana ('ケンブリツジ'), 'ケンブリッジ');
+
 # Test the cleanup of badly-input kana
 
 is (cleanup_kana ('kaｋｉｸけコ一'), 'カキクケコー', "Clean up kana");

@@ -7,7 +7,7 @@ use utf8;
 require Exporter;
 our @ISA = qw(Exporter);
 
-our $VERSION = '0.51';
+our $VERSION = '0.52';
 
 use Carp 'croak';
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -1480,7 +1480,7 @@ sub smallize_kana
 			ヨ ョ
 		    /);
     $kana =~ s/([キギシジチヂニヒビピミリ])([ヤユヨ])/$1$yayuyo{$2}/g;
-    $kana =~ s/ツ([カキクケコガギグゲゴサシスセソタチツテトパビプペポ])/ッ$1/g;
+    $kana =~ s/ツ([カキクケコガギグゲゴサシスセソタチツテトパビプペポジ])/ッ$1/g;
     if ($kana ne $orig) {
 	return $kana;
     }

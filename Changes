@@ -1,5 +1,10 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.52 2018-09-18
+
+* "smallize_kana" now converts burituji to burijji
+* More documentation of hentaigana functions
+
 0.51 2018-09-15
 
 * yurei_moji now works
