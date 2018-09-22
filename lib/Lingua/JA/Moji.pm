@@ -1500,7 +1500,8 @@ sub cleanup_kana
     $kana = kana2katakana ($kana);
     # Translate kanjis into kana where "naive user" has inserted kanji
     # not kana.
-    $kana =~ tr/力二一/カニー/;
+    # LHS are all kanji, RHS are all kana/chouon
+    $kana =~ tr/八力二一/ハカニー/;
     return $kana;
 }
 
