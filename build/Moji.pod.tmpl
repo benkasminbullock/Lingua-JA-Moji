@@ -130,6 +130,10 @@ Lingua::JA::Moji does not have it, Lingua::JA::NormalizeText may do.
 
 This is similar to the present module for Korean.
 
+=item L<Lingua::JA::Onbiki>
+
+=item L<Lingua::JA::Jtruncate>
+
 =back
 
 =head2 [% trans.kanjikanahenkan %]
@@ -253,10 +257,14 @@ generate this data.
 0.46 disallowed hyphens as the first character of a romaji string and
 added L</smallize_kana> and L</cleanup_kana>.
 
-0.47 added a list of the "Yūrei moji" (幽霊文字), false kanji, and changed romanisation somewhat.
+0.47 added a list of the "Yūrei moji" (幽霊文字), false kanji, and
+changed romanisation somewhat.
 
 0.48 changed kana2romaji to be consistent with the documentation for
 long vowel options wapuro and none.
+
+0.53 added L</join_sound_marks> and L</split_sound_marks> to the
+module.
 
 [% start_year=2008 %]
 [% INCLUDE "author" %]

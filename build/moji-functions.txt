@@ -69,13 +69,29 @@ combinations of large kana + small vowel kana into the commonest
 romanized form. For example "ジェット" becomes "jetto" and "ウェ"
 becomes "we".
 
+=item passport
+
+Passport romaji. Long "o" vowels get turned into "oh".
+
 =back
 
 =item use_m
 
 If this is true, L</syllabic n>s (ん) which come before "b" or "p"
 sounds, such as the first "n" in "shinbun" (しんぶん, newspaper) will
-be converted into "m" rather than "n".
+be converted into "m" rather than "n". 
+
+It is automatically set to a true value if you choose L</hepburn> or
+L</passport> styles of romanisation, but you can override that by
+setting it to a false, but not undefined, value, something like this:
+
+    my $romaji = kana2romaji ($hiragana,
+			  {style => 'hepburn', 
+			   ve_type => 'wapuro',
+			   use_m => 0,});
+
+I apologise for the convoluted interface. See L</HISTORY> for more on
+the haphazard design of the module.
 
 =item ve_type
 
@@ -544,13 +560,15 @@ name:  kana2katakana
 %%
 %%desc.en:
 
-This converts any of katakana, L</halfwidth katakana>, circled katakana
-and hiragana to full width katakana.
+This converts any of katakana, L</halfwidth katakana>, circled
+katakana and hiragana to full width katakana. It also joins dakuten
+and handakuten marks to kana where possible, or removes them, using
+L</join_sound_marks>.
 
 %%
 %%desc.ja:
 
-全角かたかな、ひらがな、半角かたかな、丸かたかななどあらゆる「仮名」を全角かたかなに変換します。
+全角かたかな、ひらがな、半角かたかな、丸かたかななどあらゆる「仮名」を全角かたかなに変換します。濁点と半濁点をL</join_sound_marks>により仮名に付けます。付けられない仮名は消します。
 
 %%
 
@@ -741,25 +759,30 @@ $syllables = katakana2syllable ('ソーシャルブックマークサービス')
 
 This breaks the given string into syllables. If the string is broken
 up character by character, it becomes 'ソ', 'ー', 'シ', 'ャ', 'ル'.
-This breaks the string up into meaningful syllables, so that
+However, by themselves, 'ー' and 'ャ' can't be spoken.
+
+This breaks the string up into pronouncable syllables, so that
 C<$syllables> becomes 'ソー', 'シャ', 'ル'. A L</syllabic n> is
 attached to the preceding sequence, so for example フラナガン is
 broken up into four syllables, フ, ラ, ナ, ガン.
 
+This routine is used as the basis of this L<Change your name to kanji
+web application|https://www.sljfaq.org/cgi/name-kanji.cgi>.
+
 %%
 %%desc.ja:
 
-カタカナをシラブルにわける。たとえば、「ソーシャル」
-は'ソ', 'ー', 'シ', 'ャ', 'ル'という意味のない文字ではなく、日本語の
-「原子」の'ソー', 'シャ', 'ル'になります。撥音(ん)は前の仮名に付く。例えば、
-「フラナガン」は「フ」, 「ラ」, 「ナ」, 「ガン」となります。
+カタカナヲシラブルニワケル。タトエバ、「ソーシャル」
+ハ'ソ', 'ー', 'シ', 'ャ', 'ル'トイウ意味ノナイ文字デハナク、日本語ノ
+「原子」ノ'ソー', 'シャ', 'ル'ニナリマス。撥音(ン)ハ前ノ仮名ニ付ク。例エバ、
+「フラナガン」ハ「フ」, 「ラ」, 「ナ」, 「ガン」トナリマス。
 
 %%
 
 name: InKana
 %%eg:
 
-    $is_kana = ('あいうえお' =~ /^\p{InKana}+$/);
+    $is_kana = ('アイウエオ' =~ /^\p{InKana}+$/);
 
 %%
 out: $is_kana
@@ -787,13 +810,13 @@ are not matched and KATAKANA MIDDLE DOT is not matched.
 %%
 %%desc.ja:
 
-正規表現に使うカタカナとひらがなにマッチします。
+正規表現ニ使ウカタカナトヒラガナニマッチシマス。
 
-詳しくいうと以下の正規表現
+詳シクイウト以下ノ正規表現
 
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
-と殆ど同じことにマッチしますが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。変体仮名もマッチしません。
+ト殆ド同ジコトニマッチシマスガ、C<\p{Katakana}>ガマッチスル未使用ノコードポイントハマッチシマセン。「・」モマッチシマセン。変体仮名モマッチシマセン。
 
 %%
 
@@ -812,7 +835,7 @@ Convert a square katakana box into its components.
 %%
 %%desc.ja:
 
-「㌆」を「ウォン」にするなど。
+「㌆」ヲ「ウォン」ニスルナド。
 
 %%
 
@@ -831,7 +854,7 @@ Convert katakana into a square thing if possible.
 %%
 %%desc.ja:
 
-可能なかぎり、「ウォン」を「㌆」にするなど。
+可能ナカギリ、「ウォン」ヲ「㌆」ニスルナド。
 
 
 %%
@@ -856,7 +879,7 @@ This was added to the module in version 0.46.
 %%
 %%desc.ja:
 
-片仮名の列に拗音と促音を入れる。昔の仮名使いを現代のに直す。あくまで実験的です。
+片仮名ノ列ニ拗音ト促音ヲ入レル。昔ノ仮名使イヲ現代ノニ直ス。アクマデ実験的デス。
 
 %%
 
@@ -871,17 +894,67 @@ This was added to the module in version 0.46.
 %%
 %%desc.ja:
 
-間違ったかな入力を直す。例えば「一」（漢字のいち）を「ー」（長音）に。
+間違ッタカナ入力ヲ直ス。例エバ「一」（漢字ノイチ）ヲ「ー」（長音）ニ。
 
 %%
 
+name: join_sound_marks
+out: $joined
+expect: がぱづ
+%%eg:
+
+$joined = join_sound_marks ('か゛は゜つ゛');
+
+%%
+%%desc.en:
+
+Join dakuten and handakuten (Unicode U+3099-U+309C) to kana where
+possible. Where they cannot be joined, strip them out.
+
+This was added to the module in version 0.53.
+
+%%
+%%desc.ja:
+
+濁点、半濁点ヲデキル限リ仮名ニツケマス。「カ゛」-> 「ガ」ナド。残ッテイル濁点ヲ消シマス。
+
+0.53カラ
+
+%%
+
+name: split_sound_marks
+%%eg:
+
+$split = split_sound_marks ('ガパヅ');
+
+%%
+out: $split
+expect: カ゛ハ゜ツ゛
+%%desc.en:
+
+Split dakuten and handakuten from kana where possible. U+309B and
+U+309C are chosen rather than U+3099 and U+309A. (This choice was
+somewhat arbitrary. I'm not sure which of the pairs should be used. I
+chose these because they were the ones already in use internally in
+the module in L</kana2braille> and L</kana2morse>.)
+
+This was added to the module in version 0.53.
+
+%%
+%%desc.ja:
+
+濁点、半濁点ヲ仮名カラワケマス。-> 「ガ」-> 「カ゛」ナド。半濁点ハU+309B、濁点ハU+309Cトナリマス。
+
+0.53カラ
+
+%%
 
 class: hentaigana
 %%explain.en:
 Variant kana forms. Hentaigana are new in Unicode 10.0 (June 2017).
 %%
 %%explain.ja:
-変体仮名はUnicode 10.0 (２０１７年６月）にあたらしいです。
+変体仮名ハUnicode 10.0 (２０１７年６月）ニアタラシイデス。
 %%
 
 name: hentai2kana
@@ -896,7 +969,7 @@ This was added to the module in version 0.43.
 %%
 %%desc.ja:
 
-変体仮名をひらがなに変換します。複数のかなにあてはまる変体仮名は「・」でつないだ列になります。
+変体仮名ヲヒラガナニ変換シマス。複数ノカナニアテハマル変体仮名ハ「・」デツナイダ列ニナリマス。
 
 %%
 
@@ -917,7 +990,7 @@ This was added to the module in version 0.43.
 %%
 %%desc.ja:
 
-変体仮名を漢字に変換します。
+変体仮名ヲ漢字ニ変換シマス。
 
 %%
 
@@ -938,7 +1011,7 @@ This was added to the module in version 0.43.
 %%
 %%desc.ja:
 
-あてはまる変体仮名があるかぎり、漢字を変体仮名に変換します。
+アテハマル変体仮名ガアルカギリ、漢字ヲ変体仮名ニ変換シマス。
 
 %%
 
@@ -949,18 +1022,20 @@ $hentai = kana2hentai ('ケンブ');
 
 %%
 out: $hentai
-expect: 𛀢・𛀲・𛀳・𛀴・𛀵・𛀶・𛀷𛄝・𛄞ぶ
+expect: 𛀢・𛀲・𛀳・𛀴・𛀵・𛀶・𛀷𛄝・𛄞𛂰・𛂱・𛂲゛
 %%desc.en:
 
 Convert kana to equivalent hentaigana. If more than one hentaigana
-exists, they are returned joined with a middle dot.
+exists, they are returned joined with a middle dot. Dakuten and
+handakuten are split out of the kana using L</split_sound_marks>
+before the conversion.
 
 This was added to the module in version 0.43.
 
 %%
 %%desc.ja:
 
-あてはまる変体仮名があるかぎり、普通の仮名を変体仮名に変換します。複数の仮名があれば、「・」で分けます。
+アテハマル変体仮名ガアルカギリ、普通ノ仮名ヲ変体仮名ニ変換シマス。複数ノ仮名ガアレバ、「・」デ分ケマス。濁点と半濁点はL</split_sound_marks>により仮名と分けてから変換します。
 
 %%
 
@@ -972,7 +1047,7 @@ Functions for handling L</wide ASCII>.
 %%
 %%explain.ja:
 
-全角英数字の変換・認識。
+全角英数字ノ変換・認識。
 
 %%
 
@@ -993,7 +1068,7 @@ This is a character class for use with \p which matches L</wide ASCII>
 %%
 %%desc.ja:
 
-正規表現に使う全角英数字にマッチします。
+正規表現ニ使ウ全角英数字ニマッチシマス。
 
 %%
 
@@ -1013,7 +1088,7 @@ Convert L</wide ASCII> into ASCII.
 %%
 %%desc.ja:
 
-全角英数字を半角英数字(ASCII)に変換します。
+全角英数字ヲ半角英数字(ASCII)ニ変換シマス。
 
 %%
 
@@ -1033,7 +1108,7 @@ Convert ASCII into L</wide ASCII>.
 %%
 %%desc.ja:
 
-半角英数字(ASCII)を全角英数字に変換します。
+半角英数字(ASCII)ヲ全角英数字ニ変換シマス。
 
 %%
 
@@ -1042,7 +1117,7 @@ class: other
 name:  kana2morse
 %%eg:
 
-$morse = kana2morse ('しょっちゅう');
+$morse = kana2morse ('ショッチュウ');
 
 %%
 out: $morse
@@ -1051,12 +1126,12 @@ expect: --.-. -- .--. ..-. -..-- ..-
 
 Convert Japanese kana into Morse code. Japanese morse code does not
 have any way of representing small kana characters, so converting to
-and then from morse code will result in しょっちゅう becoming シヨツチユウ.
+and then from morse code will result in ショッチュウ becoming シヨツチユウ.
 
 %%
 %%desc.ja:
 
-かなをモースコードに変換します。日本語のモースコードは「っ」など小さいかなを表現できないので、仮名をモースコードにして、モースコードからまた仮名にする場合は「しょっちゅう」が「シヨツチユウ」になります。
+カナヲモースコードニ変換シマス。日本語ノモースコードハ「ッ」ナド小サイカナヲ表現デキナイノデ、仮名ヲモースコードニシテ、モースコードカラマタ仮名ニスル場合ハ「ショッチュウ」ガ「シヨツチユウ」ニナリマス。
 
 %%
 
@@ -1075,7 +1150,7 @@ Convert Japanese Morse code into kana. Each Morse code element must be separated
 %%
 %%desc.ja:
 
-モースコードをかなに変換します。（本物のモースコードは分かち書きが必要です。）
+モースコードヲカナニ変換シマス。（本物ノモースコードハ分カチ書キガ必要デス。）
 
 %%
 %%bugs.en:
@@ -1085,7 +1160,7 @@ This has not been extensively tested.
 %%
 %%bugs.ja:
 
-テストが不十分です。
+テストガ不十分デス。
 
 %%
 
@@ -1102,21 +1177,21 @@ forms.
 %%
 %%desc.ja:
 
-仮名を点字に変換します。
+仮名ヲ点字ニ変換シマス。
 
 %%
 %%bugs.en:
 
 This has not been extensively tested. This is not an adequate Japanese
-braille convertor. Creating Japanese braille requires breaking
+braille converter. Creating Japanese braille requires breaking
 Japanese sentences up into individual words, but this does not attempt
 to do that. People who are interested in building a Perl braille
-convertor could start here.
+converter could start here.
 
 %%
 %%bugs.ja:
 
-きちんとしたテストがありません。日本語を本物の点字に変換することはわたちがきが必要ですがこの関数はそれをしませんので、不十分な変換機能です。
+キチントシタテストガアリマセン。日本語ヲ本物ノ点字ニ変換スルコトハワタチガキガ必要デスガコノ関数ハソレヲシマセンノデ、不十分ナ変換機能デス。
 
 %%
 
@@ -1132,16 +1207,16 @@ Converts Japanese braille (I<tenji>) into the equivalent katakana.
 %%
 %%desc.ja:
 
-点字をカタカナに変換します。
+点字ヲカタカナニ変換シマス。
 
 %%
 
 name:  kana2circled
 out: $circled
-expect: ㋐㋑㋒㋓㋔
+expect: ㋐㋑㋒㋓㋔㋕゛ン
 %%eg:
 
-$circled = kana2circled ('あいうえお');
+$circled = kana2circled ('アイウエオガン');
 
 %%
 %%desc.en:
@@ -1150,14 +1225,16 @@ This function converts kana into the "circled katakana" of Unicode,
 which have code points from 32D0 to 32FE. See also L</circled2kana>.
 
 There is no circled form of the ン kana, L</syllabic n>, so this is
-left untouched.
+left untouched. Dakuten and handakuten are split from the kana
+using L</split_sound_marks>.
 
+Circled katakana appear as Unicode code points U+32D0 to U+32FE.
 %%
 %%desc.ja:
 
-仮名を丸付けかたかなに変換します。丸付け「ン」がありませんので、「ン」はそのままとなります。
-丸付け片假名はユニコード32D0〜32FEにあります。
+仮名を丸付けかたかなに変換します。丸付け「ン」がありませんので、「ン」はそのままとなります。濁点・半濁点はL</split_sound_marks>により仮名から分けられてから変換されたので、「が」が「㋕゛」になります。
 
+丸付け片假名はユニコード32D0〜32FEにあります。
 %%
 
 
@@ -1204,7 +1281,7 @@ Convert new-style (post-1949) kanji (Chinese characters) into old-style (pre-194
 %%
 %%bugs.en:
 
-The list of characters in this convertor may not contain every pair of
+The list of characters in this converter may not contain every pair of
 old/new kanji.
 
 It will not correctly convert 弁 since this has three different

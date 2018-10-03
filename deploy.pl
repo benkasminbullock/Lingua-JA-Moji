@@ -1,7 +1,7 @@
 #!/home/ben/software/install/bin/perl
 
-# This script deploys the ICGI module to all the websites it is in use
-# at.
+# This script deploys the Lingua::JA::Moji module to all the websites
+# it is in use at.
 
 use warnings;
 use strict;
@@ -20,3 +20,4 @@ do_system ("./build.pl -p");
 my $tf = "$n-$v.tar.gz";
 if (! -f $tf) { die; }
 do_system ("faq-module-build.pl $tf");
+do_system ("./build.pl -i");
