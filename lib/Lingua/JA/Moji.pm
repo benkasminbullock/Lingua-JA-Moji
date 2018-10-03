@@ -227,11 +227,13 @@ sub invert
 }
 
 
-# Kana ordered by consonant. Adds bogus "q" gyou for small vowels and
-# "x" gyou for youon (ya, yu, yo) to the usual ones.
+# Kana ordered by consonant. Adds two bogus gyous, a "q" gyou for
+# small vowels and an "xy" gyou for youon (ya, yu, yo), to the usual
+# ones.
 
 my @gyou = (
     a => [qw/ア イ ウ エ オ/],
+    # Not a real gyou.
     q => [qw/ァ ィ ゥ ェ ォ/],
     k => [qw/カ キ ク ケ コ/],
     g => [qw/ガ ギ グ ゲ ゴ/],
@@ -1044,7 +1046,9 @@ my %daku2not = (qw/
 /);
 
 my %not2daku = reverse %daku2not;
+
 my $daku = qr![がぎぐげごだぢづでどざじずぜぞばびぶべぼガギグゲゴダヂヅデドザジズゼゾバビブベボ]!;
+
 my $nodaku = qr![かきくけこたしつてとさしすせそはひふへほカキクケコタシツテトサシスセソハヒフヘホ]!;
 
 my %handaku2not = (qw!
@@ -1061,7 +1065,9 @@ my %handaku2not = (qw!
 !);
 
 my %not2handaku = reverse %handaku2not;
+
 my $handaku = qr![ぱぴぷぺぽパピプペポ]!;
+
 my $nohandaku = qr![はひふへほハヒフヘホ]!;
 
 sub join_sound_marks
@@ -1351,13 +1357,18 @@ FF70
 -30FB
 END
     # Explanation of the above gibberish: The funny hex is for dakuten
-    # and handakuten half width. The Katakana catches halfwidth
-    # katakana, and the InKatakana catches the chouon mark. IsCn means
-    # "other, not assigned". 30FB is "Katakana middle dot", which is
-    # not kana as far as I know.
+    # and handakuten half width. The "Katakana" catches halfwidth
+    # katakana, and the "InKatakana" catches the chouon mark. "IsCn"
+    # means "other, not assigned", so we remove this to prevent
+    # matching non-kana characters floating around near to real
+    # ones. 30FB is "Katakana middle dot", which is not kana as far as
+    # I know, so that's also removed.
 }
 
 # お
+
+# Match zero or one sokuons, one full-sized kana character, then zero
+# or one each of small kana, chouon, and syllabic n, in that order.
 
 my $kana2syllable_re = qr/ッ?[アイウエオ-モヤユヨ-ヴ](?:[ャュョァィゥェォ])?ー?ン?/;
 
@@ -1394,51 +1405,17 @@ sub katakana2square
     return $square2katakana->invert (@_);
 }
 
-# Turn shima into jima etc.
-
-my %nigori = (qw/
-カ ガ
-キ ギ
-ク グ
-ケ ゲ
-コ ゴ
-サ ザ
-シ ジ
-ス ズ
-セ ゼ
-ソ ゾ
-タ ダ
-チ ヂ
-ツ ヅ
-テ デ
-ト ド
-ハ バ
-ヒ ビ
-フ ブ
-ヘ ベ
-ホ ボ
-/);
-
-my %handaku = (qw/
-ハ パ
-ヒ ピ
-フ プ
-ヘ ペ
-ホ ポ
-/);
-
 sub nigori_first
 {
     my ($list) = @_;
     my @nigori;
     for my $kana (@$list) {
 	my ($first, $remaining) = split //, $kana, 2;
-	my $nf = $nigori{$first};
+	my $nf = $not2daku{$first};
 	if ($nf) {
-	    #	print "$kana -> $nf$remaining\n";
 	    push @nigori, $nf.$remaining;
 	}
-	my $hf = $handaku{$first};
+	my $hf = $not2handaku{$first};
 	if ($hf) {
 	    push @nigori, $hf.$remaining;
 	}
@@ -1543,7 +1520,7 @@ sub smallize_kana
     my ($kana) = @_;
     my $orig = $kana;
     $kana =~ s/([キギシジチヂニヒビピミリ])([ヤユヨ])/$1$yayuyo{$2}/g;
-    $kana =~ s/ツ([カキクケコガギグゲゴサシスセソタチツテトパビプペポジ])/ッ$1/g;
+    $kana =~ s/ツ([$takes_sokuon])/ッ$1/g;
     if ($kana ne $orig) {
 	return $kana;
     }
@@ -1561,10 +1538,13 @@ sub cleanup_kana
 	$kana = romaji2kana ($kana);
     }
     $kana = kana2katakana ($kana);
-    # Translate kanjis into kana where "naive user" has inserted kanji
-    # not kana.
-    # LHS are all kanji, RHS are all kana/chouon
-    $kana =~ tr/八力二一/ハカニー/;
+    #$kana =~ s/([$nohandaku])°/$1゜/g;
+    $kana = join_sound_marks ($kana);
+    # Translate kanjis into katakana where a "naive user" has inserted
+    # kanji not kana.  Because the following expression is visually
+    # confusing, note that the LHS are all kanji, and the RHS are all
+    # kana/chouon
+    $kana =~ tr/口八力二一/ロハカニー/;
     return $kana;
 }
 

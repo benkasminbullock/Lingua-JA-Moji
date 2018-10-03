@@ -145,6 +145,8 @@ is (cleanup_kana ('kaｋｉｸけコ一'), 'カキクケコー', "Clean up kana"
 is (cleanup_kana ('ファ二ガ'), 'ファニガ',
     "Convert 'two' kanji to 'ni' kana");
 
+is (cleanup_kana ('口ク八チ二'), 'ロクハチニ', "Cleanup of funny kanji");
+
 # Tests of bad_kanji
 
 my @bk = bad_kanji ();
