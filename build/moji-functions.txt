@@ -772,10 +772,8 @@ web application|https://www.sljfaq.org/cgi/name-kanji.cgi>.
 %%
 %%desc.ja:
 
-カタカナヲシラブルニワケル。タトエバ、「ソーシャル」
-ハ'ソ', 'ー', 'シ', 'ャ', 'ル'トイウ意味ノナイ文字デハナク、日本語ノ
-「原子」ノ'ソー', 'シャ', 'ル'ニナリマス。撥音(ン)ハ前ノ仮名ニ付ク。例エバ、
-「フラナガン」ハ「フ」, 「ラ」, 「ナ」, 「ガン」トナリマス。
+カタカナをシラブルニワケル。たとえば、「ソーシャル」
+ハ'ソ', 'ー', 'シ', 'ャ', 'ル'という意味のない文字ではなく、日本語の「原子」ノ'ソー', 'シャ', 'ル'になります。撥音(ん)は前の仮名と一つになります。例えば、「フラナガン」ハ「フ」, 「ラ」, 「ナ」, 「ガン」となります。
 
 %%
 
@@ -810,13 +808,13 @@ are not matched and KATAKANA MIDDLE DOT is not matched.
 %%
 %%desc.ja:
 
-正規表現ニ使ウカタカナトヒラガナニマッチシマス。
+正規表現に使うかたかなとひらがなにまっちします。
 
-詳シクイウト以下ノ正規表現
+詳しくいうと以下の正規表現
 
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
-ト殆ド同ジコトニマッチシマスガ、C<\p{Katakana}>ガマッチスル未使用ノコードポイントハマッチシマセン。「・」モマッチシマセン。変体仮名モマッチシマセン。
+と殆ど同じことにまっちしますが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。変体仮名もマッチしません。
 
 %%
 
@@ -835,7 +833,7 @@ Convert a square katakana box into its components.
 %%
 %%desc.ja:
 
-「㌆」ヲ「ウォン」ニスルナド。
+「㌆」を「ウォン」にするなど。
 
 %%
 
@@ -854,7 +852,7 @@ Convert katakana into a square thing if possible.
 %%
 %%desc.ja:
 
-可能ナカギリ、「ウォン」ヲ「㌆」ニスルナド。
+可能なかぎり、「ウォン」を「㌆」にするなど。
 
 
 %%
@@ -879,7 +877,7 @@ This was added to the module in version 0.46.
 %%
 %%desc.ja:
 
-片仮名ノ列ニ拗音ト促音ヲ入レル。昔ノ仮名使イヲ現代ノニ直ス。アクマデ実験的デス。
+片仮名の列に拗音と促音を入れる。昔の仮名使いを現代のに直す。あくまで実験的です。
 
 %%
 
@@ -894,7 +892,7 @@ This was added to the module in version 0.46.
 %%
 %%desc.ja:
 
-間違ッタカナ入力ヲ直ス。例エバ「一」（漢字ノイチ）ヲ「ー」（長音）ニ。
+間違ったかな入力を直す。例えば「一」（漢字のいち）を「ー」（長音）に。
 
 %%
 
@@ -916,7 +914,7 @@ This was added to the module in version 0.53.
 %%
 %%desc.ja:
 
-濁点、半濁点ヲデキル限リ仮名ニツケマス。「カ゛」-> 「ガ」ナド。残ッテイル濁点ヲ消シマス。
+濁点、半濁点をできる限り仮名につけます。「カ゛」-> 「ガ」など。残っている濁点を消します。
 
 0.53カラ
 
@@ -943,7 +941,7 @@ This was added to the module in version 0.53.
 %%
 %%desc.ja:
 
-濁点、半濁点ヲ仮名カラワケマス。-> 「ガ」-> 「カ゛」ナド。半濁点ハU+309B、濁点ハU+309Cトナリマス。
+濁点、半濁点を仮名からわけます。-> 「が」-> 「か゛」など。半濁点はU+309B、濁点はU+309Cとなります。
 
 0.53カラ
 
@@ -954,7 +952,7 @@ class: hentaigana
 Variant kana forms. Hentaigana are new in Unicode 10.0 (June 2017).
 %%
 %%explain.ja:
-変体仮名ハUnicode 10.0 (２０１７年６月）ニアタラシイデス。
+変体仮名はUnicode 10.0 (２０１７年６月）にあたらしいです。
 %%
 
 name: hentai2kana
@@ -969,7 +967,7 @@ This was added to the module in version 0.43.
 %%
 %%desc.ja:
 
-変体仮名ヲヒラガナニ変換シマス。複数ノカナニアテハマル変体仮名ハ「・」デツナイダ列ニナリマス。
+変体仮名をひらがなに変換します。複数のかなにあてはまる変体仮名は「・」でつないだ列になります。
 
 %%
 
@@ -990,7 +988,7 @@ This was added to the module in version 0.43.
 %%
 %%desc.ja:
 
-変体仮名ヲ漢字ニ変換シマス。
+変体仮名を漢字に変換します。
 
 %%
 
@@ -1011,7 +1009,7 @@ This was added to the module in version 0.43.
 %%
 %%desc.ja:
 
-アテハマル変体仮名ガアルカギリ、漢字ヲ変体仮名ニ変換シマス。
+あてはまる変体仮名があるかぎり、漢字を変体仮名に変換します。
 
 %%
 
@@ -1035,7 +1033,7 @@ This was added to the module in version 0.43.
 %%
 %%desc.ja:
 
-アテハマル変体仮名ガアルカギリ、普通ノ仮名ヲ変体仮名ニ変換シマス。複数ノ仮名ガアレバ、「・」デ分ケマス。濁点と半濁点はL</split_sound_marks>により仮名と分けてから変換します。
+あてはまる変体仮名があるかぎり、普通の仮名を変体仮名に変換します。複数の仮名があれば、「・」で分けます。濁点と半濁点はL</split_sound_marks>により仮名と分けてから変換します。
 
 %%
 
@@ -1047,7 +1045,7 @@ Functions for handling L</wide ASCII>.
 %%
 %%explain.ja:
 
-全角英数字ノ変換・認識。
+全角英数字の変換・認識。
 
 %%
 
@@ -1068,7 +1066,7 @@ This is a character class for use with \p which matches L</wide ASCII>
 %%
 %%desc.ja:
 
-正規表現ニ使ウ全角英数字ニマッチシマス。
+正規表現に使う全角英数字にマッチします。
 
 %%
 
@@ -1088,7 +1086,7 @@ Convert L</wide ASCII> into ASCII.
 %%
 %%desc.ja:
 
-全角英数字ヲ半角英数字(ASCII)ニ変換シマス。
+全角英数字を半角英数字(ASCII)に変換します。
 
 %%
 
@@ -1108,7 +1106,7 @@ Convert ASCII into L</wide ASCII>.
 %%
 %%desc.ja:
 
-半角英数字(ASCII)ヲ全角英数字ニ変換シマス。
+半角英数字(ASCII)を全角英数字に変換します。
 
 %%
 
@@ -1131,7 +1129,7 @@ and then from morse code will result in ショッチュウ becoming シヨツチ
 %%
 %%desc.ja:
 
-カナヲモースコードニ変換シマス。日本語ノモースコードハ「ッ」ナド小サイカナヲ表現デキナイノデ、仮名ヲモースコードニシテ、モースコードカラマタ仮名ニスル場合ハ「ショッチュウ」ガ「シヨツチユウ」ニナリマス。
+かなをもーすこーどに変換します。日本語のもーすこーどは「っ」など小さいかなを表現できないので、仮名をもーすこーどにして、もーすこーどからまた仮名にする場合は「しょっちゅう」が「シヨツチユウ」になります。
 
 %%
 
@@ -1150,20 +1148,9 @@ Convert Japanese Morse code into kana. Each Morse code element must be separated
 %%
 %%desc.ja:
 
-モースコードヲカナニ変換シマス。（本物ノモースコードハ分カチ書キガ必要デス。）
+モースコードをかなに変換します。（本物のもーすこーどは分かち書きが必要です。）
 
 %%
-%%bugs.en:
-
-This has not been extensively tested.
-
-%%
-%%bugs.ja:
-
-テストガ不十分デス。
-
-%%
-
 
 name:  kana2braille
 %%eg:
@@ -1177,21 +1164,20 @@ forms.
 %%
 %%desc.ja:
 
-仮名ヲ点字ニ変換シマス。
+仮名を点字に変換します。
 
 %%
 %%bugs.en:
 
-This has not been extensively tested. This is not an adequate Japanese
-braille converter. Creating Japanese braille requires breaking
-Japanese sentences up into individual words, but this does not attempt
-to do that. People who are interested in building a Perl braille
-converter could start here.
+This is not an adequate Japanese braille converter. Creating Japanese
+braille requires breaking Japanese sentences up into individual words,
+but this does not attempt to do that. People who are interested in
+building a Perl braille converter could start here.
 
 %%
 %%bugs.ja:
 
-キチントシタテストガアリマセン。日本語ヲ本物ノ点字ニ変換スルコトハワタチガキガ必要デスガコノ関数ハソレヲシマセンノデ、不十分ナ変換機能デス。
+きちんとしたてすとがありません。日本語を本物の点字に変換することはわたちがきが必要ですがこの関数はそれをしませんので、不十分な変換機能です。
 
 %%
 
@@ -1207,7 +1193,7 @@ Converts Japanese braille (I<tenji>) into the equivalent katakana.
 %%
 %%desc.ja:
 
-点字ヲカタカナニ変換シマス。
+点字をかたかなに変換します。
 
 %%
 
