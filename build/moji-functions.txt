@@ -732,24 +732,6 @@ cannot include punctuation marks or L</chouon>.
 
 %%
 
-
-name: kana_order
-%%eg:
-
-$kana_order = kana_order ();
-
-%%desc.en:
-
-Returns an array reference containing an ordering of the kana. This is
-useful for looping over the kana or sorting.
-
-%%
-%%desc.ja:
-
-仮名の（適当な）順番を返します。例えば、全ての仮名をループしたい時に使えます。
-
-%%
-
 name: katakana2syllable
 %%eg:
 

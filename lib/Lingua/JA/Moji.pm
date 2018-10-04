@@ -7,7 +7,7 @@ use utf8;
 require Exporter;
 our @ISA = qw(Exporter);
 
-our $VERSION = '0.53';
+our $VERSION = '0.54';
 
 use Carp 'croak';
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -50,7 +50,6 @@ our @EXPORT_OK = qw/
                     kana2katakana
                     kana2morse
                     kana2romaji
-                    kana_order
                     kana_to_large
                     kanji2bracketed
                     kanji2circled
@@ -254,14 +253,6 @@ my @gyou = (
 );
 
 my %gyou = @gyou;
-
-sub kana_order
-{
-    # I don't know if it's necessary to copy the array or not, but I don't
-    # want to take a chance messing up the array.
-    my @copy = @gyou;
-    return \@copy;
-}
 
 # Kana => consonant mapping.
 

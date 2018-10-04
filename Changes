@@ -1,5 +1,9 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.54
+
+* Remove kana_order function
+
 0.53 2018-10-03
 
 * Functions to join and split daku, handaku now exported
