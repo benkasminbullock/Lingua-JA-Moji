@@ -772,7 +772,8 @@ expect: 1
 A character class for use in regular expressions which matches all
 kana characters. This class catches meaningful combinations of
 hiragana, katakana, halfwidth katakana, circled katakana, and katakana
-combined words. As of [% info.version %], it does not match hentaigana.
+combined words. It does not match the hentaigana characters of
+Unicode.
 
 This is a combination of the existing Perl character classes
 C<Katakana>, C<InKatakana>, and C<InHiragana>, minus unassigned
