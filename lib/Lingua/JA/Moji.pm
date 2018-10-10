@@ -755,6 +755,9 @@ sub is_romaji_strict
     if ($kana =~ m!
 		      # Don't allow tanggono
 		      ンッ
+		  |
+		      # Don't allow "nmichi".
+		      ^ン
 		  !x) {
 	return undef;
     }
@@ -798,6 +801,12 @@ sub is_romaji_strict
 		   |
 		       # Don't allow 'ridzuan' etc.
 		       dz
+		   |
+		       # Qs are out.
+		       q
+		   |
+		       # Double ws, hs, etc. are out
+		       ww|hh|bb
 		   !ix) {
         return undef;
     }

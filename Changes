@@ -3,6 +3,7 @@ Revision history for perl module Lingua::JA::Moji
 0.54
 
 * Remove kana_order function
+* is_romaji_strict now stricter
 
 0.53 2018-10-03
 

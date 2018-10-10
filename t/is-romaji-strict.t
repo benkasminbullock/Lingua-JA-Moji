@@ -35,6 +35,12 @@ ok (! is_romaji_semistrict ('-romaji'), "hyphen as first character rejected");
 		      ridzuan
 		      chathuranga
 		      jorunn
+		      nmichi
+		      waqoo
+		      akeqi
+		      akisaiqin
+		      awwa
+		      bihho
 		  !;
     for (@fails) {
 	ok (! is_romaji_strict ($_), "$_ is not Japanese");
