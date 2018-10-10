@@ -749,9 +749,16 @@ sub is_romaji_strict
     my ($romaji) = @_;
     my $canonical = is_romaji ($romaji);
     if (! $canonical) {
-	return;
+	return undef;
     }
-    if ($romaji =~ /
+    my $kana = romaji2kana ($romaji);
+    if ($kana =~ m!
+		      # Don't allow tanggono
+		      ンッ
+		  !x) {
+	return undef;
+    }
+    if ($romaji =~ m!
 		       (fy|l|x|v)y?($vowel_re|ts?u|wa|ka|ke)
 		   |
 		       # Don't allow hyi, hye, yi, ye.
@@ -783,9 +790,15 @@ sub is_romaji_strict
 		       # Don't allow some non-Japanese double consonants.
 		       (?:rr|yy)
 		   |
-		       # Don't allow 'thi'
-		       thi
-		   /ix) {
+		       # Don't allow 'thi'/'thu'
+		       th[iu]
+		   |
+		       # Don't allow 'johann'
+		       nn$
+		   |
+		       # Don't allow 'ridzuan' etc.
+		       dz
+		   !ix) {
         return undef;
     }
     return $canonical;
