@@ -165,12 +165,31 @@ terminology used elsewhere in the documentation. The headers in this
 section are in lower case for the benefit of internal documentation
 links.
 
-=head2 chouon
+=over
+
+=item chouon
 
 The long vowel marker, "ー", or I<chōon>, which is used in Japanese
 katakana to indicate a lengthened vowel. See L<What is the long line symbol used in katakana?|http://www.sljfaq.org/afaq/chouon.html>
 
-=head2 wide ASCII
+=item dakuten
+
+=item handakuten
+
+These are diacritic marks which appear on some kana.
+
+=item halfwidth katakana
+
+Halfwidth katakana, I<hankaku katakana> (半角かたかな) is a legacy
+encoding of katakana based on an eight-bit encoding. See
+L<What is half-width katakana?|http://www.sljfaq.org/afaq/half-width-katakana.html>
+for full details.
+
+=item syllabic n
+
+In this document, "syllabic n" means the kana ん or ン. See L<What is syllabic n?|http://www.sljfaq.org/afaq/syllabic-n.html> for full details.
+
+=item wide ASCII
 
 Wide ASCII, fullwidth ASCII, or I<zenkaku eisūji> (全角英数字) are a
 legacy of bitmapped fonts which has survived into the present
@@ -180,16 +199,7 @@ character. The name for normal ASCII characters in Japanese is
 I<hankaku eisūji> (半角英数字), literally "half width English letters
 and numerals". See L<What is "wide ASCII"?|http://www.sljfaq.org/afaq/wide-ascii.html> for full details.
 
-=head2 halfwidth katakana
-
-Halfwidth katakana, I<hankaku katakana> (半角かたかな) is a legacy
-encoding of katakana based on an eight-bit encoding. See
-L<What is half-width katakana?|http://www.sljfaq.org/afaq/half-width-katakana.html>
-for full details.
-
-=head2 syllabic n
-
-In this document, "syllabic n" means the kana ん or ン. See L<What is syllabic n?|http://www.sljfaq.org/afaq/syllabic-n.html> for full details.
+=back
 
 [% END # lang == 'en' %]
 
@@ -247,24 +257,48 @@ strange, but since it was described in Naoki Tomita's book, and some
 people may be using it as is, I'm not very keen to change it in
 incompatible ways.
 
-0.43 added support for
+=over
+
+=item 0.43 
+
+This version added support for
 L<hentaigana|http://www.sljfaq.org/afaq/hentaigana.html>. This is
 based on copy and paste of the Unicode 10.0 standard draft
 documents. See the directory L<F<data>|[% info.repo
 %]/tree/master/data> in the github repository for the files used to
 generate this data.
 
-0.46 disallowed hyphens as the first character of a romaji string and
-added L</smallize_kana> and L</cleanup_kana>.
+=item 0.46
 
-0.47 added a list of the "Yūrei moji" (幽霊文字), false kanji, and
+This version disallowed hyphens as the first character of a romaji
+string and added L</smallize_kana> and L</cleanup_kana>.
+
+=item 0.47
+
+This version added a list of the "Yūrei moji" (幽霊文字), false kanji, and
 changed romanisation somewhat.
 
-0.48 changed kana2romaji to be consistent with the documentation for
+=item 0.48
+
+This version changed kana2romaji to be consistent with the documentation for
 long vowel options wapuro and none.
 
-0.53 added L</join_sound_marks> and L</split_sound_marks> to the
-module.
+=item 0.53
+
+This version added L</join_sound_marks> and L</split_sound_marks> to
+the module.
+
+=item 0.54
+
+This version removed the nonsensical C<kana_order> function from the
+module. It improved the behaviour of L</is_romaji_strict> after
+comparing its negatives and positives with a large number of English
+and nonsense words. It improved the behaviour of L</smallize_kana>
+with regard to the "tsu" kana. L</cleanup_kana> was improved to deal
+with stray dakuten and handakuten and some other odd kanji/kana
+confusions.
+
+=back
 
 [% start_year=2008 %]
 [% INCLUDE "author" %]
