@@ -397,6 +397,7 @@ converted into wapuro format.
 %%
 
 name:  is_romaji_strict
+since: 0.27
 %%eg:
 
 
@@ -593,6 +594,7 @@ Convert small-sized kana such as 「ぁ」 into full-sized kana such as
 %%
 
 name: nigori_first
+since: 0.36
 %%eg:
 
 my @list = (qw/カン スウ ハツ オオ/);
@@ -602,12 +604,17 @@ nigori_first (\@list);
 %%desc.en:
 
 Given a list of kana, add all the possible versions of the words with
-the first kana with either a dakuten or a handakuten added.
+the first kana with either a L</dakuten> or a L</handakuten> added.
+
+This was intended for a search for a particular kanji in a
+dictionary. It is not actually in use anywhere at the moment.
 
 %%
 %%desc.ja:
 
 一番最初のかなに濁点又は半濁点をつけます。
+
+漢字を探すために使う予定だったのですが、現在使っていません。
 
 %%
 
@@ -733,6 +740,7 @@ cannot include punctuation marks or L</chouon>.
 %%
 
 name: katakana2syllable
+since: 0.24
 %%eg:
 
 $syllables = katakana2syllable ('ソーシャルブックマークサービス');
@@ -841,6 +849,7 @@ Convert katakana into a square thing if possible.
 %%
 
 name: smallize_kana
+since: 0.46
 %%eg:
 
 $smallize = smallize_kana ('オキヤクサマガカツタ');
@@ -855,8 +864,6 @@ large kanas used for youon or sokuon into smaller kana. If the
 conversion succeeds, return the converted value, otherwise return the
 undefined value. This function is experimental.
 
-This was added to the module in version 0.46.
-
 %%
 %%desc.ja:
 
@@ -867,10 +874,12 @@ This was added to the module in version 0.46.
 name: cleanup_kana
 %%desc.en:
 
-Clean up mixed kana and romaji inputs into katakana, and convert stray
-"one" kanjis into chouons. This function is experimental.
+This function converts any of hiragana, halfwidth katakana, or romaji
+input into katakana. It also converts various confusable kanji
+characters into kana. For example the "one" kanji is converted into
+chouons.
 
-This was added to the module in version 0.46.
+This was added to the module in version L</0.46>.
 
 %%
 %%desc.ja:
@@ -892,14 +901,14 @@ $joined = join_sound_marks ('か゛は゜つ゛');
 Join dakuten and handakuten (Unicode U+3099-U+309C) to kana where
 possible. Where they cannot be joined, strip them out.
 
-This was added to the module in version 0.53.
+This was added to the module in version L</0.53>.
 
 %%
 %%desc.ja:
 
 濁点、半濁点をできる限り仮名につけます。「カ゛」-> 「ガ」など。残っている濁点を消します。
 
-0.53カラ
+L</0.53>から
 
 %%
 
@@ -911,22 +920,19 @@ $split = split_sound_marks ('ガパヅ');
 %%
 out: $split
 expect: カ゛ハ゜ツ゛
+since: 0.53
 %%desc.en:
 
-Split dakuten and handakuten from kana where possible. U+309B and
-U+309C are chosen rather than U+3099 and U+309A. (This choice was
+Split L</dakuten> and L</handakuten> from kana where possible. U+309B
+and U+309C are chosen rather than U+3099 and U+309A. (This choice was
 somewhat arbitrary. I'm not sure which of the pairs should be used. I
 chose these because they were the ones already in use internally in
 the module in L</kana2braille> and L</kana2morse>.)
-
-This was added to the module in version 0.53.
 
 %%
 %%desc.ja:
 
 濁点、半濁点を仮名からわけます。-> 「が」-> 「か゛」など。半濁点はU+309B、濁点はU+309Cとなります。
-
-0.53カラ
 
 %%
 
@@ -939,13 +945,12 @@ Variant kana forms. Hentaigana are new in Unicode 10.0 (June 2017).
 %%
 
 name: hentai2kana
+since: 0.43
 %%desc.en:
 
 Convert hentaigana into hiragana. Hentaigana with multiple
 interpretations are converted into a list of kana separated by a
 middle dot character.
-
-This was added to the module in version 0.43.
 
 %%
 %%desc.ja:
@@ -955,6 +960,7 @@ This was added to the module in version 0.43.
 %%
 
 name: hentai2kanji
+since: 0.43
 %%eg:
 
 $kanji = hentai2kanji ('𛀢');
@@ -966,8 +972,6 @@ expect: 家
 
 Convert hentaigana into their equivalent kanji.
 
-This was added to the module in version 0.43.
-
 %%
 %%desc.ja:
 
@@ -976,6 +980,7 @@ This was added to the module in version 0.43.
 %%
 
 name: kanji2hentai
+since: 0.43
 %%eg:
 
 $kanji = kanji2hentai ('家');
@@ -987,8 +992,6 @@ expect: 𛀢
 
 Convert kanji to equivalent hentaigana, where they exist.
 
-This was added to the module in version 0.43.
-
 %%
 %%desc.ja:
 
@@ -997,6 +1000,7 @@ This was added to the module in version 0.43.
 %%
 
 name: kana2hentai
+since: 0.43
 %%eg:
 
 $hentai = kana2hentai ('ケンブ');
@@ -1010,8 +1014,6 @@ Convert kana to equivalent hentaigana. If more than one hentaigana
 exists, they are returned joined with a middle dot. Dakuten and
 handakuten are split out of the kana using L</split_sound_marks>
 before the conversion.
-
-This was added to the module in version 0.43.
 
 %%
 %%desc.ja:
@@ -1364,6 +1366,7 @@ exists, otherwise do nothing with it.
 
 
 name: yurei_moji
+since: 0.47
 %%desc.en:
 
     my @yurei = yurei_moji ();
@@ -1381,6 +1384,7 @@ information.
 %%
 
 name: bad_kanji
+since: 0.47
 %%desc.en:
 
     my @bad_kanji = bad_kanji ();

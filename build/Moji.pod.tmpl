@@ -176,7 +176,9 @@ katakana to indicate a lengthened vowel. See L<What is the long line symbol used
 
 =item handakuten
 
-These are diacritic marks which appear on some kana.
+Dakuten, 濁点, literally "voicing mark", and handakuten, 半濁点,
+literally "half voicing mark", are diacritic marks which appear on
+some kana to convert them to a voiced consonant.
 
 =item halfwidth katakana
 
@@ -259,6 +261,22 @@ incompatible ways.
 
 =over
 
+=item 0.24
+
+This version added L</katakana2syllable>.
+
+=item 0.27
+
+This version added L</is_romaji_strict>.
+
+=item 0.36
+
+This version added the L</nigori_first> function.
+
+=item 0.37
+
+This version added L</is_romaji_semistrict>.
+
 =item 0.43 
 
 This version added support for
@@ -280,8 +298,8 @@ changed romanisation somewhat.
 
 =item 0.48
 
-This version changed kana2romaji to be consistent with the documentation for
-long vowel options wapuro and none.
+This version changed L</kana2romaji> to be consistent with the
+documentation for the long vowel options C<wapuro> and C<none>.
 
 =item 0.53
 

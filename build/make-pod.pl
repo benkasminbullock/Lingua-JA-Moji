@@ -129,6 +129,10 @@ EOF
     if ($function->{"bugs.en"}) {
         bilingualize ($function, 'bugs');
     }
+    if ($function->{since}) {
+	$function->{desc}{en} .= "\n\nThis was added to the module in version L</$function->{since}>.\n";
+	$function->{desc}{ja} .= "\n\nL</$function->{since}>から\n";
+    }
 }
 
 $vars{functions} = \@functions;
