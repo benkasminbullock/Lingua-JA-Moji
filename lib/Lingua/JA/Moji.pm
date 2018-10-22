@@ -299,9 +299,17 @@ for my $vowel (keys %dan) {
 # Added z for "badge" etc.
 # Added g for ドッグ etc.
 
-my @takes_sokuon_gyou = qw/s t k p d z g/;
-my @takes_sokuon = (map {@{$gyou{$_}}} @takes_sokuon_gyou);
-my $takes_sokuon = join '', @takes_sokuon;
+#my @takes_sokuon_gyou = qw/s t k p d z g/;
+#my @takes_sokuon = (map {@{$gyou{$_}}} @takes_sokuon_gyou);
+#my $takes_sokuon = join '', @takes_sokuon;
+#die @takes_sokuon;
+my $takes_sokuon = 'サシスセソタチツテトカキクケコパピプペポダヂヅデドザジズゼゾガギグゲゴ';
+
+# Any kana except ん
+
+#my@b4s;push@b4s,@{$gyou{$_}}for sort keys%gyou;@b4s=grep!/ん/,@b4s;die join'',@b4s;
+
+my $before_sokuon = 'ヤユヨナニヌネノャュョガギグゲゴダヂヅデドカキクケコヴラリルレロワヰヱヲバビブベボタチツテトアイウエオパピプペポサシスセソァィゥェォマミムメモハヒフヘホザジズゼゾ';
 
 # N
 
@@ -758,6 +766,9 @@ sub is_romaji_strict
 		  |
 		      # Don't allow "nmichi".
 		      ^ン
+		  |
+		      # Don't allow ffun etc.
+		      ^ッ
 		  !x) {
 	return undef;
     }
@@ -807,6 +818,9 @@ sub is_romaji_strict
 		   |
 		       # Double ws, hs, etc. are out
 		       ww|hh|bb
+		   |
+		       # This is allowed by IMEs as "ちゃ" etc.
+		       cy
 		   !ix) {
         return undef;
     }
@@ -1533,7 +1547,8 @@ sub smallize_kana
     my ($kana) = @_;
     my $orig = $kana;
     $kana =~ s/([キギシジチヂニヒビピミリ])([ヤユヨ])/$1$yayuyo{$2}/g;
-    $kana =~ s/ツ([$takes_sokuon])/ッ$1/g;
+    # Don't make "ツル" into "ッル".
+    $kana =~ s/([$before_sokuon])ツ([$takes_sokuon])/$1ッ$2/g;
     if ($kana ne $orig) {
 	return $kana;
     }

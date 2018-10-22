@@ -41,6 +41,8 @@ ok (! is_romaji_semistrict ('-romaji'), "hyphen as first character rejected");
 		      akisaiqin
 		      awwa
 		      bihho
+		      ffun
+		      bicyanide
 		  !;
     for (@fails) {
 	ok (! is_romaji_strict ($_), "$_ is not Japanese");
