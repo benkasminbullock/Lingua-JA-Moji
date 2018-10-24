@@ -8,7 +8,7 @@ use utf8;
 use FindBin '$Bin';
 use Perl::Build qw/get_version get_commit get_info/;
 use Perl::Build::Pod ':all';
-
+use Deploy qw/do_system older/;
 my %vars;
 my $trans = read_translations_table ("$Bin/moji-trans.txt");
 
@@ -143,16 +143,32 @@ my %outputs = (
 );
 
 my $verbose;
+my $force;
 
 $vars{module} = 'Lingua::JA::Moji';
 
 my $dir = "$Bin/../lib/Lingua/JA";
 
+my @examples = <$Bin/../examples/*.pl>;
+for my $example (@examples) {
+    my $output = $example;
+    $output =~ s/\.pl$/-out.txt/;
+    if (older ($output, $example) || $force) {
+        do_system ("perl -I$Bin/../blib/lib -I$Bin/../blib/arch $example > $output 2>&1", $verbose);
+    }
+}
+
 my $tt = Template->new (
     ENCODING => 'UTF8',
     STRICT => 1,
     ABSOLUTE => 1,
-    INCLUDE_PATH => [$Bin, pbtmpl (), ],
+    INCLUDE_PATH => [$Bin, pbtmpl (), "$Bin/../examples", ],
+    FILTERS => {
+        xtidy => [
+            \& xtidy,
+            0,
+        ],
+    },
 );
 my %pbv = (base => "$Bin/..");
 $vars{version} = get_version (%pbv);

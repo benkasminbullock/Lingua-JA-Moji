@@ -50,17 +50,8 @@ Possible styles are as follows:
 =item none/empty
 
 Without a style, the L<Nippon-shiki
-romanization|http://www.sljfaq.org/afaq/nippon-shiki.html> is
-used.
-
-=item hepburn
-
-This gives L<Hepburn romanization|http://www.sljfaq.org/afaq/hepburn.html>.
-
-=item kunrei
-
-This is L<the form of romanization used in childrens'
-education|http://www.sljfaq.org/afaq/kunrei-shiki.html>.
+romanization|https://www.sljfaq.org/afaq/nippon-shiki.html> is
+used. This is the only romanisation style which allows round trips from kana to romanised and back.
 
 =item common
 
@@ -69,9 +60,24 @@ combinations of large kana + small vowel kana into the commonest
 romanized form. For example "ジェット" becomes "jetto" and "ウェ"
 becomes "we".
 
+=item hepburn
+
+This gives L<Hepburn
+romanization|https://www.sljfaq.org/afaq/hepburn.html>. This is
+strictly defined to be the actual Hepburn system, so you may prefer to
+use L</common> if your kana contains things like ファ which you want
+to turn into "fa".
+
+=item kunrei
+
+This gives L<Kunrei-shiki romanisation|https://www.sljfaq.org/afaq/kunrei-shiki.html>, the form
+of romanisation used in childrens' education. This is similar to Nippon-shiki except for a few consonant-vowel combinations.
+
 =item passport
 
-Passport romaji. Long "o" vowels get turned into "oh".
+This gives "passport romaji" where long "o" vowels get turned into
+"oh" and other long vowels are deleted. In this system "おおの" turns
+into "ohno" and "ゆうすけ" turns into "yusuke".
 
 =back
 
@@ -96,7 +102,10 @@ the haphazard design of the module.
 =item ve_type
 
 The C<ve_type> option controls how long vowels are written. The
-default is to use circumflexes to represent long vowels.
+default is to use circumflexes to represent long vowels. If C<style>
+is set to C<hepburn> or C<common>, the default is set to use
+macrons. If C<style> is set to C<passport>, the value of C<ve_type> is
+also set to C<passport>. The choices are:
 
 =over
 
@@ -168,11 +177,15 @@ becomes "o".
 =item hepburn
 
 ヘボン式（「つづり」が「tsuzuri」, 「少女」が「shōjo」）。
-これを選べば、下記のuse_mが真になり、ve_typeがmacronになります。
+これを選べば、下記のuse_mが真になり、ve_typeがmacronになります。hepburnは厳しい意味でやりますので、L</common>のほうが役に立つかもしれません。
 
 =item common
 
 「ジェット」が「jetto」になります。「ウェ」が「we」になります。つまり普通のローマ字です。
+
+=item wapuro
+
+ワープロローマ字。長音符を使いません。「少女」が「shoujo」など、ASCIIのみの記号で表記するローマ字です。
 
 =back
 
@@ -180,6 +193,15 @@ becomes "o".
 
 真なら「しんぶん」が「shimbun」、「ぐんま」が「gumma」
 偽なら「しんぶん」が「shinbun」、「ぐんま」が「gunma」
+
+L</hepburn>を選ぶとき、use_mが真になってしまいますが、都合が悪いときにはuse_mをundef意外の偽の値にに設定してください：
+
+    my $romaji = kana2romaji ($hiragana,
+			  {style => 'hepburn', 
+			   ve_type => 'wapuro',
+			   use_m => 0,});
+
+面倒くさいデフォルトお詫びします。
 
 =item ve_type
 
@@ -205,15 +227,9 @@ becomes "o".
 
 =item wapuro
 
-「アー」、「イー」、「ウー」、「エー」が「a-」, 「i-」, 「u-」, 「e-」,
-「o-」になります。「おう」が「ou」など、仮名の長音を仮名で代表するよう、ロー
-マ字入力のようなことです。
+ワープロローマ字のように表示する。「アー」、「イー」、「ウー」、「エー」が「a-」, 「i-」, 「u-」, 「e-」,「o-」になります。「おう」が「ou」など、仮名の長音を仮名で代表するよう、ローマ字入力のようなことです。
 
 =back
-
-=item wapuro
-
-ワープロローマ字。長音符を使いません。「少女」が「shoujo」など、ASCIIのみの記号で表記するローマ字です。
 
 =item wo
 
@@ -257,10 +273,13 @@ IME. For example, input "gumma" becomes グッマ and input "onnna"
 becomes オンナ. Passport romaji ("Ohshimizu") is disallowed if this
 option is switched on.
 
+See also L</is_romaji>, L</is_romaji_strict>, and
+L</is_romaji_semistrict> for validation of romanised Japanese inputs.
+
 %%
 %%desc.ja:
 
-ローマ字をカタカナに変換します。ローマ字はできるだけ幅広く受け入れる。
+ローマ字をカタカナに変換します。ローマ字はできるだけ幅広く受け入れます。
 ローマ字をひらがなに変換したいときはL</romaji2hiragana>をお使いください。
 
 ローマ字変換のオプションは関数の２番目の引数でハシュリファレンスとして入る。
@@ -272,6 +291,8 @@ option is switched on.
      $kana = romaji2kana ($romaji, {ime => 1});
 
 C<< ime => 1 >>オプションでIMEのような変換ができます。たとえば、"gumma"が「グッマ」、"onnna"が「オンナ」となります。パスポートローマ字 ("Ohshimizu") は無効となります。
+
+これはどんな入力でも仮名に変換しようとします。ローマ字日本語の確認のためにはL</is_romaji>、L</is_romaji_strict>、L</is_romaji_semistrict>もあります。
 
 %%
 
@@ -292,8 +313,7 @@ uses long vowels with a kana rather than a L</chouon>.
 %%
 %%desc.ja:
 
-ローマ字をひらがなに変関します。オプションはL</romaji2kana>と同じ。wapuroオプション
-もオンにしたら、「ou」が「おー」ではなく、「おう」になります。
+ローマ字をひらがなに変関します。オプションはL</romaji2kana>と同じ。L</wapuro>オプションもオンにして、「ou」が「おー」ではなく、「おう」になります。
 
 %%
 
@@ -310,7 +330,7 @@ romaji_styles ("frogs");
 %%
 %%desc.en:
 
-Given an argument, this return a true value if it is a known style of
+Given an argument, this returns a true value if it is a known style of
 romanization.
 
 Without an argument, it returns a list of possible styles, as an array
@@ -389,10 +409,11 @@ converted into wapuro format.
 %%
 %%desc.ja:
 
-アルファベットの列はローマ字に見えるなら真、見えないなら偽を戻します。
-厳密に確認したい時はL</is_romaji_strict>をお勧めします。「-」で初まる文字列の場合は戻し値が偽(undef)となります。
+アルファベットの列はローマ字に見えるなら真、見えないなら偽を戻します。「-」で初まる文字列の場合は戻し値が偽(undef)となります。
 
 真の戻し値はローマ字のワープロ変換。
+
+これはローマ字を変換してみて、成功する場合「ローマ字だ」という原理で働きますので、色々な文字列を受けます。もっと厳密に確認したい時はL</is_romaji_strict>をお勧めします。
 
 %%
 
@@ -427,9 +448,7 @@ converted into wapuro format.
 %%
 %%desc.ja:
 
-アルファベットの列はローマ字に見えるなら真、見えないなら偽。
-L</is_romaji>より厳しく、コンピューター入力に見えるかどうかではなく、
-「日本語になる」かどうか確認します。
+アルファベットの列はローマ字に見えるなら真、見えないなら偽。L</is_romaji>より厳しく、コンピューター入力に見えるかどうかではなく、「日本語になる」かどうか確認します。
 
 真の値はローマ字のワープロ変換です。
 
@@ -562,9 +581,9 @@ name:  kana2katakana
 %%desc.en:
 
 This converts any of katakana, L</halfwidth katakana>, circled
-katakana and hiragana to full width katakana. It also joins dakuten
-and handakuten marks to kana where possible, or removes them, using
-L</join_sound_marks>.
+katakana and hiragana to full width katakana. It also joins
+L</dakuten> and L</handakuten> marks to kana where possible, or
+removes them, using L</join_sound_marks>.
 
 %%
 %%desc.ja:
@@ -757,13 +776,20 @@ attached to the preceding sequence, so for example フラナガン is
 broken up into four syllables, フ, ラ, ナ, ガン.
 
 This routine is used as the basis of this L<Change your name to kanji
-web application|https://www.sljfaq.org/cgi/name-kanji.cgi>.
+web application|https://www.sljfaq.org/cgi/name-kanji.cgi>. The name
+is converted from English to kana, then this function is used to break
+the kana name into pieces to which a kanji may be attached. It's also
+used in L<this Katakana to English
+converter|https://www.sljfaq.org/cgi/k2e.cgi> for the case that no
+words can be matched, and suggestions are made for how to split the
+word into possible components.
 
 %%
 %%desc.ja:
 
-カタカナをシラブルニワケル。たとえば、「ソーシャル」
-ハ'ソ', 'ー', 'シ', 'ャ', 'ル'という意味のない文字ではなく、日本語の「原子」ノ'ソー', 'シャ', 'ル'になります。撥音(ん)は前の仮名と一つになります。例えば、「フラナガン」ハ「フ」, 「ラ」, 「ナ」, 「ガン」となります。
+カタカナをシラブルにわけます。たとえば、「ソーシャル」をC<split>などで文字に分けると'ソ', 'ー', 'シ', 'ャ', 'ル'になりますがソ、シ、ルは言えるのに、「ー」と「ャ」は口にできない文字です。なのでこの間数は日本語の「原子」の'ソー', 'シャ', 'ル'にわけます。撥音(ん)は前の仮名と一つになります。例えば、「フラナガン」は「フ」, 「ラ」, 「ナ」, 「ガン」となります。
+
+元々の作った理由はL<外国人の宛字名前制作|https://www.sljfaq.org/cgi/name-kanji_ja.cgi>のためでした。外国人の名前を仮名に変換した後に、その当て字を当てるためにそのかなをシラブルに分けます。その他の利用はL<カタカナを英語に変換|https://www.sljfaq.org/cgi/k2e_ja.cgi>で、片仮名が何もマッチしない場合、言葉を部分に分けるために使っています。
 
 %%
 
@@ -787,9 +813,9 @@ This is a combination of the existing Perl character classes
 C<Katakana>, C<InKatakana>, and C<InHiragana>, minus unassigned
 characters, plus the "halfwidth katakana prolonged sound mark"
 (U+FF70) <ｰ> (chouon), the "halfwidth katakana voiced sound mark"
-(U+FF9E) <ﾞ> (dakuten) and the "halfwidth katakana semivoiced sound
-mark" (U+FF9F) <ﾟ> (handakuten), minus '・', Unicode 30FB, "KATAKANA
-MIDDLE DOT". It is somewhat like the following:
+(U+FF9E) <ﾞ> (L</dakuten>) and the "halfwidth katakana semivoiced
+sound mark" (U+FF9F) <ﾟ> (L</handakuten>), minus '・', Unicode 30FB,
+"KATAKANA MIDDLE DOT". It is somewhat like the following:
 
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
@@ -799,13 +825,13 @@ are not matched and KATAKANA MIDDLE DOT is not matched.
 %%
 %%desc.ja:
 
-正規表現に使うかたかなとひらがなにまっちします。
+正規表現に使うかたかなとひらがなにマッチします。
 
 詳しくいうと以下の正規表現
 
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
-と殆ど同じことにまっちしますが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。変体仮名もマッチしません。
+と殆ど同じことにマッチしますが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。変体仮名もマッチしません。
 
 %%
 
@@ -860,35 +886,47 @@ expect: オキャクサマガカッタ
 %%desc.en:
 
 Given katakana input, convert possible "old-style" kana usage with
-large kanas used for youon or sokuon into smaller kana. If the
+large kanas used for L</youon> or L</sokuon> into smaller kana. If the
 conversion succeeds, return the converted value, otherwise return the
-undefined value. This function is experimental.
+undefined value. I found the undefined value works better as a return
+value on failure than returning the text itself, since it saves the
+user from having to check whether the text has changed.
+
+The conversion is not intelligent, it just attempts
+to do as much as possible, so although it will work to convert
+"shiyotsuchiyuu" ("シヨツチユウ") into "shotchuu" ("ショッチュウ"), it
+will also do stupid things like converting "chiyoda" (ちよだ) into
+"choda" (ちょだ).
 
 %%
 %%desc.ja:
 
-片仮名の列に拗音と促音を入れる。昔の仮名使いを現代のに直す。あくまで実験的です。
+試しに、モースコードなど、「っ」や「ゃゅょ」がない片仮名を拗音(ゃゅょ)と促音(っ)がある片仮名に変えます。昔の仮名使いを現代のに直すなどに使います。正確に変えることではなく、できるだけ変えることしますので、たとえば正確に「シヨツチユウ」を「ショッチュウ」にはするものの「ちよだ」を「ちょだ」にもしますので、頭の良い関数ではなく、最大限に変換する関数です。
 
 %%
 
 name: cleanup_kana
+since: 0.46
 %%desc.en:
 
 This function converts any of hiragana, halfwidth katakana, or romaji
 input into katakana. It also converts various confusable kanji
-characters into kana. For example the "one" kanji is converted into
-chouons.
+characters into kana. For example the "one" kanji 一 is converted into
+a L</chouon>, ー, and the "mouth" kanji 口 is converted into the
+katakana ロ (ro).
 
-This was added to the module in version L</0.46>.
+This is used as the "front end" function for L<this katakana to
+English web application|https://www.sljfaq.org/cgi/k2e.cgi>.
 
 %%
 %%desc.ja:
 
-間違ったかな入力を直す。例えば「一」（漢字のいち）を「ー」（長音）に。
+雑な仮名遣いや間違ったかな入力を直します。ローマ字やひらがなを片仮名に変換します。仮名として漢字を使うような間違いも直します。例えば「一」（漢字のいち）を「ー」（長音）に。
 
 %%
 
 name: join_sound_marks
+since: 0.53
 out: $joined
 expect: がぱづ
 %%eg:
@@ -898,17 +936,14 @@ $joined = join_sound_marks ('か゛は゜つ゛');
 %%
 %%desc.en:
 
-Join dakuten and handakuten (Unicode U+3099-U+309C) to kana where
-possible. Where they cannot be joined, strip them out.
-
-This was added to the module in version L</0.53>.
+Join L</dakuten> and L</handakuten> (Unicode U+3099-U+309C) to kana
+where possible. Where they cannot be joined, strip them out. This only
+works on full width kana. The return value is the joined text.
 
 %%
 %%desc.ja:
 
 濁点、半濁点をできる限り仮名につけます。「カ゛」-> 「ガ」など。残っている濁点を消します。
-
-L</0.53>から
 
 %%
 
@@ -927,7 +962,8 @@ Split L</dakuten> and L</handakuten> from kana where possible. U+309B
 and U+309C are chosen rather than U+3099 and U+309A. (This choice was
 somewhat arbitrary. I'm not sure which of the pairs should be used. I
 chose these because they were the ones already in use internally in
-the module in L</kana2braille> and L</kana2morse>.)
+the module in L</kana2braille> and L</kana2morse>.) This only
+works on full width kana. The return value is the split text.
 
 %%
 %%desc.ja:
@@ -1011,9 +1047,9 @@ expect: 𛀢・𛀲・𛀳・𛀴・𛀵・𛀶・𛀷𛄝・𛄞𛂰・𛂱・�
 %%desc.en:
 
 Convert kana to equivalent hentaigana. If more than one hentaigana
-exists, they are returned joined with a middle dot. Dakuten and
-handakuten are split out of the kana using L</split_sound_marks>
-before the conversion.
+exists, they are returned joined with a middle dot. The L</dakuten>
+and L</handakuten> are split out of the kana using
+L</split_sound_marks> before the conversion.
 
 %%
 %%desc.ja:
@@ -1046,7 +1082,8 @@ if ('Ａ' =~ /\p{InWideAscii}/) {
 %%
 %%desc.en:
 
-This is a character class for use with \p which matches L</wide ASCII>
+This is a character class for use with \p which matches L</wide
+ASCII>. It also matches the fullwidth space, C<U+3000>.
 
 %%
 %%desc.ja:
@@ -1066,7 +1103,8 @@ $ascii = wide2ascii ('ａｂＣＥ０１９');
 %%
 %%desc.en:
 
-Convert L</wide ASCII> into ASCII.
+Convert L</wide ASCII> into ASCII. It also converts the fullwidth
+space, C<U+3000>, into an ASCII space, ASCII C<0x20>.
 
 %%
 %%desc.ja:
@@ -1085,8 +1123,8 @@ $wide = ascii2wide ('abCE019');
 %%
 %%desc.en:
 
-Convert ASCII into L</wide ASCII>.
-
+Convert ASCII into L</wide ASCII>. It also converts the ASCII space,
+ASCII C<0x20> into a fullwidth space, C<U+3000>.
 
 %%
 %%desc.ja:
@@ -1110,6 +1148,7 @@ expect: --.-. -- .--. ..-. -..-- ..-
 Convert Japanese kana into Morse code. Japanese morse code does not
 have any way of representing small kana characters, so converting to
 and then from morse code will result in ショッチュウ becoming シヨツチユウ.
+The function L</smallize_kana> may work to fix these outputs in some cases.
 
 %%
 %%desc.ja:
@@ -1196,8 +1235,8 @@ This function converts kana into the "circled katakana" of Unicode,
 which have code points from 32D0 to 32FE. See also L</circled2kana>.
 
 There is no circled form of the ン kana, L</syllabic n>, so this is
-left untouched. Dakuten and handakuten are split from the kana
-using L</split_sound_marks>.
+left untouched. The L</dakuten> and L</handakuten> are split from the
+kana using L</split_sound_marks>.
 
 Circled katakana appear as Unicode code points U+32D0 to U+32FE.
 %%
@@ -1367,9 +1406,12 @@ exists, otherwise do nothing with it.
 
 name: yurei_moji
 since: 0.47
-%%desc.en:
+%%eg:
 
     my @yurei = yurei_moji ();
+
+%%
+%%desc.en:
 
 Returns a list of the yurei moji (幽霊文字), kanji which don't
 actually exist but were mistakenly included in a computer
@@ -1385,9 +1427,12 @@ information.
 
 name: bad_kanji
 since: 0.47
-%%desc.en:
+%%eg:
 
     my @bad_kanji = bad_kanji ();
+
+%%
+%%desc.en:
 
 Returns a list of kanji with negative meanings. See also
 L<https://www.lemoda.net/japanese/offensive-kanji/index.html>.
