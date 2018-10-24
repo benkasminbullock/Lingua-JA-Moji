@@ -888,9 +888,9 @@ expect: オキャクサマガカッタ
 Given katakana input, convert possible "old-style" kana usage with
 large kanas used for L</youon> or L</sokuon> into smaller kana. If the
 conversion succeeds, return the converted value, otherwise return the
-undefined value. I found the undefined value works better as a return
+undefined value. (I found the undefined value works better as a return
 value on failure than returning the text itself, since it saves the
-user from having to check whether the text has changed.
+user from having to check whether the text has changed.)
 
 The conversion is not intelligent, it just attempts
 to do as much as possible, so although it will work to convert
