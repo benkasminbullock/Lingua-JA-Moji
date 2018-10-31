@@ -1542,6 +1542,8 @@ my %yayuyo = (qw/
 		    ヨ ョ
 		/);
 
+my %l2s = qw!ア ァ イ ィ ウ ゥ エ ェ オ ォ!;
+
 sub smallize_kana
 {
     my ($kana) = @_;
@@ -1549,6 +1551,7 @@ sub smallize_kana
     $kana =~ s/([キギシジチヂニヒビピミリ])([ヤユヨ])/$1$yayuyo{$2}/g;
     # Don't make "ツル" into "ッル".
     $kana =~ s/([$before_sokuon])ツ([$takes_sokuon])/$1ッ$2/g;
+    $kana =~ s/フ([アイエオ])/フ$l2s{$1}/g;
     if ($kana ne $orig) {
 	return $kana;
     }
