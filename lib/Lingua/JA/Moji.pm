@@ -1575,7 +1575,7 @@ sub cleanup_kana
     # kanji not kana.  Because the following expression is visually
     # confusing, note that the LHS are all kanji, and the RHS are all
     # kana/chouon
-    $kana =~ tr/口八力二一/ロハカニー/;
+    $kana =~ tr/囗口八力二一/ロロハカニー/;
     return $kana;
 }
 
