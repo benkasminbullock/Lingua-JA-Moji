@@ -833,7 +833,11 @@ sub hira2kata
     if (!@input) {
         return;
     }
-    for (@input) {tr/ぁ-んゔ/ァ-ンヴ/}
+    for (@input) {
+	if ($_) {
+	    tr/ぁ-んゔ/ァ-ンヴ/;
+	}
+    }
     return wantarray ? @input : "@input";
 }
 
@@ -1561,6 +1565,9 @@ sub smallize_kana
 sub cleanup_kana
 {
     my ($kana) = @_;
+    if (! $kana) {
+	return $kana;
+    }
     if ($kana =~ /[\x{ff01}-\x{ff5e}]/) {
 	$kana = wide2ascii ($kana);
 	$kana = romaji2kana ($kana);
@@ -1568,9 +1575,8 @@ sub cleanup_kana
     elsif ($kana =~ /[a-zâîûêôôāūēō]/i) {
 	$kana = romaji2kana ($kana);
     }
+    # This calls join_sound_marks, so that call is not necessary.
     $kana = kana2katakana ($kana);
-    #$kana =~ s/([$nohandaku])°/$1゜/g;
-    $kana = join_sound_marks ($kana);
     # Translate kanjis into katakana where a "naive user" has inserted
     # kanji not kana.  Because the following expression is visually
     # confusing, note that the LHS are all kanji, and the RHS are all
