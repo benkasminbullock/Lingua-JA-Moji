@@ -1378,7 +1378,7 @@ sub kanji2bracketed
 
 sub InKana
 {
-    return <<'END';
+    return <<"END";
 +utf8::Katakana
 +utf8::InKatakana
 +utf8::InHiragana
