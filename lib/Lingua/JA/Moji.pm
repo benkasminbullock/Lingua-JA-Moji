@@ -1313,6 +1313,19 @@ sub hangul2kana
     return $hangul;
 }
 
+my %small2large = qw!
+ゃ や
+ゅ ゆ
+ょ よ
+ぁ あ
+ぃ い
+ぅ う
+ぇ え
+ぉ お
+っ つ
+ゎ わ
+!;
+
 sub kana_to_large
 {
     my ($kana) = @_;
@@ -1582,6 +1595,8 @@ sub cleanup_kana
     # confusing, note that the LHS are all kanji, and the RHS are all
     # kana/chouon
     $kana =~ tr/囗口八力二一/ロロハカニー/;
+    # Turn silly small youon kana into big ones
+    $kana =~ s/([^きぎしじちぢにひびぴみり]|^)([ゃゅょ])/$1$small2large{$2}/g;
     return $kana;
 }
 
