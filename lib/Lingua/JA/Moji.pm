@@ -7,7 +7,7 @@ use utf8;
 require Exporter;
 our @ISA = qw(Exporter);
 
-our $VERSION = '0.56';
+our $VERSION = '0.57';
 
 use Carp 'croak';
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -653,6 +653,8 @@ sub romaji2kana
     $input =~ s/([kstfhmrgzdbpjqvwy])(?=\1y?[aiueo])/ッ/g;
     # kkya -> っきゃ etc.
     $input =~ s/ttsu/ッツ/g;
+    # xtsu -> っ
+    $input =~ s/xtsu/ッ/g;
     # ssha -> っしゃ
     $input =~ s/([s])(?=\1h[aiueo])/ッ/g;
     # Passport romaji,
