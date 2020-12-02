@@ -355,13 +355,16 @@ the module.
 
 =item 0.54
 
-This version removed the nonsensical C<kana_order> function from the
-module. It improved the behaviour of L</is_romaji_strict> after
-comparing its negatives and positives with a large number of English
-and nonsense words. It improved the behaviour of L</smallize_kana>
-with regard to the "tsu" kana. L</cleanup_kana> was improved to deal
-with stray dakuten and handakuten and some other odd kanji/kana
-confusions.
+This version removed a function C<kana_order> from the module. It
+improved the behaviour of L</is_romaji_strict> after comparing its
+negatives and positives with a large number of English and nonsense
+words. It improved the behaviour of L</smallize_kana> with regard to
+the "tsu" kana. L</cleanup_kana> was improved to deal with stray
+dakuten and handakuten and some other odd kanji/kana confusions.
+
+=item 0.58
+
+This added L</kana_consonant>.
 
 =back
 

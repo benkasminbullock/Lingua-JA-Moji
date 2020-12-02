@@ -507,6 +507,30 @@ C<normalize_romaji>はかなやローマ字で書いた言葉を比べるため�
 
 %%
 
+name:  kana_consonant
+%%eg:
+
+$consonant = kana_consonant ('ざる');
+
+%%
+out: $consonant
+expect: s
+%%desc.en:
+
+Given a kana input, return the "dictionary order" consonant of the
+first kana. If the first kana is any of あいうえお, it returns an
+empty string. If the kana is an unvoiced kana, it returns the
+corresponding consonant of the first kana in the Nippon-shiki
+romanisation. If the kana is a voiced kana, it returns the
+corresponding consonant of the unvoiced version of the first kana in
+the Nippon-shiki romanisation.
+
+This enables Japanese words to be sorted into the order used in
+Japanese dictionaries, where the voiced/unvoiced distinction between,
+for example, za and sa, or ta and da, is ignored.
+
+%%
+
 class: kana
 %%explain.en:
 
