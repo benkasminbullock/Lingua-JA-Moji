@@ -1,5 +1,9 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.58 2020-12-02
+
+* kana_consonant added
+
 0.57 2020-11-26
 
 * romaji2hiragana ('xtsu') bug fixed (should produce small tsu)
