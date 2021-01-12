@@ -2,6 +2,7 @@ language: perl
 before_install:
   - cpanm C::Tokenize
   - cpanm C::Utility
+  - cpanm Convert::Moji
   - cpanm File::Slurper
   - cpanm IPC::Run3
   - cpanm JSON::Create
