@@ -21,15 +21,15 @@ PODDEP=$(BUILD)/make-pod.pl $(BUILD)/Moji.pod.tmpl \
 	$(BUILD)/moji-functions.txt $(BUILD)/moji-trans.txt
 
 $(LIB)/Moji.pod $(LIB)/Moji-ja.pod:	$(PODDEP)
-	$(BUILD)/make-pod.pl
+	./$(BUILD)/make-pod.pl
 
 # The original "bad kanji" file is here at the moment.
 
-BKORIG=/home/ben/projects/kanjivg/png/bad-kanji.txt
+# BKORIG=/home/ben/projects/kanjivg/png/bad-kanji.txt
 
-$(DLIB)/bad-kanji.txt: $(BKORIG)
-	cp -f $(BKORIG) $@
-	chmod 0444 $@
+# $(DLIB)/bad-kanji.txt: $(BKORIG)
+# 	cp -f $(BKORIG) $@
+# 	chmod 0444 $@
 
 clean:
 	-rm -rf Lingua-JA-Moji-0.* Makefile.old MANIFEST.bak META.yml \
