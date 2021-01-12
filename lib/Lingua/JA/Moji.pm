@@ -7,7 +7,7 @@ use utf8;
 require Exporter;
 our @ISA = qw(Exporter);
 
-our $VERSION = '0.59';
+our $VERSION = '0.58';
 
 use Carp 'croak';
 use Convert::Moji qw/make_regex length_one unambiguous/;

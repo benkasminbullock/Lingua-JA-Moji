@@ -1,14 +1,17 @@
 #!/home/ben/software/install/bin/perl
 use warnings;
 use strict;
-use Table::Readable qw/read_table/;
-use ReadTranslations qw/read_translations_table get_lang_trans/;
-use Template;
 use utf8;
 use FindBin '$Bin';
+use Table::Readable qw/read_table/;
+use Template;
+
+use lib "$Bin/../copied/lib";
 use Perl::Build qw/get_version get_commit get_info/;
 use Perl::Build::Pod ':all';
+use ReadTranslations qw/read_translations_table get_lang_trans/;
 use Deploy qw/do_system older/;
+
 my %vars;
 my $trans = read_translations_table ("$Bin/moji-trans.txt");
 
