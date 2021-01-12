@@ -93,22 +93,10 @@ corresponding to L</is_hiragana> in this module, and three more,
 C<is_kanji>, C<is_katakana>, and C<is_h_katakana>, for half-width
 katakana.
 
-=item L<Lingua::JA::Kana>
+=item L<Lingua::JA::Fold>
 
-This contains convertors for hiragana, half width and full width
-katakana, and romaji. As of version 0.07 [Aug 06, 2012], the romaji
-conversion is less complete than this module.
-
-=item L<Lingua::JA::Romanize::Japanese>
-
-Romanization of Japanese. The module also includes romanization of
-kanji via the kakasi kanji to romaji convertor, and other functions.
-
-=item L<Lingua::JA::Romaji::Valid>
-
-Validate romanized Japanese. This module does something similar to
-L</is_romaji>, L</is_romaji_strict>, and L</is_romaji_semistrict> in
-Lingua::JA::Moji, but it has some extra options as well.
+Full/half width conversion, collation of Japanese text, including
+handling of line breaks.
 
 =item L<Lingua::JA::Hepburn::Passport>
 
@@ -117,37 +105,6 @@ Passport romanization, which means converting long vowels into
 the C<< passport => 1 >> option, for example
 
     $romaji = kana2romaji ("かとう", {style => 'hepburn', passport => 1});
-
-=item L<Lingua::JA::Fold>
-
-Full/half width conversion, collation of Japanese text, including
-handling of line breaks.
-
-=item L<Lingua::JA::Romaji>
-
-Romaji to kana/kana to romaji conversion.
-
-=item L<Lingua::JA::Regular::Unicode>
-
-This includes hiragana to katakana, full width / half width, and wide
-ascii conversion. The strange name is due to its being an extension of
-L<Lingua::JA::Regular> using Unicode-encoded strings.
-
-=item L<Lingua::JA::NormalizeText>
-
-A huge collection of normalization functions for Japanese text. If
-Lingua::JA::Moji does not have it, Lingua::JA::NormalizeText may do.
-
-=item L<Lingua::KO::Munja>
-
-This is similar to the present module for Korean.
-
-=item L<Lingua::JA::Onbiki>
-
-Convert a Japanese tilde character into the appropriate vowel. To
-achieve this with Lingua::JA::Moji, see the following example:
-
-[% example("onbiki") %]
 
 =item L<Lingua::JA::Jtruncate>
 
@@ -160,11 +117,54 @@ in Perl programs, until I had the bad experience of tracking down a
 very strange bug caused by the "kanji space", U+3000, containing an @
 mark when written in CP932, and being interpreted by Perl as an array.
 
+=item L<Lingua::JA::Kana>
+
+This contains convertors for hiragana, half width and full width
+katakana, and romaji. As of version 0.07 [Aug 06, 2012], the romaji
+conversion is less complete than this module.
+
+=item L<Lingua::JA::NormalizeText>
+
+A huge collection of normalization functions for Japanese text. If
+Lingua::JA::Moji does not have it, Lingua::JA::NormalizeText may do.
+
+=item L<Lingua::JA::Onbiki>
+
+Convert a Japanese tilde character into the appropriate vowel. To
+achieve this with Lingua::JA::Moji, see the following example:
+
+[% example("onbiki") %]
+
+=item L<Lingua::JA::Regular::Unicode>
+
+This includes hiragana to katakana, full width / half width, and wide
+ascii conversion. The strange name is due to its being an extension of
+L<Lingua::JA::Regular> using Unicode-encoded strings.
+
+=item L<Lingua::JA::Romaji>
+
+Romaji to kana/kana to romaji conversion.
+
+=item L<Lingua::JA::Romaji::Valid>
+
+Validate romanized Japanese. This module does something similar to
+L</is_romaji>, L</is_romaji_strict>, and L</is_romaji_semistrict> in
+Lingua::JA::Moji, but it has some extra options as well.
+
+=item L<Lingua::JA::Romanize::Japanese>
+
+Romanization of Japanese. The module also includes romanization of
+kanji via the kakasi kanji to romaji convertor, and other functions.
+
 =back
 
 =head2 [% trans.kanjikanahenkan %]
 
 =over
+
+=item L<Lingua::JA::Romanize::Japanese>
+
+Romanization of Japanese language via kakasi.
 
 =item L<Lingua::JA::Romanize::MeCab>
 
@@ -172,9 +172,37 @@ Romanization of Japanese language with MeCab
 
 =item L<Text::MeCab>
 
-=item L<Lingua::JA::Romanize::Japanese>
+=back
 
-Romanization of Japanese language via kakasi.
+=head2 Related modules
+
+=over
+
+=item L<Data::HanConvert>
+
+🐉 "The data for converting between traditional and simplified Chinese
+languages"
+
+=item L<Encode::CNMap>
+
+🐉 "enhanced Chinese encodings with Simplified-Traditional auto-mapping"
+
+=item L<Encode::HanConvert>
+
+🐉 "Traditional and Simplified Chinese mappings"
+
+=item L<Lingua::KO::Munja>
+
+This is similar to the present module for Korean.
+
+=item L<Lingua::ZH::HanConvert>
+
+🐉 "Convert between Traditional and Simplified Chinese characters"
+
+=item L<Regexp::Chinese::TradSimp>
+
+🐉 "Take a string containing Chinese text, and turn it into a
+traditional-simplified-insensitive regexp."
 
 =back
 
@@ -287,10 +315,9 @@ Thanks to Naoki Tomita, David Steinbrunner, and Neil Bowers for fixes.
 out of a need for more comprehensive handling of Japanese text than
 was offered by any of the existing modules on CPAN. There were a lot
 of modules offering piecemeal romaji/kana conversions or
-hiragana/katakana conversions, but, with apologies, nothing truly
-comprehensive or robust. Lingua::JA::Moji was originally a private
-module. Most of the functions in the module are things I needed for my
-own projects.
+hiragana/katakana conversions, but nothing comprehensive or
+robust. Lingua::JA::Moji was originally a private module. Most of the
+functions in the module are things I needed for my own projects.
 
 The design using L<Convert::Moji> was part of an abandoned plan to
 make a cross-language module which could produce, say, a JavaScript

@@ -1,5 +1,9 @@
 Revision history for perl module Lingua::JA::Moji
 
+0.59 
+
+* Documentation
+
 0.58 2020-12-02
 
 * kana_consonant added

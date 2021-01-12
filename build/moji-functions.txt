@@ -1,25 +1,104 @@
 class: romanization
 %%explain.en:
-
 These functions convert Japanese letters to and from romanized forms.
-
 %%
-%%explain.ja:
+explain.ja: かな ⇄ ローマ字
 
-かな ⇄ ローマ字
-
-%%
-
-name: kana2romaji
-%%eg:
-
-$romaji = kana2romaji ("うれしいこども");
-
-%%
-out: $romaji
-expect: uresîkodomo
 %%desc.en:
+This detects whether a string of alphabetical characters, which may
+also include characters with macrons or circumflexes, "looks like"
+romanized Japanese. If the test is successful, it returns a true
+value, and if the test is unsuccessful, it returns a false value. If
+the string is empty, it returns a false value. Hyphens are not allowed
+as the first character.
 
+This works by converting the string to kana via L</romaji2kana> and
+seeing if it converts cleanly or not.
+
+The "true" value returned is the output of the round-trip conversion,
+converted into wapuro format.
+%%
+%%desc.ja:
+アルファベットの列はローマ字に見えるなら真、見えないなら偽を戻します。「-」で初まる文字列の場合は戻し値が偽(undef)となります。
+
+真の戻し値はローマ字のワープロ変換。
+
+これはローマ字を変換してみて、成功する場合「ローマ字だ」という原理で働きますので、色々な文字列を受けます。もっと厳密に確認したい時はL</is_romaji_strict>をお勧めします。
+%%
+%%eg:
+# The following line returns "undef"
+is_romaji ("abcdefg");
+# The following line returns a defined value
+is_romaji ('loyehye');
+# The following line returns a defined value
+is_romaji ("atarimae");
+%%
+name: is_romaji
+
+%%desc.en:
+Halfway between L</is_romaji> and L</is_romaji_strict>, this allows
+some formations like "pinku no dorufin" but not the really unlikely
+stuff which "is_romaji" allows.
+%%
+%%desc.ja:
+L</is_romaji_strict>とL</is_romaji>の間にローマ字ですが厳密に日本語ではない言葉もあります。例えば、"pinku no dorufin"は「ピンク ノ ドルフィン」というカタカナになりますが純粋日本語ではありません。is_romaji_semistrictはこういう言葉をみとめても、is_romajiのように出鱈目の文字を許さないというものです。
+%%
+%%eg:
+# The following line returns "undef"
+is_romaji_semistrict ("abcdefg");
+# The following line returns "undef"
+is_romaji_semistrict ('loyehye');
+# The following line returns a defined value
+is_romaji_semistrict ("atarimae");
+# The following line returns a defined value
+is_romaji_semistrict ("pinku no dorufin");
+%%
+name: is_romaji_semistrict
+
+%%desc.en:
+This detects whether a string of alphabetical characters, which may
+also include characters with macrons or circumflexes, "looks like"
+romanized Japanese. If the test is successful, it returns a true
+value, and if the test is unsuccessful, it returns a false value. If
+the string is empty, it returns a false value.
+
+This test is much stricter than L</is_romaji>. It insists that the
+word does not contain constructions which may be valid as inputs to an
+IME, but which do not look like Japanese words.
+
+The "true" value returned is the output of the round-trip conversion,
+converted into wapuro format.
+%%
+%%desc.ja:
+アルファベットの列はローマ字に見えるなら真、見えないなら偽。L</is_romaji>より厳しく、コンピューター入力に見えるかどうかではなく、「日本語になる」かどうか確認します。
+
+真の値はローマ字のワープロ変換です。
+%%
+%%eg:
+# The following line returns "undef"
+is_romaji_strict ("abcdefg");
+# The following line returns "undef"
+is_romaji_strict ('loyehye');
+# The following line returns a defined value
+is_romaji_strict ("atarimae");
+%%
+name: is_romaji_strict
+since: 0.27
+
+%%desc.en:
+Given a kana or romaji input, C<is_voiced> returns a true value if the
+sound is a voiced sound like I<a>, I<za>, I<ga>, etc. and the
+undefined value if not.
+%%
+desc.ja: 仮名かローマ字は濁音（゛）、半濁音（゜）がついていれば、真、ついていなければ偽（undef)。
+%%eg:
+if (is_voiced ('が')) {
+     print "が is voiced.\n";
+}
+%%
+name: is_voiced
+
+%%desc.en:
 Convert kana to a romanized form.
 
 An optional second argument, a hash reference, controls the style of
@@ -140,10 +219,8 @@ If "wo" is set to a true value, "を" becomes "wo", otherwise it
 becomes "o".
 
 =back
-
 %%
 %%desc.ja:
-
 仮名をローマ字に変換。
 
 オプションは関数の２番目の引数でハシュリファレンスとして入ります。
@@ -238,20 +315,63 @@ L</hepburn>を選ぶとき、use_mが真になってしまいますが、都合�
 "wo"が真なら、「を」が"wo"になります。そうでもない場合は"o"になります。
 
 =back
-
 %%
+eg: $romaji = kana2romaji ("うれしいこども");
+expect: uresîkodomo
+name: kana2romaji
+out: $romaji
 
-name:  romaji2kana
-%%eg:
-
-
-$kana = romaji2kana ('yamaguti');
-
-%%
-out: $kana
-expect: ヤマグチ
 %%desc.en:
+Given a kana input, return the "dictionary order" consonant of the
+first kana. If the first kana is any of あいうえお, it returns an
+empty string. If the kana is an unvoiced kana, it returns the
+corresponding consonant of the first kana in the Nippon-shiki
+romanisation. If the kana is a voiced kana, it returns the
+corresponding consonant of the unvoiced version of the first kana in
+the Nippon-shiki romanisation.
 
+This enables Japanese words to be sorted into the order used in
+Japanese dictionaries, where the voiced/unvoiced distinction between,
+for example, za and sa, or ta and da, is ignored.
+%%
+eg: $consonant = kana_consonant ('ざる');
+expect: s
+name: kana_consonant
+out: $consonant
+
+%%desc.en:
+C<normalize_romaji> converts romanized Japanese to a canonical form,
+which is based on the Nippon-shiki romanization, but without
+representing long vowels using a circumflex. In the canonical form,
+sokuon (っ) characters are converted into the string "xtu". If there
+is kana in the input string, this will also be converted to romaji.
+
+C<normalize_romaji> is for comparing two Japanese words which may be
+represented in different ways, for example in different romanization
+systems, to see if they refer to the same word despite the difference
+in writing. It does not provide a standardized or
+officially-sanctioned form of romanization.
+%%
+%%desc.ja:
+C<normalize_romaji>はかなやローマ字で書いた言葉を比べるため、かなやローマ字の言葉を決まったローマ字の書き方になおします。この「決まった」ローマ字は本モジュール限定のもので、あくまでも違ったかなや違ったローマ字法で書いた言葉を比べるためだけのものに過ぎませんので、正式なローマ字法と間違わないようによろしくおねがいします。
+%%
+eg: $normalized = normalize_romaji ('tsumuji');
+name: normalize_romaji
+
+%%desc.en:
+Convert romanized Japanese into hiragana. This takes the same options
+as L</romaji2kana>. It also switches on the "wapuro" option, which
+uses long vowels with a kana rather than a L</chouon>.
+%%
+%%desc.ja:
+ローマ字をひらがなに変関します。オプションはL</romaji2kana>と同じ。L</wapuro>オプションもオンにして、「ou」が「おー」ではなく、「おう」になります。
+%%
+eg: $hiragana = romaji2hiragana ('babubo');
+expect: ばぶぼ
+name: romaji2hiragana
+out: $hiragana
+
+%%desc.en:
 Convert romanized Japanese to katakana. The romanization is highly
 liberal and will attempt to convert any romanization it sees into
 katakana. The rules of romanization are based on the behaviour of the
@@ -275,10 +395,8 @@ option is switched on.
 
 See also L</is_romaji>, L</is_romaji_strict>, and
 L</is_romaji_semistrict> for validation of romanised Japanese inputs.
-
 %%
 %%desc.ja:
-
 ローマ字をカタカナに変換します。ローマ字はできるだけ幅広く受け入れます。
 ローマ字をひらがなに変換したいときはL</romaji2hiragana>をお使いください。
 
@@ -293,266 +411,59 @@ L</is_romaji_semistrict> for validation of romanised Japanese inputs.
 C<< ime => 1 >>オプションでIMEのような変換ができます。たとえば、"gumma"が「グッマ」、"onnna"が「オンナ」となります。パスポートローマ字 ("Ohshimizu") は無効となります。
 
 これはどんな入力でも仮名に変換しようとします。ローマ字日本語の確認のためにはL</is_romaji>、L</is_romaji_strict>、L</is_romaji_semistrict>もあります。
-
 %%
+eg: $kana = romaji2kana ('yamaguti');
+expect: ヤマグチ
+name: romaji2kana
+out: $kana
 
-name:  romaji2hiragana
-%%eg:
-
-$hiragana = romaji2hiragana ('babubo');
-
-%%
-out: $hiragana
-expect: ばぶぼ
 %%desc.en:
-
-Convert romanized Japanese into hiragana. This takes the same options
-as L</romaji2kana>. It also switches on the "wapuro" option, which
-uses long vowels with a kana rather than a L</chouon>.
-
-%%
-%%desc.ja:
-
-ローマ字をひらがなに変関します。オプションはL</romaji2kana>と同じ。L</wapuro>オプションもオンにして、「ou」が「おー」ではなく、「おう」になります。
-
-%%
-
-name:  romaji_styles
-%%eg:
-
-
-my @styles = romaji_styles ();
-# Returns a true value
-romaji_styles ("hepburn");
-# Returns the undefined value
-romaji_styles ("frogs");
-
-%%
-%%desc.en:
-
 Given an argument, this returns a true value if it is a known style of
 romanization.
 
 Without an argument, it returns a list of possible styles, as an array
 of hash references, with each hash reference containing the short name
 under the key "abbrev" and the full name under the key "full_name".
-
 %%
 %%desc.ja:
-
 引数があれば、その引数をローマ字方法として認めるなら真、認めないなら偽です。
 
 引数がなければ、すべてのローマ字方法をハシュリファレンスの列として戻します。
-
 %%
+%%eg:
+my @styles = romaji_styles ();
+# Returns a true value
+romaji_styles ("hepburn");
+# Returns the undefined value
+romaji_styles ("frogs");
+%%
+name: romaji_styles
 
+desc.en: Returns a list of valid styles of romaji vowels.
+desc.ja: 有効な母音スタイルのリスト・レファレンス
 name: romaji_vowel_styles
-%%desc.en:
-
-Returns a list of valid styles of romaji vowels.
-
-%%
-%%desc.ja:
-
-有効な母音スタイルのリスト・レファレンス
-
-%%
-
-name:  is_voiced
-%%eg:
-
-if (is_voiced ('が')) {
-     print "が is voiced.\n";
-}
-
-%%
-%%desc.en:
-
-Given a kana or romaji input, C<is_voiced> returns a true value if the
-sound is a voiced sound like I<a>, I<za>, I<ga>, etc. and the
-undefined value if not.
-
-%%
-%%desc.ja:
-
-仮名かローマ字は濁音（゛）、半濁音（゜）がついていれば、真、ついていなければ偽（undef)。
-
-%%
-
-name:  is_romaji
-%%eg:
-
-
-# The following line returns "undef"
-is_romaji ("abcdefg");
-# The following line returns a defined value
-is_romaji ('loyehye');
-# The following line returns a defined value
-is_romaji ("atarimae");
-
-%%
-%%desc.en:
-
-This detects whether a string of alphabetical characters, which may
-also include characters with macrons or circumflexes, "looks like"
-romanized Japanese. If the test is successful, it returns a true
-value, and if the test is unsuccessful, it returns a false value. If
-the string is empty, it returns a false value. Hyphens are not allowed
-as the first character.
-
-This works by converting the string to kana via L</romaji2kana> and
-seeing if it converts cleanly or not.
-
-The "true" value returned is the output of the round-trip conversion,
-converted into wapuro format.
-
-%%
-%%desc.ja:
-
-アルファベットの列はローマ字に見えるなら真、見えないなら偽を戻します。「-」で初まる文字列の場合は戻し値が偽(undef)となります。
-
-真の戻し値はローマ字のワープロ変換。
-
-これはローマ字を変換してみて、成功する場合「ローマ字だ」という原理で働きますので、色々な文字列を受けます。もっと厳密に確認したい時はL</is_romaji_strict>をお勧めします。
-
-%%
-
-name:  is_romaji_strict
-since: 0.27
-%%eg:
-
-
-# The following line returns "undef"
-is_romaji_strict ("abcdefg");
-# The following line returns "undef"
-is_romaji_strict ('loyehye');
-# The following line returns a defined value
-is_romaji_strict ("atarimae");
-
-%%
-%%desc.en:
-
-This detects whether a string of alphabetical characters, which may
-also include characters with macrons or circumflexes, "looks like"
-romanized Japanese. If the test is successful, it returns a true
-value, and if the test is unsuccessful, it returns a false value. If
-the string is empty, it returns a false value.
-
-This test is much stricter than L</is_romaji>. It insists that the
-word does not contain constructions which may be valid as inputs to an
-IME, but which do not look like Japanese words.
-
-The "true" value returned is the output of the round-trip conversion,
-converted into wapuro format.
-
-%%
-%%desc.ja:
-
-アルファベットの列はローマ字に見えるなら真、見えないなら偽。L</is_romaji>より厳しく、コンピューター入力に見えるかどうかではなく、「日本語になる」かどうか確認します。
-
-真の値はローマ字のワープロ変換です。
-
-%%
-
-name:  is_romaji_semistrict
-%%eg:
-
-# The following line returns "undef"
-is_romaji_semistrict ("abcdefg");
-# The following line returns "undef"
-is_romaji_semistrict ('loyehye');
-# The following line returns a defined value
-is_romaji_semistrict ("atarimae");
-# The following line returns a defined value
-is_romaji_semistrict ("pinku no dorufin");
-
-%%
-%%desc.en:
-
-Halfway between L</is_romaji> and L</is_romaji_strict>, this allows
-some formations like "pinku no dorufin" but not the really unlikely
-stuff which "is_romaji" allows.
-
-%%
-%%desc.ja:
-
-L</is_romaji_strict>とL</is_romaji>の間にローマ字ですが厳密に日本語ではない言葉もあります。例えば、"pinku no dorufin"は「ピンク ノ ドルフィン」というカタカナになりますが純粋日本語ではありません。is_romaji_semistrictはこういう言葉をみとめても、is_romajiのように出鱈目の文字を許さないというものです。
-
-%%
-
-name:  normalize_romaji
-%%eg:
-
-$normalized = normalize_romaji ('tsumuji');
-
-%%
-%%desc.en:
-
-C<normalize_romaji> converts romanized Japanese to a canonical form,
-which is based on the Nippon-shiki romanization, but without
-representing long vowels using a circumflex. In the canonical form,
-sokuon (っ) characters are converted into the string "xtu". If there
-is kana in the input string, this will also be converted to romaji.
-
-C<normalize_romaji> is for comparing two Japanese words which may be
-represented in different ways, for example in different romanization
-systems, to see if they refer to the same word despite the difference
-in writing. It does not provide a standardized or
-officially-sanctioned form of romanization.
-
-%%
-%%desc.ja:
-
-C<normalize_romaji>はかなやローマ字で書いた言葉を比べるため、かなやローマ字の言葉を決まったローマ字の書き方になおします。この「決まった」ローマ字は本モジュール限定のもので、あくまでも違ったかなや違ったローマ字法で書いた言葉を比べるためだけのものに過ぎませんので、正式なローマ字法と間違わないようによろしくおねがいします。
-
-%%
-
-name:  kana_consonant
-%%eg:
-
-$consonant = kana_consonant ('ざる');
-
-%%
-out: $consonant
-expect: s
-%%desc.en:
-
-Given a kana input, return the "dictionary order" consonant of the
-first kana. If the first kana is any of あいうえお, it returns an
-empty string. If the kana is an unvoiced kana, it returns the
-corresponding consonant of the first kana in the Nippon-shiki
-romanisation. If the kana is a voiced kana, it returns the
-corresponding consonant of the unvoiced version of the first kana in
-the Nippon-shiki romanisation.
-
-This enables Japanese words to be sorted into the order used in
-Japanese dictionaries, where the voiced/unvoiced distinction between,
-for example, za and sa, or ta and da, is ignored.
-
-%%
 
 class: kana
-%%explain.en:
+explain.en: These functions convert one form of kana into another.
+explain.ja: 仮名を仮名に変換する関数。
 
-These functions convert one form of kana into another.
-
-%%
-%%explain.ja:
-
-仮名を仮名に変換する関数。
-
-%%
-
-name:  hira2kata
-%%eg:
-
-$katakana = hira2kata ('ひらがな');
-
-%%
-out: $katakana
-expect: ヒラガナ
 %%desc.en:
+This function converts any of hiragana, halfwidth katakana, or romaji
+input into katakana. It also converts various confusable kanji
+characters into kana. For example the "one" kanji 一 is converted into
+a L</chouon>, ー, and the "mouth" kanji 口 is converted into the
+katakana ロ (ro).
 
+This is used as the "front end" function for L<this katakana to
+English web application|https://www.sljfaq.org/cgi/k2e.cgi>.
+%%
+%%desc.ja:
+雑な仮名遣いや間違ったかな入力を直します。ローマ字やひらがなを片仮名に変換します。仮名として漢字を使うような間違いも直します。例えば「一」（漢字のいち）を「ー」（長音）に。
+%%
+name: cleanup_kana
+since: 0.46
+
+%%desc.en:
 C<hira2kata> converts hiragana into katakana. The input may be a
 single string or a list of strings. If the input is a list, it
 converts each element of the list, and in list context it returns a
@@ -562,271 +473,39 @@ concatenation of the strings.
     my @katakana = hira2kata (@hiragana);
 
 This does not convert L</chouon> signs.
-
 %%
-%%desc.ja:
-
-平仮名をかたかなに変換します。長音符は変わりません。（「オー」は「おう」になりません。）
-
-%%
-
-name:  kata2hira
-%%eg:
-
-
-$hiragana = kata2hira ('カキクケコ');
-
-%%
-out: $hiragana
-expect:  かきくけこ
-%%desc.en:
-
-C<kata2hira> converts full-width katakana into hiragana. If the input
-is a list, it converts each element of the list, and in list context,
-returns a list of the converted inputs, otherwise it returns a
-concatenation of the strings.
-
-    my @hiragana = hira2kata (@katakana);
-
-This function does not convert L</chouon> signs into long vowels. It
-also does not convert half-width katakana into hiragana.
-
-%%
-%%desc.ja:
-
-かたかなを平仮名に変換します。長音符は変換しません。半角かたかなを変換しません。
-
-%%
-
-name:  kana2katakana
-%%eg:
-
-%%
-%%desc.en:
-
-This converts any of katakana, L</halfwidth katakana>, circled
-katakana and hiragana to full width katakana. It also joins
-L</dakuten> and L</handakuten> marks to kana where possible, or
-removes them, using L</join_sound_marks>.
-
-%%
-%%desc.ja:
-
-全角かたかな、ひらがな、半角かたかな、丸かたかななどあらゆる「仮名」を全角かたかなに変換します。濁点と半濁点をL</join_sound_marks>により仮名に付けます。付けられない仮名は消します。
-
-%%
-
-name: kana_to_large
-%%eg:
-
-$large = kana_to_large ('ぁあぃい');
-
-%%
-out: $large
-expect: ああいい
-%%desc.en:
-
-Convert small-sized kana such as 「ぁ」 into full-sized kana such as
-「あ」.
-
-%%
-%%desc.ja:
-
-「ぁ」など小さい仮名を「あ」に変換します。
-
-%%
-
-name: nigori_first
-since: 0.36
-%%eg:
-
-my @list = (qw/カン スウ ハツ オオ/);
-nigori_first (\@list);
-# Now @list = (qw/カン スウ ハツ オオ ガン ズウ バツ パツ/);
+desc.ja: 平仮名をかたかなに変換します。長音符は変わりません。（「オー」は「おう」になりません。）
+eg: $katakana = hira2kata ('ひらがな');
+expect: ヒラガナ
+name: hira2kata
+out: $katakana
 
 %%desc.en:
-
-Given a list of kana, add all the possible versions of the words with
-the first kana with either a L</dakuten> or a L</handakuten> added.
-
-This was intended for a search for a particular kanji in a
-dictionary. It is not actually in use anywhere at the moment.
-
-%%
-%%desc.ja:
-
-一番最初のかなに濁点又は半濁点をつけます。
-
-漢字を探すために使う予定だったのですが、現在使っていません。
-
-%%
-
-name:  InHankakuKatakana
-%%eg:
-
-use utf8;
-if ('ｱ' =~ /\p{InHankakuKatakana}/) {
-    print "ｱ is half-width katakana\n";
-}
-
-%%
-%%desc.en:
-
-C<InHankakuKatakana> is a character class for use in regular
-expressions with C<\p> which can validate L</halfwidth katakana>.
-
-%%
-%%desc.ja:
-
-C<InHankakuKatakana>は正規表現に使う半角カタカナにマッチします。
-
-%%
-
-name:  kana2hw
-out: $half_width
-expect: ｱｲｳｶｷｷﾞｮｳ｡
-%%eg:
-
-$half_width = kana2hw ('あいウカキぎょう。');
-
-%%
-%%desc.en:
-
-C<kana2hw> converts hiragana, katakana, and fullwidth Japanese
-punctuation to L</halfwidth katakana> and halfwidth punctuation. Its
-function is similar to the Emacs command C<japanese-hankaku-region>.
-For the opposite function, see L<hw2katakana>. See also
-L</katakana2hw> for a function which only converts katakana.
-
-%%
-%%desc.ja:
-
-あらゆる仮名文字を半角カタカナに変換します。かたかなのみを変換する場合はL</katakana2hw>を使ってください。
-
-%%
-
-name:  hw2katakana
-out: $full_width
-expect: アイウカキギョウ。
-%%eg:
-
-$full_width = hw2katakana ('ｱｲｳｶｷｷﾞｮｳ｡');
-
-%%
-%%desc.en:
-
 C<hw2katakana> converts L</halfwidth katakana> and halfwidth Japanese
 punctuation to fullwidth katakana and fullwidth punctuation. Its
 function is similar to the Emacs command
 C<japanese-zenkaku-region>. For the opposite function, see L<kana2hw>.
-
 %%
-%%desc.ja:
-
-半角カタカナを全角カタカナに変換します。
-
-%%
-
-name: katakana2hw
-%%eg:
-
-$hw = katakana2hw ("あいうえおアイウエオ");
-
-%%
-out: $hw
-expect: あいうえおｱｲｳｴｵ
-%%desc.en:
-
-This converts katakana to L</halfwidth katakana>, leaving hiragana
-unchanged. See also L</kana2hw>.
-
-%%
-%%desc.ja:
-
-全角かたかなを半角かたかなに変換し、ひらがなをそのままにします。L</kana2hw>も参照。
-
-%%
-
-name:  is_kana
-%%eg:
-
-%%
-%%desc.en:
-
-This function returns a true value if its argument is a string of
-kana, or an undefined value if not. The input cannot contain
-punctuation or L</chouon>.
-
-%%
-%%desc.ja:
-
-入力が仮名のみの場合、真、入力が仮名なでない文字を含む場合、偽(undef)。
-
-%%
-
-name:  is_hiragana
-%%eg:
-
-%%
-%%desc.en:
-
-This function returns a true value if its argument is a string of
-hiragana, and an undefined value if not. The entire string from
-beginning to end must all be kana for this to return true. The kana
-cannot include punctuation marks or L</chouon>.
-
-%%
-%%desc.ja:
-
-入力が平仮名のみの場合、真、入力が平仮名なでない文字を含む場合、偽(undef)。「ー」があれば偽になります。
-
-%%
-
-name: katakana2syllable
-since: 0.24
-%%eg:
-
-$syllables = katakana2syllable ('ソーシャルブックマークサービス');
+desc.ja: 半角カタカナを全角カタカナに変換します。
+eg: $full_width = hw2katakana ('ｱｲｳｶｷｷﾞｮｳ｡');
+expect: アイウカキギョウ。
+name: hw2katakana
+out: $full_width
 
 %%desc.en:
-
-This breaks the given string into syllables. If the string is broken
-up character by character, it becomes 'ソ', 'ー', 'シ', 'ャ', 'ル'.
-However, by themselves, 'ー' and 'ャ' can't be spoken.
-
-This breaks the string up into pronouncable syllables, so that
-C<$syllables> becomes 'ソー', 'シャ', 'ル'. A L</syllabic n> is
-attached to the preceding sequence, so for example フラナガン is
-broken up into four syllables, フ, ラ, ナ, ガン.
-
-This routine is used as the basis of this L<Change your name to kanji
-web application|https://www.sljfaq.org/cgi/name-kanji.cgi>. The name
-is converted from English to kana, then this function is used to break
-the kana name into pieces to which a kanji may be attached. It's also
-used in L<this Katakana to English
-converter|https://www.sljfaq.org/cgi/k2e.cgi> for the case that no
-words can be matched, and suggestions are made for how to split the
-word into possible components.
-
+C<InHankakuKatakana> is a character class for use in regular
+expressions with C<\p> which can validate L</halfwidth katakana>.
 %%
-%%desc.ja:
-
-カタカナをシラブルにわけます。たとえば、「ソーシャル」をC<split>などで文字に分けると'ソ', 'ー', 'シ', 'ャ', 'ル'になりますがソ、シ、ルは言えるのに、「ー」と「ャ」は口にできない文字です。なのでこの間数は日本語の「原子」の'ソー', 'シャ', 'ル'にわけます。撥音(ん)は前の仮名と一つになります。例えば、「フラナガン」は「フ」, 「ラ」, 「ナ」, 「ガン」となります。
-
-元々の作った理由はL<外国人の宛字名前制作|https://www.sljfaq.org/cgi/name-kanji_ja.cgi>のためでした。外国人の名前を仮名に変換した後に、その当て字を当てるためにそのかなをシラブルに分けます。その他の利用はL<カタカナを英語に変換|https://www.sljfaq.org/cgi/k2e_ja.cgi>で、片仮名が何もマッチしない場合、言葉を部分に分けるために使っています。
-
-%%
-
-name: InKana
+desc.ja: C<InHankakuKatakana>は正規表現に使う半角カタカナにマッチします。
 %%eg:
-
-    $is_kana = ('アイウエオ' =~ /^\p{InKana}+$/);
-
+use utf8;
+if ('ｱ' =~ /\p{InHankakuKatakana}/) {
+    print "ｱ is half-width katakana\n";
+}
 %%
-out: $is_kana
-expect: 1
-%%desc.en:
+name: InHankakuKatakana
 
+%%desc.en:
 A character class for use in regular expressions which matches all
 kana characters. This class catches meaningful combinations of
 hiragana, katakana, halfwidth katakana, circled katakana, and katakana
@@ -845,10 +524,8 @@ sound mark" (U+FF9F) <ﾟ> (L</handakuten>), minus '・', Unicode 30FB,
 
 except that the unassigned points which are matched by C<\p{Katakana}>
 are not matched and KATAKANA MIDDLE DOT is not matched.
-
 %%
 %%desc.ja:
-
 正規表現に使うかたかなとひらがなにマッチします。
 
 詳しくいうと以下の正規表現
@@ -856,59 +533,161 @@ are not matched and KATAKANA MIDDLE DOT is not matched.
     qr/\p{Katakana}|\p{InKatakana}|\p{InHiragana}|ｰ|ﾞ|ﾟ>/
 
 と殆ど同じことにマッチしますが、C<\p{Katakana}>がマッチする未使用のコードポイントはマッチしません。「・」もマッチしません。変体仮名もマッチしません。
-
 %%
+eg: $is_kana = ('アイウエオ' =~ /^\p{InKana}+$/);
+expect: 1
+name: InKana
+out: $is_kana
 
-name: square2katakana
-%%eg:
-
-$kata = square2katakana ('㌆');
-
-%%
-out: $kata
-expect: ウォン
 %%desc.en:
+This function returns a true value if its argument is a string of
+hiragana, and an undefined value if not. The entire string from
+beginning to end must all be kana for this to return true. The kana
+cannot include punctuation marks or L</chouon>.
+%%
+desc.ja: 入力が平仮名のみの場合、真、入力が平仮名なでない文字を含む場合、偽(undef)。「ー」があれば偽になります。
+eg: 
+name: is_hiragana
 
-Convert a square katakana box into its components.
+%%desc.en:
+This function returns a true value if its argument is a string of
+kana, or an undefined value if not. The input cannot contain
+punctuation or L</chouon>.
+%%
+desc.ja: 入力が仮名のみの場合、真、入力が仮名なでない文字を含む場合、偽(undef)。
+eg: 
+name: is_kana
 
+%%desc.en:
+Join L</dakuten> and L</handakuten> (Unicode U+3099-U+309C) to kana
+where possible. Where they cannot be joined, strip them out. This only
+works on full width kana. The return value is the joined text.
+%%
+desc.ja: 濁点、半濁点をできる限り仮名につけます。「カ゛」-> 「ガ」など。残っている濁点を消します。
+eg: $joined = join_sound_marks ('か゛は゜つ゛');
+expect: がぱづ
+name: join_sound_marks
+out: $joined
+since: 0.53
+
+%%desc.en:
+C<kana2hw> converts hiragana, katakana, and fullwidth Japanese
+punctuation to L</halfwidth katakana> and halfwidth punctuation. Its
+function is similar to the Emacs command C<japanese-hankaku-region>.
+For the opposite function, see L<hw2katakana>. See also
+L</katakana2hw> for a function which only converts katakana.
+%%
+desc.ja: あらゆる仮名文字を半角カタカナに変換します。かたかなのみを変換する場合はL</katakana2hw>を使ってください。
+eg: $half_width = kana2hw ('あいウカキぎょう。');
+expect: ｱｲｳｶｷｷﾞｮｳ｡
+name: kana2hw
+out: $half_width
+
+%%desc.en:
+This converts any of katakana, L</halfwidth katakana>, circled
+katakana and hiragana to full width katakana. It also joins
+L</dakuten> and L</handakuten> marks to kana where possible, or
+removes them, using L</join_sound_marks>.
 %%
 %%desc.ja:
-
-「㌆」を「ウォン」にするなど。
-
+全角かたかな、ひらがな、半角かたかな、丸かたかななどあらゆる「仮名」を全角かたかなに変換します。濁点と半濁点をL</join_sound_marks>により仮名に付けます。付けられない仮名は消します。
 %%
+eg: 
+name: kana2katakana
 
-name: katakana2square
-%%eg:
-
-$sq = katakana2square ('カロリーアイウエオウォン');
-
+%%desc.en:
+Convert small-sized kana such as 「ぁ」 into full-sized kana such as
+「あ」.
 %%
-out: $sq
+desc.ja: 「ぁ」など小さい仮名を「あ」に変換します。
+eg: $large = kana_to_large ('ぁあぃい');
+expect: ああいい
+name: kana_to_large
+out: $large
+
+%%desc.en:
+C<kata2hira> converts full-width katakana into hiragana. If the input
+is a list, it converts each element of the list, and in list context,
+returns a list of the converted inputs, otherwise it returns a
+concatenation of the strings.
+
+    my @hiragana = hira2kata (@katakana);
+
+This function does not convert L</chouon> signs into long vowels. It
+also does not convert half-width katakana into hiragana.
+%%
+desc.ja: かたかなを平仮名に変換します。長音符は変換しません。半角かたかなを変換しません。
+eg: $hiragana = kata2hira ('カキクケコ');
+expect: かきくけこ
+name: kata2hira
+out: $hiragana
+
+%%desc.en:
+This converts katakana to L</halfwidth katakana>, leaving hiragana
+unchanged. See also L</kana2hw>.
+%%
+desc.ja: 全角かたかなを半角かたかなに変換し、ひらがなをそのままにします。L</kana2hw>も参照。
+eg: $hw = katakana2hw ("あいうえおアイウエオ");
+expect: あいうえおｱｲｳｴｵ
+name: katakana2hw
+out: $hw
+
+desc.en: Convert katakana into a square thing if possible.
+desc.ja: 可能なかぎり、「ウォン」を「㌆」にするなど。
+eg: $sq = katakana2square ('カロリーアイウエオウォン');
 expect: ㌍アイウエオ㌆
+name: katakana2square
+out: $sq
+
 %%desc.en:
+This breaks the given string into syllables. If the string is broken
+up character by character, it becomes 'ソ', 'ー', 'シ', 'ャ', 'ル'.
+However, by themselves, 'ー' and 'ャ' can't be spoken.
 
-Convert katakana into a square thing if possible.
+This breaks the string up into pronouncable syllables, so that
+C<$syllables> becomes 'ソー', 'シャ', 'ル'. A L</syllabic n> is
+attached to the preceding sequence, so for example フラナガン is
+broken up into four syllables, フ, ラ, ナ, ガン.
 
+This routine is used as the basis of this L<Change your name to kanji
+web application|https://www.sljfaq.org/cgi/name-kanji.cgi>. The name
+is converted from English to kana, then this function is used to break
+the kana name into pieces to which a kanji may be attached. It's also
+used in L<this Katakana to English
+converter|https://www.sljfaq.org/cgi/k2e.cgi> for the case that no
+words can be matched, and suggestions are made for how to split the
+word into possible components.
 %%
 %%desc.ja:
+カタカナをシラブルにわけます。たとえば、「ソーシャル」をC<split>などで文字に分けると'ソ', 'ー', 'シ', 'ャ', 'ル'になりますがソ、シ、ルは言えるのに、「ー」と「ャ」は口にできない文字です。なのでこの間数は日本語の「原子」の'ソー', 'シャ', 'ル'にわけます。撥音(ん)は前の仮名と一つになります。例えば、「フラナガン」は「フ」, 「ラ」, 「ナ」, 「ガン」となります。
 
-可能なかぎり、「ウォン」を「㌆」にするなど。
-
-
+元々の作った理由はL<外国人の宛字名前制作|https://www.sljfaq.org/cgi/name-kanji_ja.cgi>のためでした。外国人の名前を仮名に変換した後に、その当て字を当てるためにそのかなをシラブルに分けます。その他の利用はL<カタカナを英語に変換|https://www.sljfaq.org/cgi/k2e_ja.cgi>で、片仮名が何もマッチしない場合、言葉を部分に分けるために使っています。
 %%
+eg: $syllables = katakana2syllable ('ソーシャルブックマークサービス');
+name: katakana2syllable
+since: 0.24
 
-name: smallize_kana
-since: 0.46
-%%eg:
-
-$smallize = smallize_kana ('オキヤクサマガカツタ');
-
-%%
-out: $smallize
-expect: オキャクサマガカッタ
 %%desc.en:
+Given a list of kana, add all the possible versions of the words with
+the first kana with either a L</dakuten> or a L</handakuten> added.
 
+This was intended for a search for a particular kanji in a
+dictionary. It is not actually in use anywhere at the moment.
+%%
+%%desc.ja:
+一番最初のかなに濁点又は半濁点をつけます。
+
+漢字を探すために使う予定だったのですが、現在使っていません。
+%%
+%%eg:
+my @list = (qw/カン スウ ハツ オオ/);
+nigori_first (\@list);
+# Now @list = (qw/カン スウ ハツ オオ ガン ズウ バツ パツ/);
+%%
+name: nigori_first
+since: 0.36
+
+%%desc.en:
 Given katakana input, convert possible "old-style" kana usage with
 large kanas used for L</youon> or L</sokuon> into smaller kana. If the
 conversion succeeds, return the converted value, otherwise return the
@@ -921,340 +700,156 @@ to do as much as possible, so although it will work to convert
 "shiyotsuchiyuu" ("シヨツチユウ") into "shotchuu" ("ショッチュウ"), it
 will also do stupid things like converting "chiyoda" (ちよだ) into
 "choda" (ちょだ).
-
 %%
 %%desc.ja:
-
 試しに、モースコードなど、「っ」や「ゃゅょ」がない片仮名を拗音(ゃゅょ)と促音(っ)がある片仮名に変えます。昔の仮名使いを現代のに直すなどに使います。正確に変えることではなく、できるだけ変えることしますので、たとえば正確に「シヨツチユウ」を「ショッチュウ」にはするものの「ちよだ」を「ちょだ」にもしますので、頭の良い関数ではなく、最大限に変換する関数です。
-
 %%
-
-name: cleanup_kana
+eg: $smallize = smallize_kana ('オキヤクサマガカツタ');
+expect: オキャクサマガカッタ
+name: smallize_kana
+out: $smallize
 since: 0.46
+
 %%desc.en:
-
-This function converts any of hiragana, halfwidth katakana, or romaji
-input into katakana. It also converts various confusable kanji
-characters into kana. For example the "one" kanji 一 is converted into
-a L</chouon>, ー, and the "mouth" kanji 口 is converted into the
-katakana ロ (ro).
-
-This is used as the "front end" function for L<this katakana to
-English web application|https://www.sljfaq.org/cgi/k2e.cgi>.
-
-%%
-%%desc.ja:
-
-雑な仮名遣いや間違ったかな入力を直します。ローマ字やひらがなを片仮名に変換します。仮名として漢字を使うような間違いも直します。例えば「一」（漢字のいち）を「ー」（長音）に。
-
-%%
-
-name: join_sound_marks
-since: 0.53
-out: $joined
-expect: がぱづ
-%%eg:
-
-$joined = join_sound_marks ('か゛は゜つ゛');
-
-%%
-%%desc.en:
-
-Join L</dakuten> and L</handakuten> (Unicode U+3099-U+309C) to kana
-where possible. Where they cannot be joined, strip them out. This only
-works on full width kana. The return value is the joined text.
-
-%%
-%%desc.ja:
-
-濁点、半濁点をできる限り仮名につけます。「カ゛」-> 「ガ」など。残っている濁点を消します。
-
-%%
-
-name: split_sound_marks
-%%eg:
-
-$split = split_sound_marks ('ガパヅ');
-
-%%
-out: $split
-expect: カ゛ハ゜ツ゛
-since: 0.53
-%%desc.en:
-
 Split L</dakuten> and L</handakuten> from kana where possible. U+309B
 and U+309C are chosen rather than U+3099 and U+309A. (This choice was
 somewhat arbitrary. I'm not sure which of the pairs should be used. I
 chose these because they were the ones already in use internally in
 the module in L</kana2braille> and L</kana2morse>.) This only
 works on full width kana. The return value is the split text.
-
 %%
-%%desc.ja:
+desc.ja: 濁点、半濁点を仮名からわけます。-> 「が」-> 「か゛」など。半濁点はU+309B、濁点はU+309Cとなります。
+eg: $split = split_sound_marks ('ガパヅ');
+expect: カ゛ハ゜ツ゛
+name: split_sound_marks
+out: $split
+since: 0.53
 
-濁点、半濁点を仮名からわけます。-> 「が」-> 「か゛」など。半濁点はU+309B、濁点はU+309Cとなります。
-
-%%
+desc.en: Convert a square katakana box into its components.
+desc.ja: 「㌆」を「ウォン」にするなど。
+eg: $kata = square2katakana ('㌆');
+expect: ウォン
+name: square2katakana
+out: $kata
 
 class: hentaigana
 %%explain.en:
 Variant kana forms. Hentaigana are new in Unicode 10.0 (June 2017).
 %%
-%%explain.ja:
-変体仮名はUnicode 10.0 (２０１７年６月）にあたらしいです。
-%%
+explain.ja: 変体仮名はUnicode 10.0 (２０１７年６月）にあたらしいです。
 
-name: hentai2kana
-since: 0.43
 %%desc.en:
-
 Convert hentaigana into hiragana. Hentaigana with multiple
 interpretations are converted into a list of kana separated by a
 middle dot character.
-
 %%
-%%desc.ja:
-
-変体仮名をひらがなに変換します。複数のかなにあてはまる変体仮名は「・」でつないだ列になります。
-
-%%
-
-name: hentai2kanji
+desc.ja: 変体仮名をひらがなに変換します。複数のかなにあてはまる変体仮名は「・」でつないだ列になります。
+name: hentai2kana
 since: 0.43
-%%eg:
 
-$kanji = hentai2kanji ('𛀢');
-
-%%
-out: $kanji
+desc.en: Convert hentaigana into their equivalent kanji.
+desc.ja: 変体仮名を漢字に変換します。
+eg: $kanji = hentai2kanji ('𛀢');
 expect: 家
-%%desc.en:
-
-Convert hentaigana into their equivalent kanji.
-
-%%
-%%desc.ja:
-
-変体仮名を漢字に変換します。
-
-%%
-
-name: kanji2hentai
-since: 0.43
-%%eg:
-
-$kanji = kanji2hentai ('家');
-
-%%
+name: hentai2kanji
 out: $kanji
-expect: 𛀢
-%%desc.en:
-
-Convert kanji to equivalent hentaigana, where they exist.
-
-%%
-%%desc.ja:
-
-あてはまる変体仮名があるかぎり、漢字を変体仮名に変換します。
-
-%%
-
-name: kana2hentai
 since: 0.43
-%%eg:
 
-$hentai = kana2hentai ('ケンブ');
-
-%%
-out: $hentai
-expect: 𛀢・𛀲・𛀳・𛀴・𛀵・𛀶・𛀷𛄝・𛄞𛂰・𛂱・𛂲゛
 %%desc.en:
-
 Convert kana to equivalent hentaigana. If more than one hentaigana
 exists, they are returned joined with a middle dot. The L</dakuten>
 and L</handakuten> are split out of the kana using
 L</split_sound_marks> before the conversion.
-
 %%
 %%desc.ja:
-
 あてはまる変体仮名があるかぎり、普通の仮名を変体仮名に変換します。複数の仮名があれば、「・」で分けます。濁点と半濁点はL</split_sound_marks>により仮名と分けてから変換します。
-
 %%
+eg: $hentai = kana2hentai ('ケンブ');
+expect: 𛀢・𛀲・𛀳・𛀴・𛀵・𛀶・𛀷𛄝・𛄞𛂰・𛂱・𛂲゛
+name: kana2hentai
+out: $hentai
+since: 0.43
+
+desc.en: Convert kanji to equivalent hentaigana, where they exist.
+desc.ja: あてはまる変体仮名があるかぎり、漢字を変体仮名に変換します。
+eg: $kanji = kanji2hentai ('家');
+expect: 𛀢
+name: kanji2hentai
+out: $kanji
+since: 0.43
 
 class: wide
-%%explain.en:
+explain.en: Functions for handling L</wide ASCII>.
+explain.ja: 全角英数字の変換・認識。
 
-Functions for handling L</wide ASCII>.
-
+%%desc.en:
+Convert ASCII into L</wide ASCII>. It also converts the ASCII space,
+ASCII C<0x20> into a fullwidth space, C<U+3000>.
 %%
-%%explain.ja:
+desc.ja: 半角英数字(ASCII)を全角英数字に変換します。
+eg: $wide = ascii2wide ('abCE019');
+expect: ａｂＣＥ０１９
+name: ascii2wide
+out: $wide
 
-全角英数字の変換・認識。
-
+%%desc.en:
+This is a character class for use with \p which matches L</wide
+ASCII>. It also matches the fullwidth space, C<U+3000>.
 %%
-
-name:  InWideAscii
+desc.ja: 正規表現に使う全角英数字にマッチします。
 %%eg:
-
-
 use utf8;
 if ('Ａ' =~ /\p{InWideAscii}/) {
     print "Ａ is wide ascii\n";
 }
-
 %%
+name: InWideAscii
+
 %%desc.en:
-
-This is a character class for use with \p which matches L</wide
-ASCII>. It also matches the fullwidth space, C<U+3000>.
-
-%%
-%%desc.ja:
-
-正規表現に使う全角英数字にマッチします。
-
-%%
-
-name:  wide2ascii
-out: $ascii
-expect: abCE019
-%%eg:
-
-
-$ascii = wide2ascii ('ａｂＣＥ０１９');
-
-%%
-%%desc.en:
-
 Convert L</wide ASCII> into ASCII. It also converts the fullwidth
 space, C<U+3000>, into an ASCII space, ASCII C<0x20>.
-
 %%
-%%desc.ja:
-
-全角英数字を半角英数字(ASCII)に変換します。
-
-%%
-
-name:  ascii2wide
-out: $wide
-expect: ａｂＣＥ０１９
-%%eg:
-
-$wide = ascii2wide ('abCE019');
-
-%%
-%%desc.en:
-
-Convert ASCII into L</wide ASCII>. It also converts the ASCII space,
-ASCII C<0x20> into a fullwidth space, C<U+3000>.
-
-%%
-%%desc.ja:
-
-半角英数字(ASCII)を全角英数字に変換します。
-
-%%
+desc.ja: 全角英数字を半角英数字(ASCII)に変換します。
+eg: $ascii = wide2ascii ('ａｂＣＥ０１９');
+expect: abCE019
+name: wide2ascii
+out: $ascii
 
 class: other
 
-name:  kana2morse
-%%eg:
+desc.en: Converts Japanese braille (I<tenji>) into the equivalent katakana.
+desc.ja: 点字をかたかなに変換します。
+eg: 
+name: braille2kana
 
-$morse = kana2morse ('ショッチュウ');
-
-%%
-out: $morse
-expect: --.-. -- .--. ..-. -..-- ..-
 %%desc.en:
-
-Convert Japanese kana into Morse code. Japanese morse code does not
-have any way of representing small kana characters, so converting to
-and then from morse code will result in ショッチュウ becoming シヨツチユウ.
-The function L</smallize_kana> may work to fix these outputs in some cases.
-
+This function converts the "circled katakana" of Unicode into
+full-width katakana. See also L</kana2circled>.
 %%
-%%desc.ja:
-
-かなをもーすこーどに変換します。日本語のもーすこーどは「っ」など小さいかなを表現できないので、仮名をもーすこーどにして、もーすこーどからまた仮名にする場合は「しょっちゅう」が「シヨツチユウ」になります。
-
-%%
-
-name:  morse2kana
-%%eg:
-
-$kana = morse2kana ('--.-. -- .--. ..-. -..-- ..-');
-
-%%
+desc.ja: 丸がついているかたかなを全角かたかなに変換します。
+eg: $kana = circled2kana ('㋐㋑㋒㋓㋔');
+expect: アイウエオ
+name: circled2kana
 out: $kana
-expect: シヨツチユウ
-%%desc.en:
 
-Convert Japanese Morse code into kana. Each Morse code element must be separated by whitespace from the next one. 
-
-%%
-%%desc.ja:
-
-モースコードをかなに変換します。（本物のもーすこーどは分かち書きが必要です。）
-
-%%
-
-name:  kana2braille
-%%eg:
-
-%%
-%%desc.en:
-
-This converts kana into the equivalent Japanese braille (I<tenji>)
-forms.
-
-%%
-%%desc.ja:
-
-仮名を点字に変換します。
-
-%%
 %%bugs.en:
-
 This is not an adequate Japanese braille converter. Creating Japanese
 braille requires breaking Japanese sentences up into individual words,
 but this does not attempt to do that. People who are interested in
 building a Perl braille converter could start here.
-
 %%
 %%bugs.ja:
-
 きちんとしたてすとがありません。日本語を本物の点字に変換することはわたちがきが必要ですがこの関数はそれをしませんので、不十分な変換機能です。
-
-%%
-
-name:  braille2kana
-%%eg:
-
-
 %%
 %%desc.en:
-
-Converts Japanese braille (I<tenji>) into the equivalent katakana.
-
+This converts kana into the equivalent Japanese braille (I<tenji>)
+forms.
 %%
-%%desc.ja:
+desc.ja: 仮名を点字に変換します。
+eg: 
+name: kana2braille
 
-点字をかたかなに変換します。
-
-%%
-
-name:  kana2circled
-out: $circled
-expect: ㋐㋑㋒㋓㋔㋕゛ン
-%%eg:
-
-$circled = kana2circled ('アイウエオガン');
-
-%%
 %%desc.en:
-
 This function converts kana into the "circled katakana" of Unicode,
 which have code points from 32D0 to 32FE. See also L</circled2kana>.
 
@@ -1265,267 +860,149 @@ kana using L</split_sound_marks>.
 Circled katakana appear as Unicode code points U+32D0 to U+32FE.
 %%
 %%desc.ja:
-
 仮名を丸付けかたかなに変換します。丸付け「ン」がありませんので、「ン」はそのままとなります。濁点・半濁点はL</split_sound_marks>により仮名から分けられてから変換されたので、「が」が「㋕゛」になります。
 
 丸付け片假名はユニコード32D0〜32FEにあります。
 %%
+eg: $circled = kana2circled ('アイウエオガン');
+expect: ㋐㋑㋒㋓㋔㋕゛ン
+name: kana2circled
+out: $circled
 
-
-name:  circled2kana
-out: $kana
-expect: アイウエオ
-%%eg:
-
-$kana = circled2kana ('㋐㋑㋒㋓㋔');
-
-%%
 %%desc.en:
-
-This function converts the "circled katakana" of Unicode into
-full-width katakana. See also L</kana2circled>.
-
+Convert Japanese kana into Morse code. Japanese morse code does not
+have any way of representing small kana characters, so converting to
+and then from morse code will result in ショッチュウ becoming シヨツチユウ.
+The function L</smallize_kana> may work to fix these outputs in some cases.
 %%
 %%desc.ja:
-
-丸がついているかたかなを全角かたかなに変換します。
-
+かなをもーすこーどに変換します。日本語のもーすこーどは「っ」など小さいかなを表現できないので、仮名をもーすこーどにして、もーすこーどからまた仮名にする場合は「しょっちゅう」が「シヨツチユウ」になります。
 %%
+eg: $morse = kana2morse ('ショッチュウ');
+expect: --.-. -- .--. ..-. -..-- ..-
+name: kana2morse
+out: $morse
+
+%%desc.en:
+Convert Japanese Morse code into kana. Each Morse code element must be separated by whitespace from the next one.
+%%
+desc.ja: モースコードをかなに変換します。（本物のもーすこーどは分かち書きが必要です。）
+eg: $kana = morse2kana ('--.-. -- .--. ..-. -..-- ..-');
+expect: シヨツチユウ
+name: morse2kana
+out: $kana
 
 class: kanji
 
-name: new2old_kanji
-%%eg:
-
-$old = new2old_kanji ('三国 連太郎');
-
-
-%%
-out: $old
-expect: 三國 連太郎
 %%desc.en:
-
-Convert new-style (post-1949) kanji (Chinese characters) into old-style (pre-1949) kanji.
-
+Returns a list of kanji with negative meanings. See also
+L<https://www.lemoda.net/japanese/offensive-kanji/index.html>.
 %%
 %%desc.ja:
-
-親字体を旧字体に変換します。
-
+否定的な意味（病名、不愉快な物、軽率の意味など）の漢字。
+L<https://www.lemoda.net/japanese/offensive-kanji/index.html>。
 %%
-%%bugs.en:
+eg: my @bad_kanji = bad_kanji ();
+name: bad_kanji
+since: 0.47
 
+desc.en: Convert bracketed form of kanji into unbracketed form.
+desc.ja: 括弧漢字を普通の漢字に変換します。
+eg: $kanji = bracketed2kanji ('㈱');
+expect: 株
+name: bracketed2kanji
+out: $kanji
+
+desc.en: Convert the circled forms of kanji into their uncircled equivalents.
+desc.ja: 丸付け漢字を普通の漢字に変換します。
+eg: $kanji = circled2kanji ('㊯');
+expect: 協
+name: circled2kanji
+out: $kanji
+
+%%desc.en:
+Convert an unbracketed form of kanji into bracketed form, if it
+exists, otherwise do nothing with it.
+%%
+desc.ja: 普通の漢字を括弧漢字に変換します。括弧形がある漢字は数少ないので、ご了承ください。当てはまる括弧漢字がなければ、そのままにします。
+eg: $kanji = kanji2bracketed ('株');
+expect: ㈱
+name: kanji2bracketed
+out: $kanji
+
+%%desc.en:
+Convert the usual forms of kanji into circled equivalents, if they
+exist. Note that only a limited number of kanji have circled forms.
+%%
+desc.ja: 漢字を丸付け漢字に変換します。
+eg: $kanji = kanji2circled ('協嬉');
+expect: ㊯嬉
+name: kanji2circled
+out: $kanji
+
+%%bugs.en:
 The list of characters in this converter may not contain every pair of
 old/new kanji.
 
 It will not correctly convert 弁 since this has three different
 equivalents in the old system.
-
 %%
-%%bugs.ja:
-
-新旧字体の情報は確認不足です。「弁」は旧字体が三つありますなので、変換不可能です。
-
-%%
-
-name: old2new_kanji
-%%eg:
-
-$new = old2new_kanji ('櫻井');
-
-
-%%
-out: $new
-expect: 桜井
+bugs.ja: 新旧字体の情報は確認不足です。「弁」は旧字体が三つありますなので、変換不可能です。
 %%desc.en:
+Convert new-style (post-1949) kanji (Chinese characters) into old-style (pre-1949) kanji.
+%%
+desc.ja: 親字体を旧字体に変換します。
+eg: $old = new2old_kanji ('三国 連太郎');
+expect: 三國 連太郎
+name: new2old_kanji
+out: $old
 
+%%desc.en:
 Convert old-style (pre-1949) kanji (Chinese characters) into new-style
 (post-1949) kanji.
-
 %%
-%%desc.ja:
+desc.ja: 旧字体を親字体に変換します。
+eg: $new = old2new_kanji ('櫻井');
+expect: 桜井
+name: old2new_kanji
+out: $new
 
-旧字体を親字体に変換します。
-
-%%
-
-name: circled2kanji
-%%eg:
-
-$kanji = circled2kanji ('㊯');
-
-%%
-out: $kanji
-expect: 協
 %%desc.en:
-
-Convert the circled forms of kanji into their uncircled equivalents.
-
-%%
-%%desc.ja:
-
-丸付け漢字を普通の漢字に変換します。
-
-%%
-
-name: kanji2circled
-%%eg:
-
-$kanji = kanji2circled ('協嬉');
-
-%%
-out: $kanji
-expect: ㊯嬉
-%%desc.en:
-
-Convert the usual forms of kanji into circled equivalents, if they
-exist. Note that only a limited number of kanji have circled forms.
-
-%%
-%%desc.ja:
-
-漢字を丸付け漢字に変換します。
-
-%%
-
-name: bracketed2kanji
-%%eg:
-
-$kanji = bracketed2kanji ('㈱');
-
-%%
-out: $kanji
-expect: 株
-%%desc.en:
-
-Convert bracketed form of kanji into unbracketed form.
-
-%%
-%%desc.ja:
-
-括弧漢字を普通の漢字に変換します。
-
-%%
-
-name: kanji2bracketed
-%%eg:
-
-$kanji = kanji2bracketed ('株');
-
-%%
-out: $kanji
-expect: ㈱
-%%desc.en:
-
-Convert an unbracketed form of kanji into bracketed form, if it
-exists, otherwise do nothing with it.
-
-%%
-%%desc.ja:
-
-普通の漢字を括弧漢字に変換します。括弧形がある漢字は数少ないので、ご了承ください。当てはまる括弧漢字がなければ、そのままにします。
-
-%%
-
-
-name: yurei_moji
-since: 0.47
-%%eg:
-
-    my @yurei = yurei_moji ();
-
-%%
-%%desc.en:
-
 Returns a list of the yurei moji (幽霊文字), kanji which don't
 actually exist but were mistakenly included in a computer
 standard. See L<https://www.sljfaq.org/afaq/yuureimoji.html> for more
 information.
-
 %%
 %%desc.ja:
-
 幽霊文字（実際には存在しない漢字）。L<https://www.wdic.org/w/WDIC/%E5%B9%BD%E9%9C%8A%E6%96%87%E5%AD%97>ご参照ください。こちらのページの典拠不詳・典拠不明・同定不能の字です。
-
 %%
-
-name: bad_kanji
+eg: my @yurei = yurei_moji ();
+name: yurei_moji
 since: 0.47
-%%eg:
-
-    my @bad_kanji = bad_kanji ();
-
-%%
-%%desc.en:
-
-Returns a list of kanji with negative meanings. See also
-L<https://www.lemoda.net/japanese/offensive-kanji/index.html>.
-
-%%
-%%desc.ja:
-
-否定的な意味（病名、不愉快な物、軽率の意味など）の漢字。
-L<https://www.lemoda.net/japanese/offensive-kanji/index.html>。
-
-%%
 
 class: cyrillization
 %%explain.en:
-
 This is an experimental cyrillization of kana based on the information
 in a Wikipedia article,
 L<http://en.wikipedia.org/wiki/Cyrillization_of_Japanese>. The module
 author does not know anything about cyrillization of kana, so any
 assistance in correcting this is very welcome.
-
 %%
-%%explain.ja:
+explain.ja: 実験的に仮名とキリル文字の変換をする。キリル文字に詳しい方の確認がありませんので、その結果をよく確認しますように。
 
-実験的に仮名とキリル文字の変換をする。キリル文字に詳しい方の確認がありませんので、その結果をよく確認しますように。
-
-%%
-
-name: kana2cyrillic
-%%eg:
-
-$cyril = kana2cyrillic ('シンブン');
-
-%%
-out: $cyril
-expect: симбун
-
-name: cyrillic2katakana
-%%eg:
-
-$kana = cyrillic2katakana ('симбун');
-
-%%
-out: $kana
+eg: $kana = cyrillic2katakana ('симбун');
 expect: シンブン
+name: cyrillic2katakana
+out: $kana
+
+eg: $cyril = kana2cyrillic ('シンブン');
+expect: симбун
+name: kana2cyrillic
+out: $cyril
 
 class: hangul
 
-name: kana2hangul
-%%eg:
-
-$hangul = kana2hangul ('すごわざ');
-
-%%
-out: $hangul
-expect: 스고와자
-%%explain.en:
-
-Convert kana into hangul (Korean letters). See also
-L<Lingua::KO::Munja>.
-
-%%
-%%explain.ja:
-
-かなをハングルに変換します。L<Lingua::KO::Munja>もご利用ください。
-
-%%
 %%bugs.en:
-
 =over
 
 =item May be incorrect
@@ -1540,8 +1017,8 @@ proof of correctness.
 There is currently no hangul to kana conversion.
 
 =back
+%%
 %%bugs.ja:
-
 =over
 
 =item 確認がありません
@@ -1553,7 +1030,14 @@ L<http://kajiritate-no-hangul.com/kana.html>とL<http://lesson-hangeul.com/50iti
 ハングルから仮名への変換機能はありません。
 
 =back
-
 %%
-
+eg: $hangul = kana2hangul ('すごわざ');
+expect: 스고와자
+%%explain.en:
+Convert kana into hangul (Korean letters). See also
+L<Lingua::KO::Munja>.
+%%
+explain.ja: かなをハングルに変換します。L<Lingua::KO::Munja>もご利用ください。
+name: kana2hangul
+out: $hangul
 
