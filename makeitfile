@@ -21,7 +21,7 @@ PODDEP=$(BUILD)/make-pod.pl $(BUILD)/Moji.pod.tmpl \
 	$(BUILD)/moji-functions.txt $(BUILD)/moji-trans.txt
 
 $(LIB)/Moji.pod $(LIB)/Moji-ja.pod:	$(PODDEP)
-	./$(BUILD)/make-pod.pl
+	perl $(BUILD)/make-pod.pl
 
 # The original "bad kanji" file is here at the moment.
 
