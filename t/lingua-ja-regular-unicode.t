@@ -1,7 +1,7 @@
 use FindBin '$Bin';
 use lib "$Bin";
 use LJMT;
-use Test::More tests => 10;binmode STDOUT, ":utf8";
+
 my $input = <<EOF;
 --- input:    およよＡＢＣＤＥＦＧｂｆｅge１２３123
 --- expected: およよABCDEFGbfege123123
