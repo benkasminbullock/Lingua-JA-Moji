@@ -241,7 +241,8 @@ reduce the number of characters which need to be encoded.
 This module offers L</split_sound_marks> and L</join_sound_marks> to
 associate or dissociate the marks from kana, which may be used, for
 example, for the case of Morse code, Braille, or halfwidth kana
-conversion.
+conversion, as well as L</strip_sound_marks>, which removes all
+dakuten and handakuten from text.
 
 =item halfwidth katakana
 
@@ -392,6 +393,10 @@ dakuten and handakuten and some other odd kanji/kana confusions.
 =item 0.58
 
 This added L</kana_consonant>.
+
+=item 0.59
+
+This added L</strip_sound_marks>.
 
 =back
 

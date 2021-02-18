@@ -732,6 +732,13 @@ expect: ウォン
 name: square2katakana
 out: $kata
 
+name: strip_sound_marks
+since: 0.59
+%%desc.en:
+Strip sound marks from kana, so that for example パン (katakana pan)
+becomes ハン (katakana han).
+%%
+
 class: hentaigana
 %%explain.en:
 Variant kana forms. Hentaigana are new in Unicode 10.0 (June 2017).
@@ -1041,3 +1048,6 @@ explain.ja: かなをハングルに変換します。L<Lingua::KO::Munja>もご
 name: kana2hangul
 out: $hangul
 
+# Local variables:
+# mode: table-readable
+# End:
