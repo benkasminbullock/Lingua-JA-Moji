@@ -9,11 +9,11 @@ use Template;
 use lib "$Bin/../copied/lib";
 use Perl::Build qw/get_version get_commit get_info/;
 use Perl::Build::Pod ':all';
-use ReadTranslations qw/read_translations_table get_lang_trans/;
+use Table::Trans qw/read_trans get_lang_trans/;
 use Deploy qw/do_system older/;
 
 my %vars;
-my $trans = read_translations_table ("$Bin/moji-trans.txt");
+my $trans = read_trans ("$Bin/moji-trans.txt");
 
 my %names = (
     kana => {
