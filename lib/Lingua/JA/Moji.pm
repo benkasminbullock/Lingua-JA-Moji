@@ -7,7 +7,7 @@ use utf8;
 require Exporter;
 our @ISA = qw(Exporter);
 
-our $VERSION = '0.59';
+our $VERSION = '0.60';
 
 use Carp 'croak';
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -32,9 +32,11 @@ our @EXPORT_OK = qw/
     hw2katakana
     is_hiragana
     is_kana
+    is_katakana
     is_romaji
     is_romaji_semistrict
     is_romaji_strict
+    is_small
     is_voiced
     join_sound_marks
     kana2braille
@@ -676,6 +678,16 @@ sub romaji2kana
     return $input;
 }
 
+sub is_small
+{
+    my ($input) = @_;
+    if ($input =~/[ぁぃぅぇぉっゃゅょゕゖゎヮァィゥェォッャュョヵヶ]/) {
+	return 1;
+    }
+    return undef;
+}
+
+
 sub is_voiced
 {
     my ($sound) = @_;
@@ -1025,6 +1037,15 @@ sub is_kana
 {
     my ($may_be_kana) = @_;
     if ($may_be_kana =~ /^[あ-んア-ン]+$/) {
+        return 1;
+    }
+    return;
+}
+
+sub is_katakana
+{
+    my ($may_be_kana) = @_;
+    if ($may_be_kana =~ /^[ア-ン]+$/) {
         return 1;
     }
     return;
