@@ -559,6 +559,20 @@ eg:
 name: is_kana
 
 %%desc.en:
+Returns a true value if the string is katakana. At the moment this
+doesn't do the half-width katakana or squared symbol katakana.
+%%
+name: is_katakana
+
+%%desc.en:
+Returns a true value for small kana, kana which have a bigger version
+as well, such as ぁ and あ.
+%%
+eg: $is_small = ('ぁ');
+expect: 1
+name: is_small
+
+%%desc.en:
 Join L</dakuten> and L</handakuten> (Unicode U+3099-U+309C) to kana
 where possible. Where they cannot be joined, strip them out. This only
 works on full width kana. The return value is the joined text.
