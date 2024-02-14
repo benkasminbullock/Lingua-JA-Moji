@@ -1227,6 +1227,7 @@ sub normalize_romaji
     my $kana = romaji2kana ($romaji, {wapuro => 1});
     $kana =~ s/[っッ]/xtu/g;
     my $romaji_out = kana2romaji ($kana, {ve_type => 'wapuro'});
+    return $romaji_out;
 }
 
 my $new2old_kanji;
@@ -1677,6 +1678,7 @@ sub kana_consonant
 	$first = $not;
     }
     my $con = $siin{$first};
+    return $con;
 }
 
 1;

@@ -3,11 +3,8 @@
 # This script deploys the Lingua::JA::Moji module to all the websites
 # it is in use at.
 
-use warnings;
-use strict;
-use utf8;
-use Deploy 'do_system';
-use FindBin '$Bin';
+use Z;
+
 use Perl::Build 'get_info';
 my $info = get_info (base => $Bin);
 if (! $info) { die; }
