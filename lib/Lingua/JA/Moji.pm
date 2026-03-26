@@ -7,7 +7,7 @@ use utf8;
 require Exporter;
 our @ISA = qw(Exporter);
 
-our $VERSION = '0.60';
+our $VERSION = '0.61';
 
 use Carp 'croak';
 use Convert::Moji qw/make_regex length_one unambiguous/;
@@ -395,7 +395,6 @@ sub kana2romaji
     my $hepburn;
     my $passport;
     my $common;
-    my $truck;
     if ($options->{style}) {
         my $style = $options->{style};
         if ($style eq 'kunrei') {
@@ -411,11 +410,6 @@ sub kana2romaji
             $hepburn  = 1;
 	    $common = 1;
         }
-        if ($style eq 'truck') {
-            $hepburn  = 1;
-	    $common = 1;
-	    $truck = 1;
-        }
         if (!$kunrei && !$passport && !$hepburn && $style ne "nihon" &&
 	    $style ne 'nippon') {
             croak "Unknown romanization style '$options->{style}'";
@@ -428,6 +422,10 @@ sub kana2romaji
     my $wikipedia;
     if ($options->{wikipedia}) {
 	$wikipedia = 1;
+    }
+    my $truck;
+    if ($options->{truck}) {
+	$truck = 1;
     }
     my $use_m = 0;
     if ($hepburn || $passport) {
@@ -544,6 +542,9 @@ sub kana2romaji
     }
     if ($wikipedia) {
 	$input =~ s/ii/ī/g;
+    }
+    if ($truck) {
+	$input =~ s/j($vowel_re)/jy$1/g;
     }
     return $input;
 }

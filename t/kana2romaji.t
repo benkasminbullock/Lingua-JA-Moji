@@ -32,6 +32,11 @@ like ($wiki, qr/ī/, "Wikipedia romanisation");
 my $notwiki = kana2romaji ('shiitake');
 unlike ($notwiki, qr/ī/, "Not Wikipedia romanisation");
 
+my $truck = kana2romaji ('じょうほう', {style => 'common', truck => 1});
+like ($truck, qr/jy/, "Truck romanisation $truck");
+my $nottruck = kana2romaji ('じょうほう', {style => 'common'});
+unlike ($nottruck, qr/jy/, "Not truck romanisation $nottruck");
+
 TODO: {
     local $TODO = 'bugs';
 };

@@ -211,12 +211,12 @@ The L</chouon> marks become hyphens, and おう becomes ou.
 
 =back
 
-=item wo
+=item truck
 
-     kana2romaji ("ちりぬるを", { wo => 1 });
+     kana2romaji ("じょうほう", {style => 'common', truck => 1});
 
-If "wo" is set to a true value, "を" becomes "wo", otherwise it
-becomes "o".
+Make じょう into jyo rather than jo. This replicates the romanisation
+used by many Japanese commercial vehicles.
 
 =item wikipedia
 
@@ -224,6 +224,13 @@ becomes "o".
 
 The "shii" in "shiitake" becomes shītake with a macron over the
 i. This incorrect romanization is used in Wikipedia articles.
+
+=item wo
+
+     kana2romaji ("ちりぬるを", { wo => 1 });
+
+If "wo" is set to a true value, "を" becomes "wo", otherwise it
+becomes "o".
 
 =back
 
