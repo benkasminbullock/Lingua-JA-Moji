@@ -218,7 +218,15 @@ The L</chouon> marks become hyphens, and おう becomes ou.
 If "wo" is set to a true value, "を" becomes "wo", otherwise it
 becomes "o".
 
+=item wikipedia
+
+     kana2romaji ("しいたけ", {wikipedia => 1});
+
+The "shii" in "shiitake" becomes shītake with a macron over the
+i. This incorrect romanization is used in Wikipedia articles.
+
 =back
+
 %%
 %%desc.ja:
 仮名をローマ字に変換。
