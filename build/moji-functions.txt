@@ -52,7 +52,6 @@ is_romaji_semistrict ('loyehye');
 # The following line returns a canonical version of the romaji
 is_romaji_semistrict ("atarimae");
 # The following line returns a canonical version of the romaji
-a defined value
 is_romaji_semistrict ("pinku no dorufin");
 %%
 name: is_romaji_semistrict
@@ -81,7 +80,7 @@ converted into wapuro format.
 is_romaji_strict ("abcdefg");
 # The following line returns "undef"
 is_romaji_strict ('loyehye');
-# The following line returns a defined value
+# The following line returns a canonical version of the romaji
 is_romaji_strict ("atarimae");
 %%
 name: is_romaji_strict
