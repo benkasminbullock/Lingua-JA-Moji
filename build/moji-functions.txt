@@ -38,19 +38,21 @@ name: is_romaji
 %%desc.en:
 Halfway between L</is_romaji> and L</is_romaji_strict>, this allows
 some formations like "pinku no dorufin" but not the really unlikely
-stuff which "is_romaji" allows.
+stuff which "is_romaji" allows. The return value is a canonical form
+of the romaji.
 %%
 %%desc.ja:
-L</is_romaji_strict>とL</is_romaji>の間にローマ字ですが厳密に日本語ではない言葉もあります。例えば、"pinku no dorufin"は「ピンク ノ ドルフィン」というカタカナになりますが純粋日本語ではありません。is_romaji_semistrictはこういう言葉をみとめても、is_romajiのように出鱈目の文字を許さないというものです。
+L</is_romaji_strict>とL</is_romaji>の間にローマ字ですが厳密に日本語ではない言葉もあります。例えば、"pinku no dorufin"は「ピンク ノ ドルフィン」というカタカナになりますが純粋日本語ではありません。is_romaji_semistrictはこういう言葉をみとめても、is_romajiのように出鱈目の文字を許さないというものです。この関数の戻り値は、ローマ字の正規形です。
 %%
 %%eg:
 # The following line returns "undef"
 is_romaji_semistrict ("abcdefg");
 # The following line returns "undef"
 is_romaji_semistrict ('loyehye');
-# The following line returns a defined value
+# The following line returns a canonical version of the romaji
 is_romaji_semistrict ("atarimae");
-# The following line returns a defined value
+# The following line returns a canonical version of the romaji
+a defined value
 is_romaji_semistrict ("pinku no dorufin");
 %%
 name: is_romaji_semistrict
@@ -72,7 +74,7 @@ converted into wapuro format.
 %%desc.ja:
 アルファベットの列はローマ字に見えるなら真、見えないなら偽。L</is_romaji>より厳しく、コンピューター入力に見えるかどうかではなく、「日本語になる」かどうか確認します。
 
-真の値はローマ字のワープロ変換です。
+この関数の戻り値は、ローマ字の正規形です。
 %%
 %%eg:
 # The following line returns "undef"
