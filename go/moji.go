@@ -108,7 +108,7 @@ func RomajiToKana(romaji string) (kana string) {
 		"du", "づ",
 		"do", "ど",
 		"de", "で",
-		"ba", "ざ",
+		"ba", "ば",
 		"bi", "び",
 		"bu", "ぶ",
 		"be", "べ",
