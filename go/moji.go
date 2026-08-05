@@ -39,6 +39,17 @@ func Romaji(kana string) (romaji string) {
 
 func RomajiToKana(romaji string) (kana string) {
 	kana = romaji
+	dc := strings.NewReplacer(
+		"ss", "っs",
+		"hh", "っh",
+		"bb", "っb",
+		"pp", "っp",
+		"kk", "っk",
+		"tt", "っt",
+		"tch", "っch",
+		"mb", "んb",
+		"nn", "んn",
+	)
 	k2r := strings.NewReplacer(
 		"shi", "し",
 		"chi", "ち",
@@ -129,6 +140,7 @@ func RomajiToKana(romaji string) (kana string) {
 		"o", "お",
 		"n", "ん",
 	)
+	kana = dc.Replace(kana)
 	kana = k2r.Replace(kana)
 	return kana
 }
