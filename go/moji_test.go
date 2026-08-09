@@ -14,6 +14,7 @@ func TestRomajiToKana(t *testing.T) {
 	romajiInOut(t, "shimbun", "しんぶん")
 	romajiInOut(t, "sisso", "しっそ")
 	romajiInOut(t, "natchi", "なっち")
+	romajiInOut(t, "geki", "げき")
 }
 func TestRomaji(t *testing.T) {
 	baka := "ばか"
