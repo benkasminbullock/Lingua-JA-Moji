@@ -398,6 +398,29 @@ This added L</kana_consonant>.
 
 This added L</strip_sound_marks>.
 
+=item 0.60
+
+Added L</is_small> and L</is_katakana> functions.
+
+=item 0.61
+
+L</kana2romaji> now supports "Wikipedia romanisation", the false
+format used by the English-language Wikipedia to romanise Japanese.
+
+A bug was fixed in L</kana2romaji>'s kunrei romanisation.
+
+=item 0.62
+
+L</is_romaji_semistrict> now returns a canonical form as a positive
+result rather than just "1".
+
+=item 0.63
+
+A bug in the Perl regexp classes C<InHiragana> and C<Katakana> was
+found where they would match the punctuation characters C<U+3000> to
+C<U+3040>, so the regexp class L</InKana> from this module was not
+working correctly. This block of false matches was removed.
+
 =back
 
 [% start_year=2008 %]
